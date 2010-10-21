@@ -17,3 +17,41 @@ Knicker.lookup("zebra");
 
 There are methods in Knicker for each of the Wordnik methods.
 
+Here's a quick sample showing how to check the API key status and look up the
+definition of a word:
+
+
+import java.util.List;
+import net.jeremybrooks.knicker.Knicker;
+import net.jeremybrooks.knicker.dto.Definition;
+import net.jeremybrooks.knicker.dto.TokenStatus;
+
+public class TestKnicker {
+
+
+    public static void main(String[] args) throws Exception {
+        // use your API key here
+        System.setProperty("WORDNIK_API_KEY", "5458ce49330219f23e0020790810f29b3818096f5fbbf8560");
+
+
+	// check the status of the API key
+	TokenStatus status = Knicker.status();
+	if (status.isValid()) {
+	    System.out.println("API key is valid.");
+	} else {
+	    System.out.println("API key is invalid!");
+	    System.exit(1);
+	}
+
+
+	// get a list of definitions for a word
+	List<Definition> def = Knicker.definitions("siren");
+	System.out.println("Found " + def.size() + " definitions.");
+
+	int i = 1;
+	for (Definition d : def) {
+	    System.out.println((i++) + ") " + d.getPartOfSpeech() + ": " + d.getText());
+	}
+
+    }
+}
