@@ -119,7 +119,9 @@ public class Util {
 
 		URL url = new URL(uri);
 		URLConnection conn = url.openConnection();
-
+		conn.setConnectTimeout(getConnTimeout());
+		conn.setReadTimeout(getReadTimeout());
+		
 		// api key
 		conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
 
@@ -193,8 +195,8 @@ public class Util {
 	    conn.setDoInput(true);
 	    conn.setDoOutput(true);
 	    conn.setUseCaches(false);
-	    conn.setConnectTimeout(10000);
-	    conn.setReadTimeout(60000);
+	    conn.setConnectTimeout(getConnTimeout());
+	    conn.setReadTimeout(getReadTimeout());
 	    ((HttpURLConnection)conn).setRequestMethod("POST");
 	    
 	    // api key
@@ -282,8 +284,8 @@ public class Util {
 	    conn.setDoInput(true);
 	    conn.setDoOutput(true);
 	    conn.setUseCaches(false);
-	    conn.setConnectTimeout(10000);
-	    conn.setReadTimeout(60000);
+	    conn.setConnectTimeout(getConnTimeout());
+	    conn.setReadTimeout(getReadTimeout());
 	    ((HttpURLConnection)conn).setRequestMethod("DELETE");
 
 	    // api key
@@ -628,4 +630,28 @@ public class Util {
 	return value;
     }
 
+
+    protected static int getConnTimeout() {
+	int timeout = 10000;
+
+	try {
+	    timeout = Integer.parseInt("KNICKER_CONN_TIMEOUT");
+	} catch (Exception e) {
+	    // ignore; will reutrn 10000
+	}
+
+	return timeout;
+    }
+
+    protected static int getReadTimeout() {
+	int timeout = 30000;
+
+	try {
+	    timeout = Integer.parseInt("KNICKER_READ_TIMEOUT");
+	} catch (Exception e) {
+	    // ignore; will return 30000
+	}
+
+	return timeout;
+    }
 }

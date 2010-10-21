@@ -22,6 +22,7 @@ package net.jeremybrooks.knicker;
 import java.io.StringWriter;
 
 // JAVA UTILITY
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +73,8 @@ import org.w3c.dom.Document;
  */
 public class Knicker {
 
+
+    
     // API endpoints
     private static final String WORD_ENDPOINT = "http://api.wordnik.com/api/word.xml";
     private static final String WORDS_ENDPOINT = "http://api.wordnik.com/api/words.xml";
@@ -96,15 +99,11 @@ public class Knicker {
     /**
      * Parts of speech supported by the Wordnik API.
      *
-     * The type NONE is a special type, used to indicate that you do not want
-     * to specify any part of speech for the call.
-     *
      * Note: The underscores will be replaced with dashes when using these
      *       values as parameters to the Wordnik API. For example,
      *       "noun_and_verb" becomes "noun-and-verb".
      */
     public static enum PartOfSpeech {
-	NONE,
 	noun,
 	verb,
 	adjective,
@@ -151,16 +150,12 @@ public class Knicker {
      * <li>cross-reference: a related word; (bobcat: lynx)</li>
      * <li>same-context: Shows relationships between words which are often used in the same manner. For instance “cheeseburger” and “pizza” are often used the same way. Both also taste great.</li>
      * </ul>
-     * 
-     * The type NONE is a special type, used to indicate that you do not want
-     * to specify any relationship type for the call.
      *
      * Note: The underscores will be replaced with dashes when using these
      *       values as parameters to the Wordnik API. For example,
      *       "verb_stem" becomes "verb-stem".
      */
     public static enum RelationshipType {
-	NONE,
 	synonym,
 	antonym,
 	form,
@@ -305,20 +300,37 @@ public class Knicker {
 
 
     /**
+     * Fetch a word's definitions from a specific source dictionary.
+     *
+     * This is equivalent to <code>definitions(word, 0, false, sourceDictionary, null)</code>.
+     *
+     * @see http://docs.wordnik.com/api/methods#defs
+     * @param word the word to fetch definitions for.
+     * @param sourceDictionary the source dictionary to use.
+     * @return a list of definitions for the word.
+     * @throws KnickerException if the word is null or if there are any errors.
+     */
+    public static List<Definition> definitions(String word, SourceDictionary sourceDictionary) throws
+	    KnickerException {
+	    return definitions(word, 0, false, sourceDictionary, null);
+    }
+
+
+    /**
      * Fetch a word's definitions, with optional parameters.
      *
      * @see http://docs.wordnik.com/api/methods#defs
      * @param word the word to fetch definitions for.
      * @param limit specify the number of results returned.
      * @param useCanonical if true, let the API select the canonical form of the word.
-     * @param sourceDictionary scope the request to one of the supported source dictionaries.
+     * @param sourceDictionary scope the request to a specific source dictionary.
      * @param partOfSpeech specify one or many part of speech types to return
      *        definitions for.
      * @return a list of definitions for the word.
      * @throws KnickerException if the word is null or if there are any errors.
      */
-    public static List<Definition> definitions(String word, int limit, boolean useCanonical,
-	    List<SourceDictionary> sourceDictionary, List<PartOfSpeech> partOfSpeech) throws KnickerException {
+    public static List<Definition> definitions(String word, int limit, boolean  useCanonical,
+	    SourceDictionary sourceDictionary, List<PartOfSpeech> partOfSpeech) throws KnickerException {
 	if (word == null || word.isEmpty()) {
 	    throw new KnickerException("Cannot look up an empty word.");
 	}
@@ -330,16 +342,8 @@ public class Knicker {
 	if (useCanonical) {
 	    params.put("useCanonical", "true");
 	}
-	if (sourceDictionary != null && sourceDictionary.size() > 0) {
-	    StringBuilder sb = new StringBuilder();
-	    for (SourceDictionary sd : sourceDictionary) {
-		sb.append(sd.toString().trim().replaceAll("_", "-")).append(',');
-	    }
-	    if (sb.length() > 0) {
-		sb.deleteCharAt(sb.length() - 1);
-	    }
-
-	    params.put("sourceDictionary", sb.toString());
+	if (sourceDictionary != null) {
+	    params.put("sourceDictionary", sourceDictionary.toString());
 	}
 	
 	if (partOfSpeech != null && partOfSpeech.size() > 0) {
@@ -422,6 +426,24 @@ public class Knicker {
 	return related(word, 0, false, null, null, null);
     }
 
+    
+    /**
+     * Retrieve related words for a particular word.
+     *
+     * Convenience method equivalent to <code>related(word, 0, false, null, null, sourceDictionary)</code>.
+     *
+     * @see http://docs.wordnik.com/api/methods#relateds
+     * @param word the word to fetch related words for.
+     * @param sourceDictionary  scope results to this source dictionary.
+     * @return list of related words.
+     * @throws KnickerException if the word is null, or if there are any errors.
+     */
+    public static List<Related> related(String word, SourceDictionary sourceDictionary) throws
+	    KnickerException {
+	return related(word, 0, false, null, null, sourceDictionary);
+    }
+
+
     /**
      * Retrieve related words for a particular word.
      *
@@ -431,13 +453,13 @@ public class Knicker {
      * @param useCanonical if true, allow the API to select the canonical form of the word.
      * @param partOfSpeech specify the part of speech to fetch related items for.
      * @param relationshipType specify which relationship types to return.
-     * @param sourceDictionary scope the request to certain dictionaries.
+     * @param sourceDictionary scope the request to a specific dictionary.
      * @return list of related words.
      * @throws KnickerException if the word is null, or if there are any errors.
      */
     public static List<Related> related(String word, int limit, boolean useCanonical,
 	    List<PartOfSpeech> partOfSpeech, List<RelationshipType> relationshipType,
-	    List<SourceDictionary> sourceDictionary) throws KnickerException {
+	    SourceDictionary sourceDictionary) throws KnickerException {
 	if (word == null || word.isEmpty()) {
 	    throw new KnickerException("Cannot look up an empty word.");
 	}
@@ -449,16 +471,8 @@ public class Knicker {
 	if (useCanonical) {
 	    params.put("useCanonical", "true");
 	}
-	if (sourceDictionary != null && sourceDictionary.size() > 0) {
-	    StringBuilder sb = new StringBuilder();
-	    for (SourceDictionary sd : sourceDictionary) {
-		sb.append(sd.toString().trim().replaceAll("_", "-")).append(',');
-	    }
-	    if (sb.length() > 0) {
-		sb.deleteCharAt(sb.length() - 1);
-	    }
-
-	    params.put("sourceDictionary", sb.toString());
+	if (sourceDictionary != null) {
+	    params.put("sourceDictionary", sourceDictionary.toString());
 	}
 	if (partOfSpeech != null && partOfSpeech.size() > 0) {
 	    StringBuilder sb = new StringBuilder();
