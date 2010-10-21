@@ -1,0 +1,19 @@
+Knicker is a Java interface to the Wordnik API.
+
+You can use Knicker to add dictionary lookup capabilities to your own Java
+programs. Knicker has been designed to be simple and straightforward to use. It
+does not require any third party libraries, just Java 1.6 or higher.
+
+To use Knicker, you need a Wordnik API key. You can get one here:
+http://www.wordnik.com/developers
+
+Knicker looks for the system property WORDNIK_API_KEY, so you need to set it
+before you try to use Knicker:
+System.setProperty("WORDNIK_API_KEY", <your API key>);
+
+Then just call the API methods using the Knicker class:
+
+Knicker.lookup("zebra");
+
+There are methods in Knicker for each of the Wordnik methods.
+
