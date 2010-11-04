@@ -34,6 +34,7 @@ import net.jeremybrooks.knicker.dto.Related;
 import net.jeremybrooks.knicker.dto.SearchResult;
 import net.jeremybrooks.knicker.dto.TokenStatus;
 import net.jeremybrooks.knicker.dto.Word;
+import net.jeremybrooks.knicker.dto.WordFrequency;
 import net.jeremybrooks.knicker.dto.WordList;
 import net.jeremybrooks.knicker.dto.WordListWord;
 import net.jeremybrooks.knicker.dto.WordOfTheDay;
@@ -910,6 +911,54 @@ class DTOBuilder {
 		    word.setWordstring(Util.getNamedChildTextContent(node, "wordstring"));
 
 		    list.add(word);
+		}
+	    }
+	}
+
+	return list;
+    }
+
+    
+    /**
+     * Parse an XML document into a list of WordFrequency objects.
+     *
+     * <p>This document is returned by the word search API.</p>
+     *
+     * <p>The XML looks like this:</p>
+     *
+     <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+     <wordFrequencies>
+	<wordFrequency>
+	    <count>85240</count>
+	    <wordstring>coup</wordstring>
+	</wordFrequency>
+	<wordFrequency>
+	    <count>10570</count>
+	    <wordstring>courtship</wordstring>
+	</wordFrequency>
+	<wordFrequency>
+	    <count>6802</count>
+	    <wordstring>coop</wordstring>
+	</wordFrequency>
+     </wordFrequencies>
+     *
+     * @param doc the XML document to parse.
+     * @return list of WordFrequency objects.
+     * @throws KnickerException if there are any errors.
+     */
+    static List<WordFrequency> buildWordFrequency(Document doc) throws KnickerException {
+	List<WordFrequency> list = new ArrayList<WordFrequency>();
+
+	NodeList wordNodes = Util.getNamedChildNode(doc, "wordFrequencies").getChildNodes();
+	if (wordNodes != null) {
+	    for (int i = 0; i < wordNodes.getLength(); i++) {
+		Node node = wordNodes.item(i);
+		if (node.getNodeName().equals("wordFrequency")) {
+		    WordFrequency wf = new WordFrequency();
+		    wf.setCount(Util.getNamedChildTextContentAsInt(node, "count"));
+		    wf.setWordstring(Util.getNamedChildTextContent(node, "wordstring"));
+
+		    list.add(wf);
 		}
 	    }
 	}

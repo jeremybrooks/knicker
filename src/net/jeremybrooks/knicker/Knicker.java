@@ -22,7 +22,7 @@ package net.jeremybrooks.knicker;
 import java.io.StringWriter;
 
 // JAVA UTILITY
-import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +46,7 @@ import net.jeremybrooks.knicker.dto.Related;
 import net.jeremybrooks.knicker.dto.SearchResult;
 import net.jeremybrooks.knicker.dto.TokenStatus;
 import net.jeremybrooks.knicker.dto.Word;
+import net.jeremybrooks.knicker.dto.WordFrequency;
 import net.jeremybrooks.knicker.dto.WordList;
 import net.jeremybrooks.knicker.dto.WordListWord;
 import net.jeremybrooks.knicker.dto.WordOfTheDay;
@@ -330,7 +331,7 @@ public class Knicker {
      * @throws KnickerException if the word is null or if there are any errors.
      */
     public static List<Definition> definitions(String word, int limit, boolean  useCanonical,
-	    SourceDictionary sourceDictionary, List<PartOfSpeech> partOfSpeech) throws KnickerException {
+	    SourceDictionary sourceDictionary, EnumSet<PartOfSpeech> partOfSpeech) throws KnickerException {
 	if (word == null || word.isEmpty()) {
 	    throw new KnickerException("Cannot look up an empty word.");
 	}
@@ -458,7 +459,7 @@ public class Knicker {
      * @throws KnickerException if the word is null, or if there are any errors.
      */
     public static List<Related> related(String word, int limit, boolean useCanonical,
-	    List<PartOfSpeech> partOfSpeech, List<RelationshipType> relationshipType,
+	    EnumSet<PartOfSpeech> partOfSpeech, List<RelationshipType> relationshipType,
 	    SourceDictionary sourceDictionary) throws KnickerException {
 	if (word == null || word.isEmpty()) {
 	    throw new KnickerException("Cannot look up an empty word.");
@@ -740,39 +741,84 @@ public class Knicker {
     /**
      * Fetch multiple random words from the Wordnik corpus.
      *
-     * This convenience method is equivalent to <code>randomWords(false, 0);</code>.
+     * This convenience method is equivalent to 
+     * <code>randomWords(null, null, 0, 0, 0, 0, 0, 0, 0, 0);</code>.
      *
      * @see http://docs.wordnik.com/api/methods#random
      * @return list of random words.
      * @throws KnickerException if there are any errors.
      */
     public static List<Word> randomWords() throws KnickerException {
-	return randomWords(false, 0);
+	return randomWords(null, null, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
-
+    
     /**
-     * Fetch multiple random words from the Wordnik corpus.
-     *
-     * The default count returned is 5, you can fetch up to 100 words at a time.
-     * Specifying a number larger than 100 for the limit parameter will result
-     * in 100 words being returned. Specifying zero for the limit parameter will
-     * result in five words being returned.
+     * Get random words conforming to the parameters provided.
      *
      * @see http://docs.wordnik.com/api/methods#random
-     * @param hasDictionaryDef only return words where there is a definition available.
-     * @param limit number of words to return. Zero will return the default of 5 words.
-     * @return list of random words.
+     * @param includePartOfSpeech include only words with specific parts of speech.
+     * @param excludePartOfSpeech exclude words with specific parts of speech.
+     * @param minCorpusCount match a specific corpus frequency in Wordnik's corpus.
+     * @param maxCorpusCount match a specific corpus frequency in Wordnik's corpus.
+     * @param minDictionaryCount match words .
+     * @param maxDefinitionCount match words with a maximum number of definitions.
+     * @param minLength match words with a minimum length.
+     * @param maxLength match words with a maximum length.
+     * @param skip skip a number of records.
+     * @param limit limit the number of results. If this parameter is less than
+     *        one, the default of 5 will be returned.
+     * @return list of random words matching the parameters specified.
      * @throws KnickerException if there are any errors.
      */
-    public static List<Word> randomWords(boolean hasDictionaryDef, int limit) throws KnickerException {
+    public static List<Word> randomWords(EnumSet<PartOfSpeech> includePartOfSpeech,
+	    EnumSet<PartOfSpeech> excludePartOfSpeech, int minCorpusCount,
+	    int maxCorpusCount, int minDictionaryCount, int maxDefinitionCount,
+	    int minLength, int maxLength, int skip, int limit) throws
+	    KnickerException {
+	
 	Map<String, String> params = new HashMap<String, String>();
-	if (hasDictionaryDef) {
-	    params.put("hasDictionaryDef", "true");
+	if (includePartOfSpeech != null && !includePartOfSpeech.isEmpty()) {
+	    StringBuilder sb = new StringBuilder();
+	    for (PartOfSpeech pos : includePartOfSpeech) {
+		sb.append(pos).append(',');
+	    }
+	    sb.deleteCharAt(sb.lastIndexOf(","));
+	    params.put("includePartOfSpeech", sb.toString());
+	}
+	if (excludePartOfSpeech != null && !excludePartOfSpeech.isEmpty()) {
+	    StringBuilder sb = new StringBuilder();
+	    for (PartOfSpeech pos : excludePartOfSpeech) {
+		sb.append(pos).append(',');
+	    }
+	    sb.deleteCharAt(sb.lastIndexOf(","));
+	    params.put("excludePartOfSpeech", sb.toString());
+	}
+	if (minCorpusCount > 0) {
+	    params.put("minCorpusCount", Integer.toString(minCorpusCount));
+	}
+	if (maxCorpusCount > 0) {
+	    params.put("maxCorpusCount", Integer.toString(maxCorpusCount));
+	}
+	if (minDictionaryCount > 0) {
+	    params.put("minDictionaryCount", Integer.toString(minDictionaryCount));
+	}
+	if (maxDefinitionCount > 0) {
+	    params.put("maxDefinitionCount", Integer.toString(maxDefinitionCount));
+	}
+	if (minLength > 0) {
+	    params.put("minLength", Integer.toString(minLength));
+	}
+	if (maxLength > 0) {
+	    params.put("maxLength", Integer.toString(maxLength));
+	}
+	if (skip > 0) {
+	    params.put("skip", Integer.toString(skip));
 	}
 	if (limit > 0) {
 	    params.put("limit", Integer.toString(limit));
 	}
+
 
 	StringBuilder uri = new StringBuilder(WORDS_ENDPOINT);
 	uri.append("/randomWords");
@@ -781,6 +827,7 @@ public class Knicker {
 	}
 
 	return DTOBuilder.buildWords(Util.doGet(uri.toString()));
+
     }
 
     
@@ -1052,4 +1099,126 @@ public class Knicker {
 	Util.doDelete(uri.toString(), null, token);
     }
 
+
+    /**
+     * Search for words that match the query.
+     *
+     * <p>The query can contain the following wildcards:</p>
+     * 
+     * <ul>
+     * <li>@ match one vowel</li>
+     * <li># match one consonant</li>
+     * <li>? match one character</li>
+     * <li>* match zero-to-many characters</li>
+     * </ul>
+     *
+     * <p>So to find words starting in “c” and having two consecutive vowels,
+     * ending in “p”, the query would look like this: <code>c@@*p</code>.</p>
+     *
+     * <p>This convenience method is equivalent to
+     * <code>wordSearch(query, null, null, 0, 0, 0, 0, 0, 0, 0, 0);</code>.</p>
+     *
+     * @param query query specifying how to match words.
+     * @return list of words as WordFrequency objects.
+     * @throws KnickerException if the query is null or if there are any errors.
+     */
+    public static List<WordFrequency> wordSearch(String query) throws KnickerException {
+	return wordSearch(query, null, null, 0, 0, 0, 0, 0, 0, 0, 0);
+    }
+    
+
+    /**
+     * Search for words that match the query.
+     *
+     * <p>The query can contain the following wildcards:</p>
+     *
+     * <ul>
+     * <li>@ match one vowel</li>
+     * <li># match one consonant</li>
+     * <li>? match one character</li>
+     * <li>* match zero-to-many characters</li>
+     * </ul>
+     *
+     * <p>So to find words starting in “c” and having two consecutive vowels,
+     * ending in “p”, the query would look like this: <code>c@@*p</code>.</p>
+     *
+     * @param query query specifying words to search for.
+     * @param includePartOfSpeech parts of speech to include.
+     * @param excludePartOfSpeech parts of speech to exclude.
+     * @param minCorpusCount minimum count in the Wordnik corpus.
+     * @param maxCorpusCount maximum count in the Wordnik corpus.
+     * @param minDictionaryCount minimum number of times the word is defined.
+     * @param maxDefinitionCount maximum number of times the word is defined.
+     * @param minLength minimum length for returned words.
+     * @param maxLength maximum length for returned words.
+     * @param skip number of records to skip.
+     * @param limit maximum number of records to return.
+     * @return list of words as WordFrequency objects.
+     * @throws KnickerException if the query is null or if there are any errors.
+     */
+    public static List<WordFrequency> wordSearch(String query,
+	    EnumSet<PartOfSpeech> includePartOfSpeech,
+	    EnumSet<PartOfSpeech> excludePartOfSpeech,
+	    int minCorpusCount, int maxCorpusCount,
+	    int minDictionaryCount, int maxDefinitionCount,
+	    int minLength, int maxLength,
+	    int skip, int limit) throws KnickerException {
+
+	if (query == null || query.isEmpty()) {
+	    throw new KnickerException("You must provide a search query.");
+	}
+	
+	Map<String, String> params = new HashMap<String, String>();
+
+	params.put("query", query);
+
+	if (includePartOfSpeech != null && !includePartOfSpeech.isEmpty()) {
+	    StringBuilder sb = new StringBuilder();
+	    for (PartOfSpeech pos : includePartOfSpeech) {
+		sb.append(pos).append(',');
+	    }
+	    sb.deleteCharAt(sb.lastIndexOf(","));
+	    params.put("includePartOfSpeech", sb.toString());
+	}
+	if (excludePartOfSpeech != null && !excludePartOfSpeech.isEmpty()) {
+	    StringBuilder sb = new StringBuilder();
+	    for (PartOfSpeech pos : excludePartOfSpeech) {
+		sb.append(pos).append(',');
+	    }
+	    sb.deleteCharAt(sb.lastIndexOf(","));
+	    params.put("excludePartOfSpeech", sb.toString());
+	}
+	if (minCorpusCount > 0) {
+	    params.put("minCorpusCount", Integer.toString(minCorpusCount));
+	}
+	if (maxCorpusCount > 0) {
+	    params.put("maxCorpusCount", Integer.toString(maxCorpusCount));
+	}
+	if (minDictionaryCount > 0) {
+	    params.put("minDictionaryCount", Integer.toString(minDictionaryCount));
+	}
+	if (maxDefinitionCount > 0) {
+	    params.put("maxDefinitionCount", Integer.toString(maxDefinitionCount));
+	}
+	if (minLength > 0) {
+	    params.put("minLength", Integer.toString(minLength));
+	}
+	if (maxLength > 0) {
+	    params.put("maxLength", Integer.toString(maxLength));
+	}
+	if (skip > 0) {
+	    params.put("skip", Integer.toString(skip));
+	}
+	if (limit > 0) {
+	    params.put("limit", Integer.toString(limit));
+	}
+
+	StringBuilder uri = new StringBuilder(WORDS_ENDPOINT);
+	uri.append("/search");
+	if (params.size() > 0) {
+	    uri.append('?').append(Util.buildParamList(params));
+	}
+
+	return DTOBuilder.buildWordFrequency(Util.doGet(uri.toString()));
+    }
 }
