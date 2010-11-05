@@ -4,6 +4,9 @@ You can use Knicker to add dictionary lookup capabilities to your own Java
 programs. Knicker has been designed to be simple and straightforward to use. It
 does not require any third party libraries, just Java 1.6 or higher.
 
+Version 1.1.0 of Knicker supports version 3.3 of the Wordnik API. You can find
+additional documentation on the Wordnik API here: http://docs.wordnik.com/api/methods
+
 To use Knicker, you need a Wordnik API key. You can get one here:
 http://www.wordnik.com/developers
 
@@ -55,3 +58,4 @@ public class TestKnicker {
 
     }
 }
+
