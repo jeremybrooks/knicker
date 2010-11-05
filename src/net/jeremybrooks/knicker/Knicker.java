@@ -762,7 +762,7 @@ public class Knicker {
      * @param minCorpusCount match a specific corpus frequency in Wordnik's corpus.
      * @param maxCorpusCount match a specific corpus frequency in Wordnik's corpus.
      * @param minDictionaryCount match words .
-     * @param maxDefinitionCount match words with a maximum number of definitions.
+     * @param maxDictionaryCount match words with a maximum number of definitions.
      * @param minLength match words with a minimum length.
      * @param maxLength match words with a maximum length.
      * @param skip skip a number of records.
@@ -773,7 +773,7 @@ public class Knicker {
      */
     public static List<Word> randomWords(EnumSet<PartOfSpeech> includePartOfSpeech,
 	    EnumSet<PartOfSpeech> excludePartOfSpeech, int minCorpusCount,
-	    int maxCorpusCount, int minDictionaryCount, int maxDefinitionCount,
+	    int maxCorpusCount, int minDictionaryCount, int maxDictionaryCount,
 	    int minLength, int maxLength, int skip, int limit) throws
 	    KnickerException {
 	
@@ -803,8 +803,8 @@ public class Knicker {
 	if (minDictionaryCount > 0) {
 	    params.put("minDictionaryCount", Integer.toString(minDictionaryCount));
 	}
-	if (maxDefinitionCount > 0) {
-	    params.put("maxDefinitionCount", Integer.toString(maxDefinitionCount));
+	if (maxDictionaryCount > 0) {
+	    params.put("maxDictionaryCount", Integer.toString(maxDictionaryCount));
 	}
 	if (minLength > 0) {
 	    params.put("minLength", Integer.toString(minLength));
@@ -1118,6 +1118,7 @@ public class Knicker {
      * <p>This convenience method is equivalent to
      * <code>wordSearch(query, null, null, 0, 0, 0, 0, 0, 0, 0, 0);</code>.</p>
      *
+     * @see http://docs.wordnik.com/api/methods#wordsearch
      * @param query query specifying how to match words.
      * @return list of words as WordFrequency objects.
      * @throws KnickerException if the query is null or if there are any errors.
@@ -1142,13 +1143,14 @@ public class Knicker {
      * <p>So to find words starting in “c” and having two consecutive vowels,
      * ending in “p”, the query would look like this: <code>c@@*p</code>.</p>
      *
+     * @see http://docs.wordnik.com/api/methods#wordsearch
      * @param query query specifying words to search for.
      * @param includePartOfSpeech parts of speech to include.
      * @param excludePartOfSpeech parts of speech to exclude.
      * @param minCorpusCount minimum count in the Wordnik corpus.
      * @param maxCorpusCount maximum count in the Wordnik corpus.
      * @param minDictionaryCount minimum number of times the word is defined.
-     * @param maxDefinitionCount maximum number of times the word is defined.
+     * @param maxDictionaryCount maximum number of times the word is defined.
      * @param minLength minimum length for returned words.
      * @param maxLength maximum length for returned words.
      * @param skip number of records to skip.
@@ -1160,7 +1162,7 @@ public class Knicker {
 	    EnumSet<PartOfSpeech> includePartOfSpeech,
 	    EnumSet<PartOfSpeech> excludePartOfSpeech,
 	    int minCorpusCount, int maxCorpusCount,
-	    int minDictionaryCount, int maxDefinitionCount,
+	    int minDictionaryCount, int maxDictionaryCount,
 	    int minLength, int maxLength,
 	    int skip, int limit) throws KnickerException {
 
@@ -1197,8 +1199,8 @@ public class Knicker {
 	if (minDictionaryCount > 0) {
 	    params.put("minDictionaryCount", Integer.toString(minDictionaryCount));
 	}
-	if (maxDefinitionCount > 0) {
-	    params.put("maxDefinitionCount", Integer.toString(maxDefinitionCount));
+	if (maxDictionaryCount > 0) {
+	    params.put("maxDictionaryCount", Integer.toString(maxDictionaryCount));
 	}
 	if (minLength > 0) {
 	    params.put("minLength", Integer.toString(minLength));
