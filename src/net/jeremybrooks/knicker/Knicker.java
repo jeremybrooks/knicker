@@ -90,6 +90,7 @@ public class Knicker {
      * Source dictionaries supported by the Wordnik API.
      */
     public static enum SourceDictionary {
+	ahd,
 	century,
 	wiktionary,
 	webster,
