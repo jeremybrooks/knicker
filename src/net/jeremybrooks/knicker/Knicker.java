@@ -782,17 +782,21 @@ public class Knicker {
 	if (includePartOfSpeech != null && !includePartOfSpeech.isEmpty()) {
 	    StringBuilder sb = new StringBuilder();
 	    for (PartOfSpeech pos : includePartOfSpeech) {
-		sb.append(pos).append(',');
+		sb.append(pos.toString().trim().replaceAll("_", "-")).append(',');
 	    }
-	    sb.deleteCharAt(sb.lastIndexOf(","));
+	    if (sb.length() > 0) {
+		sb.deleteCharAt(sb.length() - 1);
+	    }
 	    params.put("includePartOfSpeech", sb.toString());
 	}
 	if (excludePartOfSpeech != null && !excludePartOfSpeech.isEmpty()) {
 	    StringBuilder sb = new StringBuilder();
 	    for (PartOfSpeech pos : excludePartOfSpeech) {
-		sb.append(pos).append(',');
+		sb.append(pos.toString().trim().replaceAll("_", "-")).append(',');
 	    }
-	    sb.deleteCharAt(sb.lastIndexOf(","));
+	    if (sb.length() > 0) {
+		sb.deleteCharAt(sb.length() - 1);
+	    }
 	    params.put("excludePartOfSpeech", sb.toString());
 	}
 	if (minCorpusCount > 0) {
@@ -1178,17 +1182,21 @@ public class Knicker {
 	if (includePartOfSpeech != null && !includePartOfSpeech.isEmpty()) {
 	    StringBuilder sb = new StringBuilder();
 	    for (PartOfSpeech pos : includePartOfSpeech) {
-		sb.append(pos).append(',');
+		sb.append(pos.toString().trim().replaceAll("_", "-")).append(',');
 	    }
-	    sb.deleteCharAt(sb.lastIndexOf(","));
+	    if (sb.length() > 0) {
+		sb.deleteCharAt(sb.length() - 1);
+	    }
 	    params.put("includePartOfSpeech", sb.toString());
 	}
 	if (excludePartOfSpeech != null && !excludePartOfSpeech.isEmpty()) {
 	    StringBuilder sb = new StringBuilder();
 	    for (PartOfSpeech pos : excludePartOfSpeech) {
-		sb.append(pos).append(',');
+		sb.append(pos.toString().trim().replaceAll("_", "-")).append(',');
 	    }
-	    sb.deleteCharAt(sb.lastIndexOf(","));
+	    if (sb.length() > 0) {
+		sb.deleteCharAt(sb.length() - 1);
+	    }
 	    params.put("excludePartOfSpeech", sb.toString());
 	}
 	if (minCorpusCount > 0) {
