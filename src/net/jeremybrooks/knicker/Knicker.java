@@ -131,38 +131,4 @@ public abstract class Knicker {
 	PUBLIC,
 	PRIVATE
     }
-
-
-    /**
-     * Type format parameters used in some calls.
-     * 
-     * Note: The underscores will be replaced with dashes when using these
-     *       values as parameters to the Wordnik API. For example,
-     *       "verb_stem" becomes "verb-stem".
-     */
-    public static enum TypeFormat {
-	ahd,
-	arpabet,
-	gcide_diacritical,
-	IPA
-    }
-
-
-    /**
-     * Sort order.
-     */
-    public static enum SortBy {
-	alpha,
-	count
-    }
-
-
-    /**
-     * Sort direction.
-     */
-    public static enum SortDirection {
-	asc,
-	desc
-    }
-
 }
