@@ -40,6 +40,16 @@ public abstract class Knicker {
 
     /**
      * Source dictionaries supported by the Wordnik API.
+     * 
+     * <ul>
+     * <li>ahd: The American Heritage Dictionary. Probably the closest thing to a good traditional dictionary. Has most modern words.</li>
+     * <li>century: An older work (last updated in 1910), and with a much more scholarly bent.</li>
+     * <li>cmu: Can be used for audio pronunciations; no text definitions are available.</li>
+     * <li>macmillan: Can be used for audio pronunciations; no text definitions are available.</li>
+     * <li>wiktionary: A user contributed work, so it has a lot of neologisms. It's sometimes spotty, but great for current stuff and overall pretty good.</li>
+     * <li>webster: The GNU collaborative dictionary, aka the GCIDE. It's based on a public-domain 1911 webster's dictionary, but has been significantly updated. More information here: http://www.ibiblio.org/webster/</li>
+     * <li>wordnet: A 'lexical database' developed at Princeton. Contains "glosses" (aka, short definitions) for most words. More information here: http://wordnet.princeton.edu/</li>
+     * </ul>
      */
     public static enum SourceDictionary {
 	ahd,
