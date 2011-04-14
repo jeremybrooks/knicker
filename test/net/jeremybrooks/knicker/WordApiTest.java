@@ -170,6 +170,18 @@ public class WordApiTest {
     }
 
 
+    /**
+     * Test of definitions method, of class WordApi.
+     */
+    @Test
+    public void testDefinitions() throws Exception {
+	System.out.println("definitions");
+	String word = "cat";
+	List<Definition> result = WordApi.definitions(word);
+	assertNotNull(result);
+	assertTrue(result.size() > 0);
+    }
+
 
     /**
      * Test of definitions method, of class WordApi.

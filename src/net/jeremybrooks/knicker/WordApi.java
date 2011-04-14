@@ -180,6 +180,26 @@ public class WordApi extends Knicker {
 
     /**
      * Look up definitions for a word.
+     *
+     * This is equivalent to calling <code>definitions(word, 0, null, false, null, false, false);</code>
+     *
+     * @param word the word to return definitions for.
+     * @return list of definitions for the word.
+     * @throws KnickerException if the word is null or empty, or if there are
+     *         any errors.
+     */
+    public static List<Definition> definitions(String word) throws
+	    KnickerException {
+	if (word == null || word.isEmpty()) {
+	    throw new KnickerException("Cannot look up definitions for an empty word.");
+	}
+
+	return definitions(word, 0, null, false, null, false, false);
+    }
+
+    
+    /**
+     * Look up definitions for a word.
      * 
      * @param word word to return definitions for.
      * @param sourceDictionaries gets from dictionaries in the supplied order of precedence.
