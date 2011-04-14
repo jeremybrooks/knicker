@@ -15,15 +15,15 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with Knicker.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 package net.jeremybrooks.knicker;
 
 // JAVA I/O
 import java.io.BufferedInputStream;
 
 // JAVA UTILITY
-import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
@@ -65,11 +65,6 @@ import org.w3c.dom.Document;
  * @author jeremyb
  */
 public class WordApi extends Knicker {
-
-
-    
-    
-    
 
     /**
      * Fetch the word you requested, along with its canonical Wordnik ID,
@@ -113,7 +108,7 @@ public class WordApi extends Knicker {
 	if (includeSuggestions) {
 	    uri.append("useSuggestions=").append(Boolean.toString(includeSuggestions));
 	}
-	
+
 
 	return DTOBuilder.buildWord(Util.doGet(uri.toString()));
     }
@@ -173,7 +168,7 @@ public class WordApi extends Knicker {
 	if (params.size() > 0) {
 	    uri.append('?').append(Util.buildParamList(params));
 	}
-	
+
 	return DTOBuilder.buildExamples(Util.doGet(uri.toString()));
     }
 
@@ -197,7 +192,7 @@ public class WordApi extends Knicker {
 	return definitions(word, 0, null, false, null, false, false);
     }
 
-    
+
     /**
      * Look up definitions for a word.
      * 
@@ -206,7 +201,7 @@ public class WordApi extends Knicker {
      * @return list of definitions for the word.
      * @throws KnickerException if the word is null or empty, or if there are any errors.
      */
-    public static List<Definition> definitions(String word, 
+    public static List<Definition> definitions(String word,
 	    EnumSet<SourceDictionary> sourceDictionaries) throws
 	    KnickerException {
 	if (word == null || word.isEmpty()) {
@@ -225,7 +220,7 @@ public class WordApi extends Knicker {
 
 	    params.put("sourceDictionaries", sb.toString());
 	}
-	
+
 	StringBuilder uri = new StringBuilder(WORD_ENDPOINT);
 	uri.append('/').append(word.trim());
 	uri.append("/definitions");
@@ -278,7 +273,7 @@ public class WordApi extends Knicker {
 
 	    params.put("partOfSpeech", sb.toString());
 	}
-	
+
 	if (sourceDictionaries != null && sourceDictionaries.size() > 0) {
 	    StringBuilder sb = new StringBuilder();
 	    for (SourceDictionary sd : sourceDictionaries) {
@@ -369,7 +364,8 @@ public class WordApi extends Knicker {
 	uri.append('/').append(word.trim());
 	uri.append("/frequency");
 	if (params.size() > 0) {
-	    uri.append('?').append(Util.buildParamList(params));;
+	    uri.append('?').append(Util.buildParamList(params));
+	    ;
 	}
 
 	return DTOBuilder.buildFrequencySummary(Util.doGet(uri.toString()));
@@ -388,8 +384,8 @@ public class WordApi extends Knicker {
     public static Example topExample(String word) throws KnickerException {
 	return topExample(word, null, false);
     }
-    
-    
+
+
     /**
      * Return the top example for a word.
      *
@@ -418,7 +414,8 @@ public class WordApi extends Knicker {
 	uri.append('/').append(word.trim());
 	uri.append("/topExample");
 	if (params.size() > 0) {
-	    uri.append('?').append(Util.buildParamList(params));;
+	    uri.append('?').append(Util.buildParamList(params));
+	    ;
 	}
 
 	return DTOBuilder.buildTopExample(Util.doGet(uri.toString()));
@@ -578,7 +575,7 @@ public class WordApi extends Knicker {
 	return hyphenation(word, false, null, 0);
     }
 
-    
+
     /**
      * Returns syllable information for a word.
      *
@@ -623,7 +620,7 @@ public class WordApi extends Knicker {
 	return DTOBuilder.buildHyphenation(doc);
     }
 
-    
+
     /**
      * Returns text pronunciations for a given word.
      *
@@ -638,7 +635,7 @@ public class WordApi extends Knicker {
 	return pronunciations(word, false, null, null, 0);
     }
 
-    
+
     /**
      * Returns text pronunciations for a given word.
      *
@@ -651,10 +648,10 @@ public class WordApi extends Knicker {
      * @return list of pronunciation objects.
      * @throws KnickerException if word is null or if there are any errors.
      */
-     public static List<Pronunciation> pronunciations(String word, boolean useCanonical,
-	     SourceDictionary sourceDictionary, TypeFormat typeFormat, int limit) throws
-	     KnickerException {
-	 if (word == null || word.isEmpty()) {
+    public static List<Pronunciation> pronunciations(String word, boolean useCanonical,
+	    SourceDictionary sourceDictionary, TypeFormat typeFormat, int limit) throws
+	    KnickerException {
+	if (word == null || word.isEmpty()) {
 	    throw new KnickerException("Cannot look up an empty word.");
 	}
 
@@ -683,36 +680,36 @@ public class WordApi extends Knicker {
 	Document doc = Util.doGet(uri.toString());
 
 	return DTOBuilder.buildPronunciation(doc);
-     }
+    }
 
 
-     /**
-      * Fetches audio metadata for a word.
-      *
-      * <p>This is equivalent to calling <code><p>audio(word, false, 0)</code></p>
-      *
-      * @param word the word to fetch audio metadata for.
-      * @return list of AudioFileMetadata objects for the word.
-      * @throws KnickerException if word is null or if there are any errors.
-      */
-     public static List<AudioFileMetadata> audio(String word) throws KnickerException {
-	 return audio(word, false, 0);
-     }
+    /**
+     * Fetches audio metadata for a word.
+     *
+     * <p>This is equivalent to calling <code><p>audio(word, false, 0)</code></p>
+     *
+     * @param word the word to fetch audio metadata for.
+     * @return list of AudioFileMetadata objects for the word.
+     * @throws KnickerException if word is null or if there are any errors.
+     */
+    public static List<AudioFileMetadata> audio(String word) throws KnickerException {
+	return audio(word, false, 0);
+    }
 
 
-     /**
-      * Fetches audio metadata for a word.
-      *
-      * @param word the word to fetch audio metadata for.
-      * @param useCanonical if true will try to return a correct word root
-      *        ('cats' -> 'cat'). If false returns exactly what was requested.
-      * @param limit maximum number of results to return.
-      * @return list of AudioFileMetadata objects for the word.
-      * @throws KnickerException if word is null or if there are any errors.
-      */
-     public static List<AudioFileMetadata> audio(String word, boolean useCanonical, int limit) throws
+    /**
+     * Fetches audio metadata for a word.
+     *
+     * @param word the word to fetch audio metadata for.
+     * @param useCanonical if true will try to return a correct word root
+     *        ('cats' -> 'cat'). If false returns exactly what was requested.
+     * @param limit maximum number of results to return.
+     * @return list of AudioFileMetadata objects for the word.
+     * @throws KnickerException if word is null or if there are any errors.
+     */
+    public static List<AudioFileMetadata> audio(String word, boolean useCanonical, int limit) throws
 	    KnickerException {
-	 if (word == null || word.isEmpty()) {
+	if (word == null || word.isEmpty()) {
 	    throw new KnickerException("Cannot look up an empty word.");
 	}
 
@@ -735,77 +732,68 @@ public class WordApi extends Knicker {
 	Document doc = Util.doGet(uri.toString());
 
 	return DTOBuilder.buildAudio(doc);
-     }
-
-     
-     /**
-      * Get the audio data from Wordnik.
-      *
-      * <p>The fileUrl parameter in the audioFileMetadata object will expire.
-      * If you want the audio data, you should call this method shorty getting
-      * the audioFileMetadata object.</p>
-      *
-      * <p>If the Wordnik servers return anything other than an HTTP 200 in the
-      * header, a KnickerException will be thrown indicating what the HTTP
-      * response was, and showing all the headers.</p>
-      *
-      * @param audioFileMetadata audio file metadata object describing the audio
-      *        pronunciation you want to retrieve.
-      * @return audio data.
-      * @throws KnickerException if the audioFileMetadata is null, or if there
-      *         are any errors.
-      */
-     public static byte[] getAudioData(AudioFileMetadata audioFileMetadata) throws KnickerException {
-	 if (audioFileMetadata == null) {
-	     throw new KnickerException("Parameter audioFileMetadata cannot be null.");
-	 }
-	 
-	 byte[] data = null;
-	 int length = 0;
-	 BufferedInputStream in = null;
-	 URL page = null;
-	 HttpURLConnection conn = null;
-	 
-	 try {
-	     page = new URL(audioFileMetadata.getFileUrl());
-	     conn = (HttpURLConnection) page.openConnection();
-	     conn.connect();
-	     if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-		 StringBuilder sb = new StringBuilder("Unable to retrieve audio data from URL ");
-		 sb.append(audioFileMetadata.getFileUrl()).append(": Response was ");
-		 sb.append(conn.getResponseCode()).append(':').append(conn.getResponseMessage());
-		 sb.append(". Headers:").append(conn.getHeaderFields());
-
-		 throw new KnickerException(sb.toString());
-	     }
-	     length = Integer.parseInt(conn.getHeaderField("Content-Length"));
-	     data = new byte[length];
-	     in = new BufferedInputStream(conn.getInputStream());
-	     in.read(data);
-	     
-	 } catch (KnickerException ke) {
-	     throw ke;
-	 } catch (Exception e) {
-	    throw new KnickerException("There was an error while getting audio data from URL " +
-		    audioFileMetadata.getFileUrl(), e);
-	 } finally {
-	     try {
-		 if (in != null) {
-		     in.close();
-		 }
-	     } catch (Exception e) {
-		 // not critical, just log warning
-		 KnickerLogger.getLogger().log("WARN: Error closing input stream.", e);
-	     } finally {
-		 if (conn != null) {
-		     conn.disconnect();
-		 }
-	     }
-	 }
-
-	 return data;
-     }
+    }
 
 
+    /**
+     * Get the audio data from Wordnik.
+     *
+     * <p>The fileUrl parameter in the audioFileMetadata object will expire.
+     * If you want the audio data, you should call this method shorty getting
+     * the audioFileMetadata object.</p>
+     *
+     * <p>If the Wordnik servers return anything other than an HTTP 200 in the
+     * header, a KnickerException will be thrown indicating what the HTTP
+     * response was, and showing all the headers.</p>
+     *
+     * @param audioFileMetadata audio file metadata object describing the audio
+     *        pronunciation you want to retrieve.
+     * @return audio data.
+     * @throws KnickerException if the audioFileMetadata is null, or if there
+     *         are any errors.
+     */
+    public static byte[] getAudioData(AudioFileMetadata audioFileMetadata) throws KnickerException {
+	if (audioFileMetadata == null) {
+	    throw new KnickerException("Parameter audioFileMetadata cannot be null.");
+	}
+
+	byte[] data = null;
+	int contentLength = 0;
+	BufferedInputStream in = null;
+	URL page = null;
+	URLConnection conn = null;
+
+	try {
+	    page = new URL(audioFileMetadata.getFileUrl());
+	    conn = page.openConnection();
+	    contentLength = conn.getContentLength();
+	    in = new BufferedInputStream(conn.getInputStream());
+	    data = new byte[contentLength];
+	    int bytesRead = 0;
+	    int offset = 0;
+	    while (offset < contentLength) {
+		bytesRead = in.read(data, offset, data.length - offset);
+		if (bytesRead == -1) {
+		    break;
+		}
+		offset += bytesRead;
+	    }
+
+	} catch (Exception e) {
+	    throw new KnickerException("There was an error while getting audio data from URL "
+		    + audioFileMetadata.getFileUrl(), e);
+	} finally {
+	    try {
+		if (in != null) {
+		    in.close();
+		}
+	    } catch (Exception e) {
+		// not critical, just log warning
+		KnickerLogger.getLogger().log("WARN: Error closing input stream.", e);
+	    }
+	}
+
+	return data;
+    }
 
 }
