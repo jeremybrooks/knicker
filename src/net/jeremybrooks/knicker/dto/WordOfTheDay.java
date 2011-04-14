@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010 by Jeremy Brooks
+ * Knicker is Copyright 2010-2011 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -19,6 +19,7 @@
 package net.jeremybrooks.knicker.dto;
 
 // JAVA UTILITY
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,37 +27,61 @@ import java.util.List;
 /**
  * Represents data returned by a call to the Wordnik word-of-the-day API.
  *
- * @see http://docs.wordnik.com/api/methods#wotd
  * @author jeremyb
  */
-public class WordOfTheDay {
-
-    private String publishDate;
+public class WordOfTheDay implements Serializable {
+    
+    private ContentProvider contentProvider;
+    private List<Definition> definitions;
+    private List<Example> examples;
     private String id;
-    private List<String> definitions;
-    private List<String> examples;
-    private List<String> notes;
-    private String wordstring;
+    private String note;
+    private String publishDate;
+    private String word;
+    
+    
+
 
     public WordOfTheDay() {
-	this.definitions = new ArrayList<String>();
-	this.examples = new ArrayList<String>();
-	this.notes = new ArrayList<String>();
+	definitions = new ArrayList<Definition>();
+	examples = new ArrayList<Example>();
     }
 
 
-    public void addDefinition(String definition) {
-	this.definitions.add(definition);
+
+    @Override
+    public String toString() {
+	StringBuilder sb = new StringBuilder(this.getClass().getName());
+
+	sb.append(": [ ");
+	sb.append("id=").append(this.getId()).append(" | ");
+	sb.append("publishDate=").append(this.publishDate).append(" | ");
+	sb.append("word=").append(this.word).append(" | ");
+	sb.append("note=").append(this.note).append(" | ");
+	sb.append("contentProvider=").append(this.contentProvider).append(" | ");
+	
+
+	sb.append("definitions=");
+	if (this.getDefinitions() != null) {
+	    for (Definition d : this.getDefinitions()) {
+		sb.append('<').append(d).append('>');
+	    }
+	}
+
+	sb.append("examples=");
+	if (this.getExamples() != null) {
+	    for (Example e : this.getExamples()) {
+		sb.append('<').append(e).append('>');
+	    }
+	}
+
+
+	sb.append(" ]");
+	
+	return sb.toString();
     }
 
-    public void addExample(String example) {
-	this.examples.add(example);
-    }
 
-    public void addNote(String note) {
-	this.notes.add(note);
-    }
-    
     /**
      * @return the publishDate
      */
@@ -90,101 +115,81 @@ public class WordOfTheDay {
 
 
     /**
+     * @return the word
+     */
+    public String getWord() {
+	return word;
+    }
+
+
+    /**
+     * @param word the word to set
+     */
+    public void setWord(String word) {
+	this.word = word;
+    }
+
+
+    /**
+     * @return the contentProvider
+     */
+    public ContentProvider getContentProvider() {
+	return contentProvider;
+    }
+
+
+    /**
+     * @param contentProvider the contentProvider to set
+     */
+    public void setContentProvider(ContentProvider contentProvider) {
+	this.contentProvider = contentProvider;
+    }
+
+
+    /**
      * @return the definitions
      */
-    public List<String> getDefinitions() {
+    public List<Definition> getDefinitions() {
 	return definitions;
     }
 
 
     /**
-     * @param definitions the definitions to set
+     * @param definition the definition to add
      */
-    public void setDefinitions(List<String> definitions) {
-	this.definitions = definitions;
+    public void addDefinition(Definition definition) {
+	this.definitions.add(definition);
     }
 
 
     /**
      * @return the examples
      */
-    public List<String> getExamples() {
+    public List<Example> getExamples() {
 	return examples;
     }
 
 
     /**
-     * @param examples the examples to set
+     * @param example the example to add
      */
-    public void setExamples(List<String> examples) {
-	this.examples = examples;
+    public void addExample(Example example) {
+	this.examples.add(example);
     }
 
 
     /**
-     * @return the notes
+     * @return the note
      */
-    public List<String> getNotes() {
-	return notes;
+    public String getNote() {
+	return note;
     }
 
 
     /**
-     * @param notes the notes to set
+     * @param note the note to set
      */
-    public void setNotes(List<String> notes) {
-	this.notes = notes;
-    }
-
-
-    /**
-     * @return the wordstring
-     */
-    public String getWordstring() {
-	return wordstring;
-    }
-
-
-    /**
-     * @param wordstring the wordstring to set
-     */
-    public void setWordstring(String wordstring) {
-	this.wordstring = wordstring;
-    }
-
-
-    
-    @Override
-    public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
-
-	sb.append(": [ ");
-	sb.append("id=").append(this.id).append(" | ");
-	sb.append("wordstring=").append(this.wordstring).append(" | ");
-
-	sb.append("definitions=");
-	if (this.definitions != null) {
-	    for (String s : this.definitions) {
-		sb.append('<').append(s).append('>');
-	    }
-	}
-
-	sb.append("examples=");
-	if (this.examples != null) {
-	    for (String s : this.examples) {
-		sb.append('<').append(s).append('>');
-	    }
-	}
-
-	sb.append("notes=");
-	if (this.notes != null) {
-	    for (String s : this.notes) {
-		sb.append('<').append(s).append('>');
-	    }
-	}
-
-	sb.append(" ]");
-	
-	return sb.toString();
+    public void setNote(String note) {
+	this.note = note;
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010 by Jeremy Brooks
+ * Knicker is Copyright 2010-2011 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,14 +18,14 @@
 */
 package net.jeremybrooks.knicker.dto;
 
+import java.io.Serializable;
+
 /**
  * Represents data returned by a call to the Wordnik phrases API.
  *
- * @see http://docs.wordnik.com/api/methods#phrases
  * @author jeremyb
  */
-public class Phrase {
-
+public class Phrase implements Serializable {
 
     private int count;
     private String mi;

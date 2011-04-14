@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010 by Jeremy Brooks
+ * Knicker is Copyright 2010-2011 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *

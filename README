@@ -1,8 +1,14 @@
+BUGS:
+total reported by Examples is incorrect (reported to Wordnik)
+
+
 Knicker is a Java interface to the Wordnik API.
 
 You can use Knicker to add dictionary lookup capabilities to your own Java
 programs. Knicker has been designed to be simple and straightforward to use. It
 does not require any third party libraries, just Java 1.6 or higher.
+
+Version 1.1.1 of Knicker adds support for the American Heritage Dictionary. This is the default dictionary that will be used if you do not specify a source, but you can explicity specify it using SourceDictionary.ahd.
 
 Version 1.1.0 of Knicker supports version 3.3 of the Wordnik API. You can find
 additional documentation on the Wordnik API here: http://docs.wordnik.com/api/methods

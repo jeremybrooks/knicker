@@ -15,44 +15,63 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with Knicker.  If not, see <http://www.gnu.org/licenses/>.
-*/
-package net.jeremybrooks.knicker;
+ */
+package net.jeremybrooks.knicker.dto;
+
+import java.io.Serializable;
 
 
 /**
- * Knicker encapsulates all errors in an instance of <code>KnickerException</code>.
+ * Represents a provider element in data returned from Wordnik.
  *
  * @author jeremyb
  */
-public class KnickerException extends java.lang.Exception {
+public class Provider implements Serializable {
+
+    private String id;
+
+    private String name;
 
 
     /**
-     * Creates a new instance of <code>KnickerException</code> without detail message.
+     * @return the id
      */
-    public KnickerException() {
+    public String getId() {
+	return id;
     }
 
 
     /**
-     * Constructs an instance of <code>KnickerException</code> with the specified detail message.
-     *
-     * @param msg the detail message.
+     * @param id the id to set
      */
-    public KnickerException(String msg) {
-	super(msg);
+    public void setId(String id) {
+	this.id = id;
     }
 
 
     /**
-     * Constructs an instance of <code>KnickerException</code> with the specified detail message
-     * and cause of the error.
-     *
-     * @param msg the detail message.
-     * @param cause the cause of the error.
+     * @return the name
      */
-    public KnickerException(String msg, Throwable cause) {
-	super(msg, cause);
+    public String getName() {
+	return name;
+    }
+
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+	this.name = name;
+    }
+
+
+    @Override
+    public String toString() {
+	StringBuilder sb = new StringBuilder(this.getClass().getName());
+	sb.append(": [ id=").append(this.id).append(" | ");
+	sb.append("name=").append(this.name).append(" ]");
+
+	return sb.toString();
     }
 
 }

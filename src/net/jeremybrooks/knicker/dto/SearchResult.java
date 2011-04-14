@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010 by Jeremy Brooks
+ * Knicker is Copyright 2010-2011 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,130 +18,123 @@
 */
 package net.jeremybrooks.knicker.dto;
 
-// JAVA UTILITY
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 
 /**
- * Represents data returned by a call to the Wordnik autocomplete API.
+ * Represents data returned by a call to the Wordnik search API.
  *
- * @see http://docs.wordnik.com/api/methods#auto
  * @author jeremyb
  */
-public class SearchResult {
+public class SearchResult implements Serializable {
 
-    private int matches;
-
-    private int more;
-
-    private List<Match> matchList;
-
-    private int searchTermCount;
-
-    private String searchTermWordstring;
+    private int count;
+    private String lexicality;
+    private String word;
+    
+//    private int matches;
+//
+//    private int more;
+//
+//    private List<Match> matchList;
+//
+//    private int searchTermCount;
+//
+//    private String searchTermWordstring;
 
 
     public SearchResult() {
-	this.matchList = new ArrayList<Match>();
+//	this.matchList = new ArrayList<Match>();
     }
 
 
-    /**
-     * @return the matches
-     */
-    public int getMatches() {
-	return matches;
-    }
-
-
-    /**
-     * @param matches the matches to set
-     */
-    public void setMatches(int matches) {
-	this.matches = matches;
-    }
-
-
-    /**
-     * @return the more
-     */
-    public int getMore() {
-	return more;
-    }
-
-
-    /**
-     * @param more the more to set
-     */
-    public void setMore(int more) {
-	this.more = more;
-    }
-
-
-    /**
-     * @return the matchList
-     */
-    public List<Match> getMatchList() {
-	return matchList;
-    }
-
-
-    public void addMatch(int count, String wordstring) {
-	Match match = new Match();
-	match.setCount(count);
-	match.setWordstring(wordstring);
-	this.matchList.add(match);
-    }
-
-
-    /**
-     * @return the searchTermCount
-     */
-    public int getSearchTermCount() {
-	return searchTermCount;
-    }
-
-
-    /**
-     * @param searchTermCount the searchTermCount to set
-     */
-    public void setSearchTermCount(int searchTermCount) {
-	this.searchTermCount = searchTermCount;
-    }
-
-
-    /**
-     * @return the searchTermWordstring
-     */
-    public String getSearchTermWordstring() {
-	return searchTermWordstring;
-    }
-
-
-    /**
-     * @param searchTermWordstring the searchTermWordstring to set
-     */
-    public void setSearchTermWordstring(String searchTermWordstring) {
-	this.searchTermWordstring = searchTermWordstring;
-    }
+//    /**
+//     * @return the matches
+//     */
+//    public int getMatches() {
+//	return matches;
+//    }
+//
+//
+//    /**
+//     * @param matches the matches to set
+//     */
+//    public void setMatches(int matches) {
+//	this.matches = matches;
+//    }
+//
+//
+//    /**
+//     * @return the more
+//     */
+//    public int getMore() {
+//	return more;
+//    }
+//
+//
+//    /**
+//     * @param more the more to set
+//     */
+//    public void setMore(int more) {
+//	this.more = more;
+//    }
+//
+//
+//    /**
+//     * @return the matchList
+//     */
+//    public List<Match> getMatchList() {
+//	return matchList;
+//    }
+//
+//
+//    public void addMatch(int count, String wordstring) {
+//	Match match = new Match();
+//	match.setCount(count);
+//	match.setWordstring(wordstring);
+//	this.matchList.add(match);
+//    }
+//
+//
+//    /**
+//     * @return the searchTermCount
+//     */
+//    public int getSearchTermCount() {
+//	return searchTermCount;
+//    }
+//
+//
+//    /**
+//     * @param searchTermCount the searchTermCount to set
+//     */
+//    public void setSearchTermCount(int searchTermCount) {
+//	this.searchTermCount = searchTermCount;
+//    }
+//
+//
+//    /**
+//     * @return the searchTermWordstring
+//     */
+//    public String getSearchTermWordstring() {
+//	return searchTermWordstring;
+//    }
+//
+//
+//    /**
+//     * @param searchTermWordstring the searchTermWordstring to set
+//     */
+//    public void setSearchTermWordstring(String searchTermWordstring) {
+//	this.searchTermWordstring = searchTermWordstring;
+//    }
 
 
     @Override
     public String toString() {
 	StringBuilder sb = new StringBuilder(this.getClass().getName());
 	sb.append(": [ ");
-	sb.append("matches=").append(this.matches).append(" | ");
-	sb.append("more=").append(this.more).append(" | ");
-	sb.append("searchTermCount=").append(this.searchTermCount).append(" | ");
-	sb.append("searchTermWordstring=").append(this.searchTermWordstring).append(" | ");
-
-	sb.append("matchList=");
-	if (this.matchList != null) {
-	    for (Match m : this.matchList) {
-		sb.append('<').append(m.toString()).append('>');
-	    }
-	}
+	sb.append("count=").append(this.count).append(" | ");
+	sb.append("lexicality=").append(this.lexicality).append(" | ");
+	sb.append("word=").append(this.word);
 
 	sb.append(" ]");
 
@@ -150,55 +143,50 @@ public class SearchResult {
 
 
     /**
-     * Represents a match element.
+     * @return the count
      */
-    public class Match {
-
-	private int count;
-
-	private String wordstring;
-
-
-	/**
-	 * @return the count
-	 */
-	public int getCount() {
-	    return count;
-	}
-
-
-	/**
-	 * @param count the count to set
-	 */
-	public void setCount(int count) {
-	    this.count = count;
-	}
-
-
-	/**
-	 * @return the wordstring
-	 */
-	public String getWordstring() {
-	    return wordstring;
-	}
-
-
-	/**
-	 * @param wordstring the wordstring to set
-	 */
-	public void setWordstring(String wordstring) {
-	    this.wordstring = wordstring;
-	}
-
-
-	@Override
-	public String toString() {
-	    StringBuilder sb = new StringBuilder(this.getClass().getName());
-	    sb.append(": [ count=").append(this.count).append(" | ");
-	    sb.append("wordstring=").append(this.wordstring).append(" ]");
-
-	    return sb.toString();
-	}
-
+    public int getCount() {
+	return count;
     }
+
+
+    /**
+     * @param count the count to set
+     */
+    public void setCount(int count) {
+	this.count = count;
+    }
+
+
+    /**
+     * @return the lexicality
+     */
+    public String getLexicality() {
+	return lexicality;
+    }
+
+
+    /**
+     * @param lexicality the lexicality to set
+     */
+    public void setLexicality(String lexicality) {
+	this.lexicality = lexicality;
+    }
+
+
+    /**
+     * @return the word
+     */
+    public String getWord() {
+	return word;
+    }
+
+
+    /**
+     * @param word the word to set
+     */
+    public void setWord(String word) {
+	this.word = word;
+    }
+
 }

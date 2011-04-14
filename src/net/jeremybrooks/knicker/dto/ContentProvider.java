@@ -21,15 +21,17 @@ package net.jeremybrooks.knicker.dto;
 import java.io.Serializable;
 
 /**
- * Represents data returned by a call to the Wordnik pronunciations API.
+ * Represents ContentProvider data returned from Wordnik.
  *
+ * It appears that ContentProvider and Provider are identical. Some data structures
+ * returned from Wordnik use ContentProvider, and some use Provider.
+ * 
  * @author jeremyb
  */
-public class Pronunciation implements Serializable {
+public class ContentProvider implements Serializable {
 
     private String id;
-    private String raw;
-    private String rawType;
+    private String name;
 
 
     /**
@@ -49,34 +51,18 @@ public class Pronunciation implements Serializable {
 
 
     /**
-     * @return the raw
+     * @return the name
      */
-    public String getRaw() {
-	return raw;
+    public String getName() {
+	return name;
     }
 
 
     /**
-     * @param raw the raw to set
+     * @param name the name to set
      */
-    public void setRaw(String raw) {
-	this.raw = raw;
-    }
-
-
-    /**
-     * @return the rawType
-     */
-    public String getRawType() {
-	return rawType;
-    }
-
-
-    /**
-     * @param rawType the rawType to set
-     */
-    public void setRawType(String rawType) {
-	this.rawType = rawType;
+    public void setName(String name) {
+	this.name = name;
     }
 
 
@@ -84,10 +70,11 @@ public class Pronunciation implements Serializable {
     public String toString() {
 	StringBuilder sb = new StringBuilder(this.getClass().getName());
 
-	sb.append(": [ ").append("id=").append(this.id).append(" | ");
-	sb.append("raw=").append(this.raw).append(" | ");
-	sb.append("rawType=").append(this.rawType).append(" ]");
+	sb.append(": [ ");
+	sb.append("id=").append(this.id).append(" | ");
+	sb.append("name=").append(this.name).append(" ]");
 
 	return sb.toString();
     }
+
 }

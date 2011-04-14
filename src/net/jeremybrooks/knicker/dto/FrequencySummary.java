@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010 by Jeremy Brooks
+ * Knicker is Copyright 2010-2011 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -19,6 +19,7 @@
 package net.jeremybrooks.knicker.dto;
 
 // JAVA UTILITY
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,20 +27,18 @@ import java.util.List;
 /**
  * Represents data returned by a call to the Wordnik frequency API.
  *
- * @see http://docs.wordnik.com/api/methods#freq
  * @author jeremyb
  */
-public class FrequencySummary {
+public class FrequencySummary implements Serializable {
 
     private List<Frequency> frequencies;
 
-    private String frequencyString;
+    private String word;
 
     private int totalCount;
 
     private int unknownYearCount;
 
-    private String wordId;
 
 
     public FrequencySummary() {
@@ -56,18 +55,18 @@ public class FrequencySummary {
 
 
     /**
-     * @return the frequencyString
+     * @return the word
      */
-    public String getFrequencyString() {
-	return frequencyString;
+    public String getWord() {
+	return word;
     }
 
 
     /**
-     * @param frequencyString the frequencyString to set
+     * @param the word to set
      */
-    public void setFrequencyString(String frequencyString) {
-	this.frequencyString = frequencyString;
+    public void setWord(String word) {
+	this.word = word;
     }
 
 
@@ -103,22 +102,6 @@ public class FrequencySummary {
     }
 
 
-    /**
-     * @return the wordId
-     */
-    public String getWordId() {
-	return wordId;
-    }
-
-
-    /**
-     * @param wordId the wordId to set
-     */
-    public void setWordId(String wordId) {
-	this.wordId = wordId;
-    }
-
-
     public void addFrequency(int count, String year) {
 	Frequency frequency = new Frequency();
 	frequency.setCount(count);
@@ -132,10 +115,9 @@ public class FrequencySummary {
     public String toString() {
 	StringBuilder sb = new StringBuilder(this.getClass().getName());
 
-	sb.append(": [ frequencyString=").append(this.frequencyString).append(" | ");
+	sb.append(": [ word=").append(this.word).append(" | ");
 	sb.append("totalCount=").append(this.totalCount).append(" | ");
 	sb.append("unknownYearCount=").append(this.unknownYearCount).append(" | ");
-	sb.append("wordId=").append(this.wordId).append(" | ");
 	sb.append("frequencies=");
 	if (this.frequencies != null) {
 	    for (Frequency f : this.frequencies) {

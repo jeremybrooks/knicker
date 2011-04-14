@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010 by Jeremy Brooks
+ * Knicker is Copyright 2010-2011 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,6 +18,7 @@
 */
 package net.jeremybrooks.knicker.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,19 +26,17 @@ import java.util.List;
 /**
  * Represents word data returned by a call to the Wordnik lookup API.
  *
- * @see http://docs.wordnik.com/api/methods#words
  * @author jeremyb
  */
-public class Word {
+public class Word implements Serializable {
 
-    private String id;
-
-    private String wordstring;
+    private String word;
 
     private String canonicalForm;
 
     private List<String> suggestions;
 
+    private String originalWord;
 
     public Word() {
 	this.suggestions = new ArrayList<String>();
@@ -45,34 +44,18 @@ public class Word {
 
 
     /**
-     * @return the id
+     * @return the word
      */
-    public String getId() {
-	return id;
+    public String getWord() {
+	return word;
     }
 
 
     /**
-     * @param id the id to set
+     * @param wordstring the word to set
      */
-    public void setId(String id) {
-	this.id = id;
-    }
-
-
-    /**
-     * @return the wordstring
-     */
-    public String getWordstring() {
-	return wordstring;
-    }
-
-
-    /**
-     * @param wordstring the wordstring to set
-     */
-    public void setWordstring(String wordstring) {
-	this.wordstring = wordstring;
+    public void setWord(String word) {
+	this.word = word;
     }
 
 
@@ -108,8 +91,8 @@ public class Word {
     @Override
     public String toString() {
 	StringBuilder sb = new StringBuilder(Word.class.getName());
-	sb.append(": [ id=").append(this.id).append(" | ");
-	sb.append("wordstring=").append(this.wordstring).append(" | ");
+	sb.append(": [ word=").append(this.word).append(" | ");
+	sb.append("originalWord").append(this.originalWord).append(" | ");
 	sb.append("canonicalForm=").append(this.canonicalForm).append(" | ");
 	sb.append("suggestions=");
 	if (this.suggestions != null && this.suggestions.size() > 0) {
@@ -122,6 +105,22 @@ public class Word {
 	sb.append(" ]");
 
 	return sb.toString();
+    }
+
+
+    /**
+     * @return the originalWord
+     */
+    public String getOriginalWord() {
+	return originalWord;
+    }
+
+
+    /**
+     * @param originalWord the originalWord to set
+     */
+    public void setOriginalWord(String originalWord) {
+	this.originalWord = originalWord;
     }
 
 }

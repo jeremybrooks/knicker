@@ -1,0 +1,14 @@
+log/*.log
+tmp/*
+tmp/**/*
+*.swp
+*~
+.DS_Store
+VERSION*
+api*
+build
+dist
+deploy
+web
+nbproject/private/profiler/*.hprof
+test/net/jeremybrooks/knicker/secret.properties

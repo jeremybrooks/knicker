@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010 by Jeremy Brooks
+ * Knicker is Copyright 2010-2011 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -19,6 +19,7 @@
 package net.jeremybrooks.knicker.dto;
 
 // JAVA UTILITY
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,58 +27,57 @@ import java.util.List;
 /**
  * Represents data returned by a call to the Wordnik related API.
  *
- * @see http://docs.wordnik.com/api/methods#relateds
  * @author jeremyb
  */
-public class Related {
+public class Related implements Serializable {
 
-    private String relType;
+    private String relationshipType;
 
-    private List<String> wordstrings;
+    private List<String> words;
 
 
     public Related() {
-	this.wordstrings = new ArrayList<String>();
+	this.words = new ArrayList<String>();
     }
 
 
     /**
-     * @return the relType
+     * @return the relationshipType
      */
     public String getRelType() {
-	return relType;
+	return relationshipType;
     }
 
 
     /**
-     * @param relType the relType to set
+     * @param relationshipType the relationshipType to set
      */
-    public void setRelType(String relType) {
-	this.relType = relType;
+    public void setRelationshipType(String relationshipType) {
+	this.relationshipType = relationshipType;
     }
 
 
     /**
-     * @return the wordstrings
+     * @return the list of words
      */
-    public List<String> getWordstrings() {
-	return wordstrings;
+    public List<String> getWords() {
+	return words;
     }
 
 
-    public void addWordstring(String wordstring) {
-	this.wordstrings.add(wordstring);
+    public void addWord(String word) {
+	this.words.add(word);
     }
 
 
     @Override
     public String toString() {
 	StringBuilder sb = new StringBuilder(this.getClass().getName());
-	sb.append(": [ ").append("relType=").append(this.relType).append(" | ");
+	sb.append(": [ ").append("relationshipType=").append(this.relationshipType).append(" | ");
 
-	sb.append("wordstrings=");
-	if (this.wordstrings != null) {
-	    for (String s : this.wordstrings) {
+	sb.append("words=");
+	if (this.words != null) {
+	    for (String s : this.words) {
 		sb.append('<').append(s).append('>');
 	    }
 	}

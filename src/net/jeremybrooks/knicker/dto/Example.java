@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010 by Jeremy Brooks
+ * Knicker is Copyright 2010-2011 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,60 +18,25 @@
 */
 package net.jeremybrooks.knicker.dto;
 
-// JAVA UTILITY
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 
 /**
  * Represents data returned by a call to the Wordnik examples API.
  *
- * @see http://docs.wordnik.com/api/methods#examples
  * @author jeremyb
  */
-public class Example {
+public class Example implements Serializable {
 
-    private String display;
-
-    private String documentId;
-
+    private String text;
     private String exampleId;
-
-    private String scoreId;
-
+    private String documentId;
+    private Provider provider;
     private String rating;
-
     private String title;
-
     private String url;
-
-    private String wordstring;
-
+    private String word;
     private String year;
-
-    private List<Provider> providers;
-
-
-    public Example() {
-	this.providers = new ArrayList<Provider>();
-    }
-
-
-    /**
-     * @return the display
-     */
-    public String getDisplay() {
-	return display;
-    }
-
-
-    /**
-     * @param display the display to set
-     */
-    public void setDisplay(String display) {
-	this.display = display;
-    }
-
 
     /**
      * @return the documentId
@@ -103,23 +68,6 @@ public class Example {
     public void setExampleId(String exampleId) {
 	this.exampleId = exampleId;
     }
-
-
-    /**
-     * @return the scoreId
-     */
-    public String getScoreId() {
-	return scoreId;
-    }
-
-
-    /**
-     * @param scoreId the scoreId to set
-     */
-    public void setScoreId(String scoreId) {
-	this.scoreId = scoreId;
-    }
-
 
     /**
      * @return the rating
@@ -170,18 +118,18 @@ public class Example {
 
 
     /**
-     * @return the wordstring
+     * @return the text
      */
-    public String getWordstring() {
-	return wordstring;
+    public String getText() {
+	return text;
     }
 
 
     /**
-     * @param wordstring the wordstring to set
+     * @param wordstring the text to set
      */
-    public void setWordstring(String wordstring) {
-	this.wordstring = wordstring;
+    public void setText(String text) {
+	this.text = text;
     }
 
 
@@ -202,96 +150,63 @@ public class Example {
 
 
     /**
-     * @return the providers
+     * @return the word
      */
-    public List<Provider> getProviders() {
-	return providers;
-    }
-
-
-    public void addProvider(String id, String name) {
-	Provider provider = new Provider();
-	provider.setId(id);
-	provider.setName(name);
-	this.providers.add(provider);
-    }
-
-
-    @Override
-    public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
-
-	sb.append(": [ ").append("display=").append(this.display).append(" | ");
-	sb.append("documentId=").append(this.documentId).append(" | ");
-	sb.append("exampleId=").append(this.exampleId).append(" | ");
-	sb.append("scoreId=").append(this.scoreId).append(" | ");
-	sb.append("rating=").append(this.rating).append(" | ");
-	sb.append("title=").append(this.title).append(" | ");
-	sb.append("url=").append(this.url).append(" | ");
-	sb.append("wordstring=").append(this.wordstring).append(" | ");
-	sb.append("year=").append(this.year).append(" | ");
-
-	sb.append("providers=");
-	if (this.providers != null) {
-	    for (Provider p : this.providers) {
-		sb.append('<').append(p.toString()).append('>');
-	    }
-	}
-
-	return sb.toString();
+    public String getWord() {
+	return word;
     }
 
 
     /**
-     * Represents a provider element.
+     * @param word the word to set
      */
-    public class Provider {
-
-	private String id;
-
-	private String name;
+    public void setWord(String word) {
+	this.word = word;
+    }
 
 
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-	    return id;
+
+    /**
+     * @return the provider
+     */
+    public Provider getProvider() {
+	return provider;
+    }
+
+
+    /**
+     * @param provider the provider to set
+     */
+    public void setProvider(Provider provider) {
+	this.provider = provider;
+    }
+
+
+    /**
+     * Return a human readable representation of this class.
+     * 
+     * @return representation of this class.
+     */
+    @Override
+    public String toString() {
+	StringBuilder sb = new StringBuilder(this.getClass().getName());
+
+	sb.append(": [ documentId=").append(this.documentId).append(" | ");
+	sb.append("exampleId=").append(this.getExampleId()).append(" | ");
+	sb.append("word=").append(this.getWord()).append(" | ");
+	sb.append("rating=").append(this.rating).append(" | ");
+	sb.append("title=").append(this.title).append(" | ");
+	sb.append("url=").append(this.url).append(" | ");
+	sb.append("text=").append(this.text).append(" | ");
+	sb.append("year=").append(this.year).append(" | ");
+	sb.append("provider=");
+	if (getProvider() != null) {
+	    sb.append(this.getProvider().toString());
+	} else {
+	    sb.append("null");
 	}
 
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-	    this.id = id;
-	}
-
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-	    return name;
-	}
-
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-	    this.name = name;
-	}
-
-
-	@Override
-	public String toString() {
-	    StringBuilder sb = new StringBuilder(this.getClass().getName());
-	    sb.append(": [ id=").append(this.id).append(" | ");
-	    sb.append("name=").append(this.name).append(" ]");
-
-	    return sb.toString();
-	}
-
+	sb.append(" ]");
+	return sb.toString();
     }
 }

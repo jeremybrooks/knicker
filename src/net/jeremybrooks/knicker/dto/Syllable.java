@@ -21,72 +21,72 @@ package net.jeremybrooks.knicker.dto;
 import java.io.Serializable;
 
 /**
- * Represents data returned by a call to the Wordnik pronunciations API.
+ * Represents a syllable element returned from the Wordnik API.
  *
  * @author jeremyb
  */
-public class Pronunciation implements Serializable {
+public class Syllable implements Serializable {
 
-    private String id;
-    private String raw;
-    private String rawType;
+    
+    private String type;
+    private int seq;
+    private String text;
 
 
     /**
-     * @return the id
+     * @return the type
      */
-    public String getId() {
-	return id;
+    public String getType() {
+	return type;
     }
 
 
     /**
-     * @param id the id to set
+     * @param type the type to set
      */
-    public void setId(String id) {
-	this.id = id;
+    public void setType(String type) {
+	this.type = type;
     }
 
 
     /**
-     * @return the raw
+     * @return the seq
      */
-    public String getRaw() {
-	return raw;
+    public int getSeq() {
+	return seq;
     }
 
 
     /**
-     * @param raw the raw to set
+     * @param seq the seq to set
      */
-    public void setRaw(String raw) {
-	this.raw = raw;
+    public void setSeq(int seq) {
+	this.seq = seq;
     }
 
 
     /**
-     * @return the rawType
+     * @return the text
      */
-    public String getRawType() {
-	return rawType;
+    public String getText() {
+	return text;
     }
 
 
     /**
-     * @param rawType the rawType to set
+     * @param text the text to set
      */
-    public void setRawType(String rawType) {
-	this.rawType = rawType;
+    public void setText(String text) {
+	this.text = text;
     }
-
 
     @Override
     public String toString() {
 	StringBuilder sb = new StringBuilder(this.getClass().getName());
 
-	sb.append(": [ ").append("id=").append(this.id).append(" | ");
-	sb.append("raw=").append(this.raw).append(" | ");
-	sb.append("rawType=").append(this.rawType).append(" ]");
+	sb.append(": [ ").append("type=").append(this.type).append(" | ");
+	sb.append(": [ ").append("seq=").append(this.seq).append(" | ");
+	sb.append("text=").append(this.text).append(" ]");
 
 	return sb.toString();
     }

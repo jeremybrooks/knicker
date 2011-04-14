@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010 by Jeremy Brooks
+ * Knicker is Copyright 2010-2011 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -64,14 +64,28 @@ public class StdoutLogger implements LogInterface {
      *         was null.
      */
     private String getStackTrace(Throwable t) {
-	if (t == null) {
-	    return "";
+	StringWriter sw = new StringWriter();
+
+	if (t != null) {
+	    PrintWriter pw = null;
+	    try {
+		pw = new PrintWriter(sw, true);
+		t.printStackTrace(pw);
+		pw.flush();
+		sw.flush();	    // NOTE: No need to close the StringWriter
+	    } catch (Exception e) {
+		// ignore
+	    } finally {
+		try {
+		    if (pw != null) {
+			pw.close();
+		    }
+		} catch (Exception e) {
+		    // ignore
+		}
+	    }
 	}
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw, true);
-        t.printStackTrace(pw);
-        pw.flush();
-        sw.flush();
+	
         return sw.toString();
     }
 }

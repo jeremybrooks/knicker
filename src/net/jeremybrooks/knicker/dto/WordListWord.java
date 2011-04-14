@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010 by Jeremy Brooks
+ * Knicker is Copyright 2010-2011 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,21 +18,22 @@
 */
 package net.jeremybrooks.knicker.dto;
 
+import java.io.Serializable;
+
 /**
  * Represents words inside a word list.
  *
- * @see http://docs.wordnik.com/api/methods#lists
  * @author jeremyb
  */
-public class WordListWord {
+public class WordListWord implements Serializable {
 
 
     private String createdAt;
     private int numberCommentsOnWord;
     private int numberLists;
     private String userId;
-    private String userName;
-    private String wordstring;
+    private String username;
+    private String word;
 
 
     /**
@@ -100,34 +101,34 @@ public class WordListWord {
 
 
     /**
-     * @return the userName
+     * @return the username
      */
-    public String getUserName() {
-	return userName;
+    public String getUsername() {
+	return username;
     }
 
 
     /**
-     * @param userName the userName to set
+     * @param username the username to set
      */
-    public void setUserName(String userName) {
-	this.userName = userName;
+    public void setUsername(String username) {
+	this.username = username;
     }
 
 
     /**
-     * @return the wordstring
+     * @return the word
      */
-    public String getWordstring() {
-	return wordstring;
+    public String getWord() {
+	return word;
     }
 
 
     /**
-     * @param wordstring the wordstring to set
+     * @param wordstring the word to set
      */
-    public void setWordstring(String wordstring) {
-	this.wordstring = wordstring;
+    public void setWord(String word) {
+	this.word = word;
     }
 
     @Override
@@ -138,8 +139,8 @@ public class WordListWord {
 	sb.append("numberCommentsOnWord=").append(this.numberCommentsOnWord).append("  | ");
 	sb.append("numberLists=").append(this.numberLists).append("  | ");
 	sb.append("userId=").append(this.userId).append("  | ");
-	sb.append("userName=").append(this.userName).append("  | ");
-	sb.append("wordstring=").append(this.wordstring);
+	sb.append("username=").append(this.username).append("  | ");
+	sb.append("word=").append(this.word);
 	sb.append(" ]");
 
 	return sb.toString();

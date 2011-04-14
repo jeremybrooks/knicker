@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010 by Jeremy Brooks
+ * Knicker is Copyright 2010-2011 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,26 +18,26 @@
 */
 package net.jeremybrooks.knicker.dto;
 
+import java.io.Serializable;
 import net.jeremybrooks.knicker.Knicker;
 
 /**
  * Represents data returned by a call to the Wordnik getLists API.
  *
- * @see http://docs.wordnik.com/api/methods#lists
  * @author jeremyb
  */
-public class WordList {
+public class WordList implements Serializable {
     
     private String createdAt;
     private String description;
     private String id;
     private String name;
     private int numberWordsInList;
-    private String permalinkId;
+    private String permalink;
     private Knicker.ListType type;
     private String updatedAt;
     private String userId;
-    private String userName;
+    private String username;
 
 
     /**
@@ -123,16 +123,16 @@ public class WordList {
     /**
      * @return the permalinkId
      */
-    public String getPermalinkId() {
-	return permalinkId;
+    public String getPermalink() {
+	return permalink;
     }
 
 
     /**
      * @param permalinkId the permalinkId to set
      */
-    public void setPermalinkId(String permalinkId) {
-	this.permalinkId = permalinkId;
+    public void setPermalink(String permalink) {
+	this.permalink = permalink;
     }
 
 
@@ -187,16 +187,16 @@ public class WordList {
     /**
      * @return the userName
      */
-    public String getUserName() {
-	return userName;
+    public String getUsername() {
+	return username;
     }
 
 
     /**
      * @param userName the userName to set
      */
-    public void setUserName(String userName) {
-	this.userName = userName;
+    public void setUsername(String username) {
+	this.username = username;
     }
 
     
@@ -210,11 +210,11 @@ public class WordList {
 	sb.append("id=").append(this.id).append(" | ");
 	sb.append("name=").append(this.name).append(" | ");
 	sb.append("numberWordsInList=").append(this.numberWordsInList).append(" | ");
-	sb.append("permalinkId=").append(this.permalinkId).append(" | ");
+	sb.append("permalink=").append(this.permalink).append(" | ");
 	sb.append("type=").append(this.type).append(" | ");
 	sb.append("updatedAt=").append(this.updatedAt).append(" | ");
 	sb.append("userId=").append(this.userId).append(" | ");
-	sb.append("userName=").append(this.userName);
+	sb.append("username=").append(this.username);
 	sb.append(" ]");
 
 	return sb.toString();

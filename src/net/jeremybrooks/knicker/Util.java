@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010 by Jeremy Brooks
+ * Knicker is Copyright 2010-2011 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with Knicker.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 package net.jeremybrooks.knicker;
 
 // JAVA I/O
@@ -106,7 +106,7 @@ public class Util {
 	if (uri == null || uri.trim().isEmpty()) {
 	    throw new KnickerException("Parameter uri cannot be null or empty.");
 	}
-	if (! uri.startsWith("http://") && ! uri.startsWith("https://")) {
+	if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
 	    throw new KnickerException("Parameter uri must start with http:// or https://");
 	}
 
@@ -114,50 +114,50 @@ public class Util {
 
 	BufferedReader rd = null;
 	String result = null;
-	    // Send a GET request to the server
-	    try {
+	// Send a GET request to the server
+	try {
 
-		URL url = new URL(uri);
-		URLConnection conn = url.openConnection();
-		conn.setConnectTimeout(getConnTimeout());
-		conn.setReadTimeout(getReadTimeout());
-		
-		// api key
-		conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
+	    URL url = new URL(uri);
+	    URLConnection conn = url.openConnection();
+	    conn.setConnectTimeout(getConnTimeout());
+	    conn.setReadTimeout(getReadTimeout());
 
-		// auth header
-		if (token != null) {
-		    conn.addRequestProperty("auth_token", token.getToken());
-		}
+	    // api key
+	    conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
 
-		// Get the response
-		rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		StringBuilder sb = new StringBuilder();
-		String line;
-		KnickerLogger.getLogger().log("----------RESPONSE START----------");
-		while ((line = rd.readLine()) != null) {
-		    sb.append(line);
-		    KnickerLogger.getLogger().log(line);
-		}
-		KnickerLogger.getLogger().log("----------RESPONSE END----------");
-		rd.close();
-		result = sb.toString();
+	    // auth header
+	    if (token != null) {
+		conn.addRequestProperty("auth_token", token.getToken());
+	    }
 
-	    } catch (Exception e) {
-		throw new KnickerException("Error getting a response from the server.", e);
-	    } finally {
-		if (rd != null) {
-		    try {
-			rd.close();
-		    } catch (Exception e) {
-			// ignore
-		    }
+	    // Get the response
+	    rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	    StringBuilder sb = new StringBuilder();
+	    String line;
+	    KnickerLogger.getLogger().log("----------RESPONSE START----------");
+	    while ((line = rd.readLine()) != null) {
+		sb.append(line);
+		KnickerLogger.getLogger().log(line);
+	    }
+	    KnickerLogger.getLogger().log("----------RESPONSE END----------");
+	    rd.close();
+	    result = sb.toString();
+
+	} catch (Exception e) {
+	    throw new KnickerException("Error getting a response from the server.", e);
+	} finally {
+	    if (rd != null) {
+		try {
+		    rd.close();
+		} catch (Exception e) {
+		    // ignore
 		}
 	    }
+	}
 
 	return getDocument(result);
     }
-    
+
 
     /**
      * Call the URI using an HTTP POST request, returning the response as an xml
@@ -178,7 +178,7 @@ public class Util {
 	if (uri == null || uri.trim().isEmpty()) {
 	    throw new KnickerException("Parameter uri cannot be null or empty.");
 	}
-	if (! uri.startsWith("http://") && ! uri.startsWith("https://")) {
+	if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
 	    throw new KnickerException("Parameter uri must start with http:// or https://");
 	}
 
@@ -197,8 +197,8 @@ public class Util {
 	    conn.setUseCaches(false);
 	    conn.setConnectTimeout(getConnTimeout());
 	    conn.setReadTimeout(getReadTimeout());
-	    ((HttpURLConnection)conn).setRequestMethod("POST");
-	    
+	    ((HttpURLConnection) conn).setRequestMethod("POST");
+
 	    // api key
 	    conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
 	    KnickerLogger.getLogger().log("added header 'api_key', " + System.getProperty("WORDNIK_API_KEY"));
@@ -258,25 +258,22 @@ public class Util {
      *       return data.
      *
      * @param uri the URI to call.
-     * @param data the data to use as the body of the DELETE operation.
      * @param token authentication token.
      * @throws KnickerException if the uri is invalid, or if there are any errors.
      */
-    static void doDelete(String uri, String data, AuthenticationToken token) throws KnickerException {
+    static void doDelete(String uri, AuthenticationToken token) throws KnickerException {
 	if (uri == null || uri.trim().isEmpty()) {
 	    throw new KnickerException("Parameter uri cannot be null or empty.");
 	}
-	if (! uri.startsWith("http://") && ! uri.startsWith("https://")) {
+	if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
 	    throw new KnickerException("Parameter uri must start with http:// or https://");
 	}
 
-	DataOutputStream out = null;
 	BufferedReader in = null;
-	StringBuilder sb = new StringBuilder();
 
 	KnickerLogger.getLogger().log("DELETE URL: '" + uri + "'");
 
-	
+
 	try {
 	    // Send data
 	    URL url = new URL(uri);
@@ -286,7 +283,59 @@ public class Util {
 	    conn.setUseCaches(false);
 	    conn.setConnectTimeout(getConnTimeout());
 	    conn.setReadTimeout(getReadTimeout());
-	    ((HttpURLConnection)conn).setRequestMethod("DELETE");
+	    ((HttpURLConnection) conn).setRequestMethod("DELETE");
+
+	    // api key
+	    conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
+	    KnickerLogger.getLogger().log("added header 'api_key', " + System.getProperty("WORDNIK_API_KEY"));
+	    // auth header
+	    if (token != null) {
+		conn.addRequestProperty("auth_token", token.getToken());
+		KnickerLogger.getLogger().log("added header 'auth_token', " + token.getToken());
+	    }
+	    conn.addRequestProperty("Content-Type", "text/xml");
+
+	    // Get the response
+	    in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+	} catch (Exception e) {
+	    throw new KnickerException("Error while performing HTTP DELETE operation.", e);
+	} finally {
+	    try {
+		if (in != null) {
+		    in.close();
+		}
+	    } catch (Exception e) {
+		// ignore
+	    }
+	}
+    }
+
+
+    static void doPut(String uri, String data, AuthenticationToken token) throws KnickerException {
+	if (uri == null || uri.trim().isEmpty()) {
+	    throw new KnickerException("Parameter uri cannot be null or empty.");
+	}
+	if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
+	    throw new KnickerException("Parameter uri must start with http:// or https://");
+	}
+
+	DataOutputStream out = null;
+	BufferedReader in = null;
+
+	KnickerLogger.getLogger().log("PUT URL: '" + uri + "'");
+
+
+	try {
+	    // Send data
+	    URL url = new URL(uri);
+	    URLConnection conn = url.openConnection();
+	    conn.setDoInput(true);
+	    conn.setDoOutput(true);
+	    conn.setUseCaches(false);
+	    conn.setConnectTimeout(getConnTimeout());
+	    conn.setReadTimeout(getReadTimeout());
+	    ((HttpURLConnection) conn).setRequestMethod("PUT");
 
 	    // api key
 	    conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
@@ -299,19 +348,19 @@ public class Util {
 	    conn.addRequestProperty("Content-Type", "text/xml");
 
 	    out = new DataOutputStream(conn.getOutputStream());
-	    KnickerLogger.getLogger().log("----------DELETE DATA START----------");
+	    KnickerLogger.getLogger().log("----------PUT DATA START----------");
 	    if (data != null) {
 		KnickerLogger.getLogger().log(data);
 		out.writeBytes(data);
 		out.flush();
 	    }
-	    KnickerLogger.getLogger().log("----------DELETE DATA END----------");
-	    
+	    KnickerLogger.getLogger().log("----------PUT DATA END----------");
+
 	    // Get the response
 	    in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-	    
+
 	} catch (Exception e) {
-	    throw new KnickerException("Error while performing HTTP DELETE operation.", e);
+	    throw new KnickerException("Error while performing HTTP PUT operation.", e);
 	} finally {
 	    try {
 		if (out != null) {
@@ -330,7 +379,7 @@ public class Util {
 	    }
 	}
     }
-    
+
 
     /**
      * Parse a string containing XML into a Document instance.
@@ -405,6 +454,7 @@ public class Util {
 	}
 	return x;
     }
+
 
     /**
      * Get a value by xpath and return as an long.
@@ -498,7 +548,7 @@ public class Util {
 	return content.trim();
     }
 
-    
+
     /**
      * Get a named child node from the specified node.
      * 
@@ -507,19 +557,21 @@ public class Util {
      * @return named child node, or null if it is not found.
      */
     static Node getNamedChildNode(Node node, String name) {
-	if (node == null || name == null || name.trim().isEmpty()) {
-	    return null;
-	}
-	
 	Node retNode = null;
-	NodeList nodes = node.getChildNodes();
 
-	if (nodes != null) {
-	    for (int i = 0; i < nodes.getLength(); i++) {
-		Node n = nodes.item(i);
-		if (n.getNodeName().equals(name)) {
-		    retNode = n;
-		    break;
+	if (node == null || name == null || name.trim().isEmpty()) {
+	    retNode = null;
+	} else {
+
+	    NodeList nodes = node.getChildNodes();
+
+	    if (nodes != null) {
+		for (int i = 0; i < nodes.getLength(); i++) {
+		    Node n = nodes.item(i);
+		    if (n.getNodeName().equals(name)) {
+			retNode = n;
+			break;
+		    }
 		}
 	    }
 	}
@@ -606,6 +658,7 @@ public class Util {
 	return value;
     }
 
+
     /**
      * Get a named value from the NamedNodeMap as a boolean.
      *
@@ -643,6 +696,7 @@ public class Util {
 	return timeout;
     }
 
+
     protected static int getReadTimeout() {
 	int timeout = 30000;
 
@@ -654,4 +708,5 @@ public class Util {
 
 	return timeout;
     }
+
 }
