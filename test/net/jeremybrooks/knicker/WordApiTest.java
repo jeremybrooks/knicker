@@ -500,10 +500,6 @@ public class WordApiTest {
 	assertTrue(audio.size() >= 1);
 
 	byte[] result = WordApi.getAudioData(audio.get(0));
-	java.io.FileOutputStream out = new java.io.FileOutputStream(new java.io.File("/Users/jeremyb/Desktop/test.mp3"));
-	out.write(result);
-	out.flush();
-	out.close();
 	
 	assertNotNull(result);
 	assertTrue(result.length > 0);
