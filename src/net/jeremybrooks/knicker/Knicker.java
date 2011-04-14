@@ -131,4 +131,21 @@ public abstract class Knicker {
 	PUBLIC,
 	PRIVATE
     }
+
+    public static enum TypeFormat {
+	ahd,
+	arpabet,
+	gcide_diacritical,
+	IPA
+    }
+
+    public static enum SortBy {
+	alpha,
+	count
+    }
+
+    public static enum SortDirection {
+	asc,
+	desc
+    }
 }
