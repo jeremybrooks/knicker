@@ -267,16 +267,20 @@ class DTOBuilder {
      *
      * XML looks like this:
     <definitions>
-    <definition sequence="0">
-    <text>A small carnivorous mammal (Felis catus or F. domesticus) domesticated since early times as a catcher of rats and mice and as a pet and existing in several distinctive breeds and varieties.</text>
-    <partOfSpeech>noun</partOfSpeech>
-    <word>cat</word>
-    </definition>
-    <definition sequence="1">
-    <text>Any of various other carnivorous mammals of the family Felidae, which includes the lion, tiger, leopard, and lynx.</text>
-    <partOfSpeech>noun</partOfSpeech>
-    <word>cat</word>
-    </definition>
+	<definition sequence="0">
+	    <text>A procedure for critical evaluation; a means of determining the presence, quality, or truth of something; a trial:  a test of one's eyesight; subjecting a hypothesis to a test; a test of an athlete's endurance. </text>
+	    <partOfSpeech>noun</partOfSpeech>
+	    <score>0.0</score>
+	    <sourceDictionary>ahd-legacy</sourceDictionary>
+	    <word>test</word>
+	</definition>
+	<definition sequence="1">
+	    <text>A series of questions, problems, or physical responses designed to determine knowledge, intelligence, or ability.</text>
+	    <partOfSpeech>noun</partOfSpeech>
+	    <score>0.0</score>
+	    <sourceDictionary>ahd-legacy</sourceDictionary>
+	    <word>test</word>
+	</definition>
     </definitions>
      *
      * @param doc the XML document to parse.
@@ -296,6 +300,8 @@ class DTOBuilder {
 		definition.setSequence(Util.getAttributeAsInt(nnm, "sequence"));
 		definition.setText(Util.getNamedChildTextContent(defNode, "text"));
 		definition.setPartOfSpeech(Util.getNamedChildTextContent(defNode, "partOfSpeech"));
+		definition.setScore(Util.getNamedChildTextContent(defNode, "score"));
+		definition.setSourceDictionary(Util.getNamedChildTextContent(defNode, "sourceDictionary"));
 		definition.setWord(Util.getNamedChildTextContent(defNode, "word"));
 
 		definitions.add(definition);
@@ -720,7 +726,7 @@ class DTOBuilder {
 			if (node.getNodeName().equals("definition")) {
 
 			    Definition d = new Definition();
-			    d.setSource(Util.getNamedChildTextContent(node, "source"));
+			    d.setSourceDictionary(Util.getNamedChildTextContent(node, "source"));
 			    d.setText(Util.getNamedChildTextContent(node, "text"));
 			    wotd.addDefinition(d);
 			}

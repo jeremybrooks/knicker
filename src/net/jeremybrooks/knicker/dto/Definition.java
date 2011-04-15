@@ -30,31 +30,17 @@ public class Definition implements Serializable {
 
     private int sequence;
 
-//    private String id;
-
-  //  private List<Citation> citations;
-
     private String text;
 
     private String word;
 
-    //private List<Label> labels;
-
-    //private List<Note> notes;
-
     private String partOfSpeech;
 
-    private String source;
-    //private String seqString;
+    private String sourceDictionary;
 
-    //private List<String> exampleUses;
-
+    private String score;
 
     public Definition() {
-//	this.labels = new ArrayList<Label>();
-//	this.citations = new ArrayList<Citation>();
-//	this.notes = new ArrayList<Note>();
-//	this.exampleUses = new ArrayList<String>();
     }
 
 
@@ -72,30 +58,6 @@ public class Definition implements Serializable {
     public void setSequence(int sequence) {
 	this.sequence = sequence;
     }
-
-
-//    /**
-//     * @return the id
-//     */
-//    public String getId() {
-//	return id;
-//    }
-//
-//
-//    /**
-//     * @param id the id to set
-//     */
-//    public void setId(String id) {
-//	this.id = id;
-//    }
-//
-//
-//    /**
-//     * @return the citations
-//     */
-//    public List<Citation> getCitations() {
-//	return citations;
-//    }
 
 
     /**
@@ -183,7 +145,8 @@ public class Definition implements Serializable {
 	StringBuilder sb = new StringBuilder(this.getClass().getName());
 	sb.append(": [ sequence=").append(this.sequence).append(" | ");
 	sb.append("text=").append(this.text).append(" | ");
-	sb.append("source=").append(this.source).append(" | ");
+	sb.append("sourceDictionary=").append(this.sourceDictionary).append(" | ");
+	sb.append("score=").append(this.getScore()).append(" | ");
 	sb.append("word=").append(this.word).append(" | ");
 	sb.append("partOfSpeech=").append(this.partOfSpeech);
 
@@ -195,216 +158,34 @@ public class Definition implements Serializable {
 
 
     /**
-     * @return the source
+     * @return the sourceDictionary
      */
-    public String getSource() {
-	return source;
+    public String getSourceDictionary() {
+	return sourceDictionary;
     }
 
 
     /**
-     * @param source the source to set
+     * @param sourceDictionary the sourceDictionary to set
      */
-    public void setSource(String source) {
-	this.source = source;
+    public void setSourceDictionary(String sourceDictionary) {
+	this.sourceDictionary = sourceDictionary;
     }
 
 
-//    public void addCitation(String cite, String source) {
-//	Citation citation = new Citation();
-//	citation.setCite(cite);
-//	citation.setSource(source);
-//	this.citations.add(citation);
-//    }
-//
-//
-//    public void addLabel(String type, String text) {
-//	Label label = new Label();
-//	label.setText(text);
-//	label.setType(type);
-//	this.labels.add(label);
-//    }
-//
-//
-//    public void addNote(int pos, String value) {
-//	Note note = new Note();
-//	note.setPos(pos);
-//	note.setValue(value);
-//	this.notes.add(note);
-//    }
-//
-//
-//    public void addExampleUse(String exampleUse) {
-//	this.exampleUses.add(exampleUse);
-//    }
-//
-//
-//    /**
-//     * @return the exampleUses
-//     */
-//    public List<String> getExampleUses() {
-//	return exampleUses;
-//    }
+    /**
+     * @return the score
+     */
+    public String getScore() {
+	return score;
+    }
 
 
-//    /**
-//     * Represents a citation element.
-//     */
-//    public class Citation {
-//
-//	private String cite;
-//
-//	private String source;
-//
-//
-//	/**
-//	 * @return the cite
-//	 */
-//	public String getCite() {
-//	    return cite;
-//	}
-//
-//
-//	/**
-//	 * @param cite the cite to set
-//	 */
-//	public void setCite(String cite) {
-//	    this.cite = cite;
-//	}
-//
-//
-//	/**
-//	 * @return the source
-//	 */
-//	public String getSource() {
-//	    return source;
-//	}
-//
-//
-//	/**
-//	 * @param source the source to set
-//	 */
-//	public void setSource(String source) {
-//	    this.source = source;
-//	}
-//
-//
-//	@Override
-//	public String toString() {
-//	    StringBuilder sb = new StringBuilder(this.getClass().getName());
-//	    sb.append(": [ cite=").append(this.cite).append(" | ");
-//	    sb.append("source=").append(this.source).append(" ]");
-//
-//	    return sb.toString();
-//	}
-//
-//    }
-//
-//
-//    /**
-//     * Represents a label element.
-//     */
-//    public class Label {
-//
-//	private String type;
-//
-//	private String text;
-//
-//
-//	/**
-//	 * @return the type
-//	 */
-//	public String getType() {
-//	    return type;
-//	}
-//
-//
-//	/**
-//	 * @param type the type to set
-//	 */
-//	public void setType(String type) {
-//	    this.type = type;
-//	}
-//
-//
-//	/**
-//	 * @return the text
-//	 */
-//	public String getText() {
-//	    return text;
-//	}
-//
-//
-//	/**
-//	 * @param text the text to set
-//	 */
-//	public void setText(String text) {
-//	    this.text = text;
-//	}
-//
-//
-//	@Override
-//	public String toString() {
-//	    StringBuilder sb = new StringBuilder(this.getClass().getName());
-//	    sb.append(": [ type=").append(this.type).append(" | ");
-//	    sb.append("text=").append(this.text).append(" ]");
-//
-//	    return sb.toString();
-//	}
-//
-//    }
-//
-//
-//    /**
-//     * Represents a note element.
-//     */
-//    public class Note {
-//
-//	private int pos;
-//
-//	private String value;
-//
-//
-//	/**
-//	 * @return the pos
-//	 */
-//	public int getPos() {
-//	    return pos;
-//	}
-//
-//
-//	/**
-//	 * @param pos the pos to set
-//	 */
-//	public void setPos(int pos) {
-//	    this.pos = pos;
-//	}
-//
-//
-//	/**
-//	 * @return the value
-//	 */
-//	public String getValue() {
-//	    return value;
-//	}
-//
-//
-//	/**
-//	 * @param value the value to set
-//	 */
-//	public void setValue(String value) {
-//	    this.value = value;
-//	}
-//
-//
-//	@Override
-//	public String toString() {
-//	    StringBuilder sb = new StringBuilder(this.getClass().getName());
-//	    sb.append(": [ pos=").append(this.pos).append(" | ");
-//	    sb.append("value=").append(this.value).append(" ]");
-//
-//	    return sb.toString();
-//	}
-//
-//    }
+    /**
+     * @param score the score to set
+     */
+    public void setScore(String score) {
+	this.score = score;
+    }
+
 }
