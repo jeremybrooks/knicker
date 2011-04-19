@@ -19,7 +19,7 @@
 package net.jeremybrooks.knicker;
 
 // JAVA UTILITY
-import java.util.EnumSet;
+import java.util.Set;
 import java.util.HashMap;
 import java.util.List;
 
@@ -91,8 +91,8 @@ public class WordsApi extends Knicker {
      * @throws KnickerException if there are any errors, or if a word cannot be
      *         found that matches the parameters.
      */
-    public static Word randomWord(boolean hasDictionaryDef, EnumSet<PartOfSpeech> includePartOfSpeech,
-	    EnumSet<PartOfSpeech> excludePartOfSpeech, int minCorpusCount,
+    public static Word randomWord(boolean hasDictionaryDef, Set<PartOfSpeech> includePartOfSpeech,
+	    Set<PartOfSpeech> excludePartOfSpeech, int minCorpusCount,
 	    int maxCorpusCount, int minDictionaryCount, int maxDictionaryCount,
 	    int minLength, int maxLength) throws KnickerException {
 
@@ -203,8 +203,8 @@ public class WordsApi extends Knicker {
      * @throws KnickerException if there are any errors, or if a list cannot be
      *         found that matches the parameters.
      */
-    public static List<Word> randomWords(boolean hasDictionaryDef, EnumSet<PartOfSpeech> includePartOfSpeech,
-	    EnumSet<PartOfSpeech> excludePartOfSpeech, int minCorpusCount,
+    public static List<Word> randomWords(boolean hasDictionaryDef, Set<PartOfSpeech> includePartOfSpeech,
+	    Set<PartOfSpeech> excludePartOfSpeech, int minCorpusCount,
 	    int maxCorpusCount, int minDictionaryCount, int maxDictionaryCount,
 	    int minLength, int maxLength, SortBy sortBy,
 	    SortDirection sortDirection, int limit) throws KnickerException {
@@ -333,8 +333,8 @@ public class WordsApi extends Knicker {
      * @throws KnickerException if there are any errors.
      */
     public static SearchResults search(String query, boolean caseSensitive,
-	    EnumSet<PartOfSpeech> includePartOfSpeech,
-	    EnumSet<PartOfSpeech> excludePartOfSpeech,
+	    Set<PartOfSpeech> includePartOfSpeech,
+	    Set<PartOfSpeech> excludePartOfSpeech,
 	    int minCorpusCount, int maxCorpusCount,
 	    int minDictionaryCount, int maxDictionaryCount,
 	    int minLength, int maxLength,

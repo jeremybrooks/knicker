@@ -24,7 +24,7 @@ import java.io.BufferedInputStream;
 // JAVA UTILITY
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.EnumSet;
+import java.util.Set;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -202,7 +202,7 @@ public class WordApi extends Knicker {
      * @throws KnickerException if the word is null or empty, or if there are any errors.
      */
     public static List<Definition> definitions(String word,
-	    EnumSet<SourceDictionary> sourceDictionaries) throws
+	    Set<SourceDictionary> sourceDictionaries) throws
 	    KnickerException {
 	if (word == null || word.isEmpty()) {
 	    throw new KnickerException("Cannot look up definitions for an empty word.");
@@ -247,8 +247,8 @@ public class WordApi extends Knicker {
      * @throws KnickerException if the word is null or empty, or if there was an error.
      */
     public static List<Definition> definitions(String word, int limit,
-	    EnumSet<PartOfSpeech> partOfSpeech, boolean includeRelated,
-	    EnumSet<SourceDictionary> sourceDictionaries,
+	    Set<PartOfSpeech> partOfSpeech, boolean includeRelated,
+	    Set<SourceDictionary> sourceDictionaries,
 	    boolean useCanonical, boolean includeTags) throws KnickerException {
 	if (word == null || word.isEmpty()) {
 	    throw new KnickerException("Cannot look up definitions for an empty word.");
@@ -365,7 +365,6 @@ public class WordApi extends Knicker {
 	uri.append("/frequency");
 	if (params.size() > 0) {
 	    uri.append('?').append(Util.buildParamList(params));
-	    ;
 	}
 
 	return DTOBuilder.buildFrequencySummary(Util.doGet(uri.toString()));
@@ -415,7 +414,6 @@ public class WordApi extends Knicker {
 	uri.append("/topExample");
 	if (params.size() > 0) {
 	    uri.append('?').append(Util.buildParamList(params));
-	    ;
 	}
 
 	return DTOBuilder.buildTopExample(Util.doGet(uri.toString()));
@@ -452,7 +450,7 @@ public class WordApi extends Knicker {
      * @throws KnickerException if the word is null, or if there are any errors.
      */
     public static List<Related> related(String word, int limit, boolean useCanonical,
-	    EnumSet<PartOfSpeech> partOfSpeech, EnumSet<RelationshipType> relationshipType,
+	    Set<PartOfSpeech> partOfSpeech, Set<RelationshipType> relationshipType,
 	    SourceDictionary sourceDictionary) throws KnickerException {
 	if (word == null || word.isEmpty()) {
 	    throw new KnickerException("Cannot look up an empty word.");
