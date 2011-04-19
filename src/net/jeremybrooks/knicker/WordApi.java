@@ -195,9 +195,13 @@ public class WordApi extends Knicker {
 
     /**
      * Look up definitions for a word.
+     *
+     * Dictionaries will be tried in the order returned by the sourceDictionaries
+     * iterator. If you want a specific order, use a Set implementation that
+     * guarantees a specific order.
      * 
      * @param word word to return definitions for.
-     * @param sourceDictionaries gets from dictionaries in the supplied order of precedence.
+     * @param sourceDictionaries dictionaries to retrieve definitions from.
      * @return list of definitions for the word.
      * @throws KnickerException if the word is null or empty, or if there are any errors.
      */
