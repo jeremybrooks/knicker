@@ -239,11 +239,15 @@ public class WordApi extends Knicker {
     /**
      * Look up definitions for a word.
      *
+     * Dictionaries will be tried in the order returned by the sourceDictionaries
+     * iterator. If you want a specific order, use a Set implementation that
+     * guarantees a specific order.
+     *
      * @param word word to return definitions for.
      * @param limit maximum number of results to return.
      * @param partOfSpeech list of part-of-speech types to retrieve.
      * @param includeRelated return related words with definitions.
-     * @param sourceDictionaries gets from dictionaries in the supplied order of precedence.
+     * @param sourceDictionaries dictionaries to retrieve definitions from.
      * @param useCanonical if true will try to return the correct word root
      *	      ('cats' -> 'cat'). If false returns exactly what was requested.
      * @param includeTags return a closed set of XML tags in response.
