@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -24,7 +24,8 @@ import java.io.Serializable;
 /**
  * Represents data returned by a call to the Wordnik definitions API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks (jeremyb@whirljack.net)
+ * @author Boris Goldowski (patch for attribution text support)
  */
 public class Definition implements Serializable {
 
@@ -40,6 +41,8 @@ public class Definition implements Serializable {
 
     private String score;
 
+    private String attributionText;
+
     public Definition() {
     }
 
@@ -48,7 +51,7 @@ public class Definition implements Serializable {
      * @return the sequence
      */
     public int getSequence() {
-	return sequence;
+        return sequence;
     }
 
 
@@ -56,7 +59,7 @@ public class Definition implements Serializable {
      * @param sequence the sequence to set
      */
     public void setSequence(int sequence) {
-	this.sequence = sequence;
+        this.sequence = sequence;
     }
 
 
@@ -64,7 +67,7 @@ public class Definition implements Serializable {
      * @return the text
      */
     public String getText() {
-	return text;
+        return text;
     }
 
 
@@ -72,7 +75,7 @@ public class Definition implements Serializable {
      * @param text the text to set
      */
     public void setText(String text) {
-	this.text = text;
+        this.text = text;
     }
 
 
@@ -80,15 +83,15 @@ public class Definition implements Serializable {
      * @return the word
      */
     public String getWord() {
-	return word;
+        return word;
     }
 
 
     /**
-     * @param headword the headword to set
+     * @param word the word to set
      */
     public void setWord(String word) {
-	this.word = word;
+        this.word = word;
     }
 
 
@@ -112,7 +115,7 @@ public class Definition implements Serializable {
      * @return the partOfSpeech
      */
     public String getPartOfSpeech() {
-	return partOfSpeech;
+        return partOfSpeech;
     }
 
 
@@ -120,7 +123,7 @@ public class Definition implements Serializable {
      * @param partOfSpeech the partOfSpeech to set
      */
     public void setPartOfSpeech(String partOfSpeech) {
-	this.partOfSpeech = partOfSpeech;
+        this.partOfSpeech = partOfSpeech;
     }
 
 
@@ -140,20 +143,41 @@ public class Definition implements Serializable {
 //    }
 
 
+    /**
+     * Get the attribution text for this definition.
+     *
+     * @return attribution text.
+     */
+    public String getAttributionText() {
+        return this.attributionText;
+    }
+
+
+    /**
+     * Set the attribution text for this definition.
+     *
+     * @param attributionText the attribution text for this definition.
+     */
+    public void setAttributionText(String attributionText) {
+        this.attributionText = attributionText;
+    }
+
+
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
-	sb.append(": [ sequence=").append(this.sequence).append(" | ");
-	sb.append("text=").append(this.text).append(" | ");
-	sb.append("sourceDictionary=").append(this.sourceDictionary).append(" | ");
-	sb.append("score=").append(this.getScore()).append(" | ");
-	sb.append("word=").append(this.word).append(" | ");
-	sb.append("partOfSpeech=").append(this.partOfSpeech);
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
+        sb.append(": [ sequence=").append(this.sequence).append(" | ");
+        sb.append("text=").append(this.text).append(" | ");
+        sb.append("sourceDictionary=").append(this.sourceDictionary).append(" | ");
+        sb.append("score=").append(this.getScore()).append(" | ");
+        sb.append("word=").append(this.word).append(" | ");
+        sb.append("attributionText=").append(this.attributionText).append(" | ");
+        sb.append("partOfSpeech=").append(this.partOfSpeech);
 
 
-	sb.append(" ]");
+        sb.append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 
 
@@ -161,7 +185,7 @@ public class Definition implements Serializable {
      * @return the sourceDictionary
      */
     public String getSourceDictionary() {
-	return sourceDictionary;
+        return sourceDictionary;
     }
 
 
@@ -169,7 +193,7 @@ public class Definition implements Serializable {
      * @param sourceDictionary the sourceDictionary to set
      */
     public void setSourceDictionary(String sourceDictionary) {
-	this.sourceDictionary = sourceDictionary;
+        this.sourceDictionary = sourceDictionary;
     }
 
 
@@ -177,7 +201,7 @@ public class Definition implements Serializable {
      * @return the score
      */
     public String getScore() {
-	return score;
+        return score;
     }
 
 
@@ -185,7 +209,7 @@ public class Definition implements Serializable {
      * @param score the score to set
      */
     public void setScore(String score) {
-	this.score = score;
+        this.score = score;
     }
 
 }
