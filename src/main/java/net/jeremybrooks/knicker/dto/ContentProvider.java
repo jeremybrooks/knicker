@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -22,11 +22,11 @@ import java.io.Serializable;
 
 /**
  * Represents ContentProvider data returned from Wordnik.
- *
+ * <p/>
  * It appears that ContentProvider and Provider are identical. Some data structures
  * returned from Wordnik use ContentProvider, and some use Provider.
- * 
- * @author jeremyb
+ *
+ * @author Jeremy Brooks
  */
 public class ContentProvider implements Serializable {
 
@@ -38,7 +38,7 @@ public class ContentProvider implements Serializable {
      * @return the id
      */
     public String getId() {
-	return id;
+        return id;
     }
 
 
@@ -46,7 +46,7 @@ public class ContentProvider implements Serializable {
      * @param id the id to set
      */
     public void setId(String id) {
-	this.id = id;
+        this.id = id;
     }
 
 
@@ -54,7 +54,7 @@ public class ContentProvider implements Serializable {
      * @return the name
      */
     public String getName() {
-	return name;
+        return name;
     }
 
 
@@ -62,19 +62,19 @@ public class ContentProvider implements Serializable {
      * @param name the name to set
      */
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
 
 
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
 
-	sb.append(": [ ");
-	sb.append("id=").append(this.id).append(" | ");
-	sb.append("name=").append(this.name).append(" ]");
+        sb.append(": [ ");
+        sb.append("id=").append(this.id).append(" | ");
+        sb.append("name=").append(this.name).append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,7 +18,7 @@
 */
 package net.jeremybrooks.knicker.dto;
 
-// JAVA UTILITY
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Represents data returned by a call to the Wordnik search API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class SearchResults implements Serializable {
 
@@ -36,28 +36,28 @@ public class SearchResults implements Serializable {
     private List<Example> examples;
 
     public SearchResults() {
-	this.searchResults = new ArrayList<SearchResult>();
-	this.examples = new ArrayList<Example>();
+        this.searchResults = new ArrayList<SearchResult>();
+        this.examples = new ArrayList<Example>();
     }
 
 
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
-	sb.append(": [ ");
-	sb.append("total=").append(this.getTotal()).append(" | ");
-	sb.append("searchResults=");
-	for (SearchResult sr : this.getSearchResults()) {
-	    sb.append('<').append(sr.toString()).append('>');
-	}
-	sb.append("examples=");
-	for (Example e : this.getExamples()) {
-	    sb.append('<').append(e.toString()).append('>');
-	}
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
+        sb.append(": [ ");
+        sb.append("total=").append(this.getTotal()).append(" | ");
+        sb.append("searchResults=");
+        for (SearchResult sr : this.getSearchResults()) {
+            sb.append('<').append(sr.toString()).append('>');
+        }
+        sb.append("examples=");
+        for (Example e : this.getExamples()) {
+            sb.append('<').append(e.toString()).append('>');
+        }
 
-	sb.append(" ]");
+        sb.append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 
 
@@ -65,7 +65,7 @@ public class SearchResults implements Serializable {
      * @return the total
      */
     public int getTotal() {
-	return total;
+        return total;
     }
 
 
@@ -73,7 +73,7 @@ public class SearchResults implements Serializable {
      * @param total the total to set
      */
     public void setTotal(int total) {
-	this.total = total;
+        this.total = total;
     }
 
 
@@ -81,22 +81,22 @@ public class SearchResults implements Serializable {
      * @return the results
      */
     public List<SearchResult> getSearchResults() {
-	return searchResults;
+        return searchResults;
     }
 
 
     /**
-     * @param results the results to set
+     * @param searchResult the results to set
      */
     public void addSearchResult(SearchResult searchResult) {
-	this.searchResults.add(searchResult);
+        this.searchResults.add(searchResult);
     }
 
     /**
      * @return the examples
      */
     public List<Example> getExamples() {
-	return examples;
+        return examples;
     }
 
 
@@ -104,6 +104,6 @@ public class SearchResults implements Serializable {
      * @param example the example to add to the list of examples.
      */
     public void addExample(Example example) {
-	this.examples.add(example);
+        this.examples.add(example);
     }
 }

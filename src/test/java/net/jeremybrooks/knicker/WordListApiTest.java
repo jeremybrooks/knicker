@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,28 +18,32 @@
 */
 package net.jeremybrooks.knicker;
 
-import java.util.List;
-import javax.swing.SortOrder;
-import net.jeremybrooks.knicker.Knicker.SortBy;
-import net.jeremybrooks.knicker.logger.StdoutLogger;
-import net.jeremybrooks.knicker.logger.KnickerLogger;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Properties;
 import net.jeremybrooks.knicker.Knicker.ListType;
+import net.jeremybrooks.knicker.Knicker.SortBy;
 import net.jeremybrooks.knicker.dto.AuthenticationToken;
 import net.jeremybrooks.knicker.dto.WordList;
 import net.jeremybrooks.knicker.dto.WordListWord;
+import net.jeremybrooks.knicker.logger.KnickerLogger;
+import net.jeremybrooks.knicker.logger.StdoutLogger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import javax.swing.SortOrder;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 /**
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class WordListApiTest {
 
@@ -61,7 +65,7 @@ public class WordListApiTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
 	Properties p = new Properties();
-	InputStream in = WordApiTest.class.getResourceAsStream("/net/jeremybrooks/knicker/secret.properties");
+	InputStream in = WordApiTest.class.getResourceAsStream("/secret.properties");
 	p.load(in);
 
 	System.setProperty("WORDNIK_API_KEY", p.getProperty("WORDNIK_API_KEY"));

@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -23,7 +23,7 @@ import java.io.Serializable;
 /**
  * Represents data returned by a call to the Wordnik phrases API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class Phrase implements Serializable {
 

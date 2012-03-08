@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -23,7 +23,7 @@ import java.io.Serializable;
 /**
  * Represents words inside a word list.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class WordListWord implements Serializable {
 
@@ -40,7 +40,7 @@ public class WordListWord implements Serializable {
      * @return the createdAt
      */
     public String getCreatedAt() {
-	return createdAt;
+        return createdAt;
     }
 
 
@@ -48,7 +48,7 @@ public class WordListWord implements Serializable {
      * @param createdAt the createdAt to set
      */
     public void setCreatedAt(String createdAt) {
-	this.createdAt = createdAt;
+        this.createdAt = createdAt;
     }
 
 
@@ -56,7 +56,7 @@ public class WordListWord implements Serializable {
      * @return the numberCommentsOnWord
      */
     public int getNumberCommentsOnWord() {
-	return numberCommentsOnWord;
+        return numberCommentsOnWord;
     }
 
 
@@ -64,7 +64,7 @@ public class WordListWord implements Serializable {
      * @param numberCommentsOnWord the numberCommentsOnWord to set
      */
     public void setNumberCommentsOnWord(int numberCommentsOnWord) {
-	this.numberCommentsOnWord = numberCommentsOnWord;
+        this.numberCommentsOnWord = numberCommentsOnWord;
     }
 
 
@@ -72,7 +72,7 @@ public class WordListWord implements Serializable {
      * @return the numberLists
      */
     public int getNumberLists() {
-	return numberLists;
+        return numberLists;
     }
 
 
@@ -80,7 +80,7 @@ public class WordListWord implements Serializable {
      * @param numberLists the numberLists to set
      */
     public void setNumberLists(int numberLists) {
-	this.numberLists = numberLists;
+        this.numberLists = numberLists;
     }
 
 
@@ -88,7 +88,7 @@ public class WordListWord implements Serializable {
      * @return the userId
      */
     public String getUserId() {
-	return userId;
+        return userId;
     }
 
 
@@ -96,7 +96,7 @@ public class WordListWord implements Serializable {
      * @param userId the userId to set
      */
     public void setUserId(String userId) {
-	this.userId = userId;
+        this.userId = userId;
     }
 
 
@@ -104,7 +104,7 @@ public class WordListWord implements Serializable {
      * @return the username
      */
     public String getUsername() {
-	return username;
+        return username;
     }
 
 
@@ -112,7 +112,7 @@ public class WordListWord implements Serializable {
      * @param username the username to set
      */
     public void setUsername(String username) {
-	this.username = username;
+        this.username = username;
     }
 
 
@@ -120,29 +120,29 @@ public class WordListWord implements Serializable {
      * @return the word
      */
     public String getWord() {
-	return word;
+        return word;
     }
 
 
     /**
-     * @param wordstring the word to set
+     * @param word the word to set
      */
     public void setWord(String word) {
-	this.word = word;
+        this.word = word;
     }
 
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
-	sb.append(": [ ");
-	sb.append("createdAt=").append(this.createdAt).append("  | ");
-	sb.append("numberCommentsOnWord=").append(this.numberCommentsOnWord).append("  | ");
-	sb.append("numberLists=").append(this.numberLists).append("  | ");
-	sb.append("userId=").append(this.userId).append("  | ");
-	sb.append("username=").append(this.username).append("  | ");
-	sb.append("word=").append(this.word);
-	sb.append(" ]");
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
+        sb.append(": [ ");
+        sb.append("createdAt=").append(this.createdAt).append("  | ");
+        sb.append("numberCommentsOnWord=").append(this.numberCommentsOnWord).append("  | ");
+        sb.append("numberLists=").append(this.numberLists).append("  | ");
+        sb.append("userId=").append(this.userId).append("  | ");
+        sb.append("username=").append(this.username).append("  | ");
+        sb.append("word=").append(this.word);
+        sb.append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 }

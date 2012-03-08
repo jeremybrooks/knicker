@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -23,11 +23,11 @@ import java.io.Serializable;
 /**
  * Represents a syllable element returned from the Wordnik API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class Syllable implements Serializable {
 
-    
+
     private String type;
     private int seq;
     private String text;
@@ -37,7 +37,7 @@ public class Syllable implements Serializable {
      * @return the type
      */
     public String getType() {
-	return type;
+        return type;
     }
 
 
@@ -45,7 +45,7 @@ public class Syllable implements Serializable {
      * @param type the type to set
      */
     public void setType(String type) {
-	this.type = type;
+        this.type = type;
     }
 
 
@@ -53,7 +53,7 @@ public class Syllable implements Serializable {
      * @return the seq
      */
     public int getSeq() {
-	return seq;
+        return seq;
     }
 
 
@@ -61,7 +61,7 @@ public class Syllable implements Serializable {
      * @param seq the seq to set
      */
     public void setSeq(int seq) {
-	this.seq = seq;
+        this.seq = seq;
     }
 
 
@@ -69,7 +69,7 @@ public class Syllable implements Serializable {
      * @return the text
      */
     public String getText() {
-	return text;
+        return text;
     }
 
 
@@ -77,17 +77,17 @@ public class Syllable implements Serializable {
      * @param text the text to set
      */
     public void setText(String text) {
-	this.text = text;
+        this.text = text;
     }
 
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
 
-	sb.append(": [ ").append("type=").append(this.type).append(" | ");
-	sb.append(": [ ").append("seq=").append(this.seq).append(" | ");
-	sb.append("text=").append(this.text).append(" ]");
+        sb.append(": [ ").append("type=").append(this.type).append(" | ");
+        sb.append(": [ ").append("seq=").append(this.seq).append(" | ");
+        sb.append("text=").append(this.text).append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 }

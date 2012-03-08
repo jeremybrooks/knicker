@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,23 +18,25 @@
 */
 package net.jeremybrooks.knicker;
 
-import net.jeremybrooks.knicker.dto.WordList;
-import java.io.InputStream;
-import java.util.Properties;
-import java.util.List;
 import net.jeremybrooks.knicker.dto.AuthenticationToken;
 import net.jeremybrooks.knicker.dto.TokenStatus;
 import net.jeremybrooks.knicker.dto.User;
+import net.jeremybrooks.knicker.dto.WordList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import java.io.InputStream;
+import java.util.List;
+import java.util.Properties;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
- *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class AccountApiTest {
 
@@ -47,15 +49,15 @@ public class AccountApiTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-	Properties p = new Properties();
-	InputStream in = AccountApiTest.class.getResourceAsStream("/net/jeremybrooks/knicker/secret.properties");
-	p.load(in);
+        Properties p = new Properties();
+        InputStream in = AccountApiTest.class.getResourceAsStream("/secret.properties");
+        p.load(in);
 
-	System.setProperty("WORDNIK_API_KEY", p.getProperty("WORDNIK_API_KEY"));
-	username = p.getProperty("WORDNIK_USERNAME");
-	password = p.getProperty("WORDNIK_PASSWORD");
+        System.setProperty("WORDNIK_API_KEY", p.getProperty("WORDNIK_API_KEY"));
+        username = p.getProperty("WORDNIK_USERNAME");
+        password = p.getProperty("WORDNIK_PASSWORD");
 
-	//KnickerLogger.setLogger(new StdoutLogger());
+        //KnickerLogger.setLogger(new StdoutLogger());
     }
 
 
@@ -77,11 +79,11 @@ public class AccountApiTest {
      */
     @Test
     public void testAuthenticate() throws Exception {
-	System.out.println("authenticate");
-	AuthenticationToken result = AccountApi.authenticate(username, password);
-	assertNotNull(result);
+        System.out.println("authenticate");
+        AuthenticationToken result = AccountApi.authenticate(username, password);
+        assertNotNull(result);
 
-	token = result;
+        token = result;
     }
 
 
@@ -90,10 +92,10 @@ public class AccountApiTest {
      */
     @Test
     public void testApiTokenStatus() throws Exception {
-	System.out.println("apiTokenStatus");
-	TokenStatus result = AccountApi.apiTokenStatus();
-	assertNotNull(result);
-	assertEquals(result.isValid(), true);
+        System.out.println("apiTokenStatus");
+        TokenStatus result = AccountApi.apiTokenStatus();
+        assertNotNull(result);
+        assertEquals(result.isValid(), true);
     }
 
 
@@ -102,10 +104,10 @@ public class AccountApiTest {
      */
     @Test
     public void testUser() throws Exception {
-	System.out.println("user");
-	User result = AccountApi.user(token);
-	assertNotNull(result);
-	assertEquals(result.getUserName(), username);
+        System.out.println("user");
+        User result = AccountApi.user(token);
+        assertNotNull(result);
+        assertEquals(result.getUserName(), username);
     }
 
 
@@ -114,12 +116,12 @@ public class AccountApiTest {
      */
     @Test
     public void testWordLists_AuthenticationToken() throws Exception {
-	System.out.println("wordLists");
-	List<WordList> result = AccountApi.wordLists(token);
-	assertNotNull(result);
-	for (WordList list : result) {
-	    assertEquals(username, list.getUsername());
-	}
+        System.out.println("wordLists");
+        List<WordList> result = AccountApi.wordLists(token);
+        assertNotNull(result);
+        for (WordList list : result) {
+            assertEquals(username, list.getUsername());
+        }
     }
 
 
@@ -128,12 +130,12 @@ public class AccountApiTest {
      */
     @Test
     public void testWordLists_3args() throws Exception {
-	System.out.println("wordLists");
-	int skip = 0;
-	int limit = 1;
-	List<WordList> result = AccountApi.wordLists(token, skip, limit);
-	assertNotNull(result);
-	assertEquals(result.size(), limit);
+        System.out.println("wordLists");
+        int skip = 0;
+        int limit = 1;
+        List<WordList> result = AccountApi.wordLists(token, skip, limit);
+        assertNotNull(result);
+        assertEquals(result.size(), limit);
     }
 
 }

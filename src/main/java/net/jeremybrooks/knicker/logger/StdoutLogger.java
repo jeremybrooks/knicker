@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -27,7 +27,7 @@ import java.io.StringWriter;
  * By default, Knicker will not log anything. If you want to see Knicker log output
  * on stdout, call <code>KnickerLogger.setLogger(new StdoutLogger());</code>.
  * 
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class StdoutLogger implements LogInterface {
 

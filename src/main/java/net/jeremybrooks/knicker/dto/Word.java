@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents word data returned by a call to the Wordnik lookup API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class Word implements Serializable {
 
@@ -39,7 +39,7 @@ public class Word implements Serializable {
     private String originalWord;
 
     public Word() {
-	this.suggestions = new ArrayList<String>();
+        this.suggestions = new ArrayList<String>();
     }
 
 
@@ -47,15 +47,15 @@ public class Word implements Serializable {
      * @return the word
      */
     public String getWord() {
-	return word;
+        return word;
     }
 
 
     /**
-     * @param wordstring the word to set
+     * @param word the word to set
      */
     public void setWord(String word) {
-	this.word = word;
+        this.word = word;
     }
 
 
@@ -63,12 +63,12 @@ public class Word implements Serializable {
      * @return the suggestions
      */
     public List<String> getSuggestions() {
-	return suggestions;
+        return suggestions;
     }
 
 
     public void addSuggestion(String suggestion) {
-	this.suggestions.add(suggestion);
+        this.suggestions.add(suggestion);
     }
 
 
@@ -76,7 +76,7 @@ public class Word implements Serializable {
      * @return the canonicalForm
      */
     public String getCanonicalForm() {
-	return canonicalForm;
+        return canonicalForm;
     }
 
 
@@ -84,27 +84,27 @@ public class Word implements Serializable {
      * @param canonicalForm the canonicalForm to set
      */
     public void setCanonicalForm(String canonicalForm) {
-	this.canonicalForm = canonicalForm;
+        this.canonicalForm = canonicalForm;
     }
 
 
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(Word.class.getName());
-	sb.append(": [ word=").append(this.word).append(" | ");
-	sb.append("originalWord").append(this.originalWord).append(" | ");
-	sb.append("canonicalForm=").append(this.canonicalForm).append(" | ");
-	sb.append("suggestions=");
-	if (this.suggestions != null && this.suggestions.size() > 0) {
-	    for (String s : this.suggestions) {
-		sb.append(s).append(",");
-	    }
-	    sb.deleteCharAt(sb.length() - 1);
-	}
+        StringBuilder sb = new StringBuilder(Word.class.getName());
+        sb.append(": [ word=").append(this.word).append(" | ");
+        sb.append("originalWord").append(this.originalWord).append(" | ");
+        sb.append("canonicalForm=").append(this.canonicalForm).append(" | ");
+        sb.append("suggestions=");
+        if (this.suggestions != null && this.suggestions.size() > 0) {
+            for (String s : this.suggestions) {
+                sb.append(s).append(",");
+            }
+            sb.deleteCharAt(sb.length() - 1);
+        }
 
-	sb.append(" ]");
+        sb.append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 
 
@@ -112,7 +112,7 @@ public class Word implements Serializable {
      * @return the originalWord
      */
     public String getOriginalWord() {
-	return originalWord;
+        return originalWord;
     }
 
 
@@ -120,7 +120,7 @@ public class Word implements Serializable {
      * @param originalWord the originalWord to set
      */
     public void setOriginalWord(String originalWord) {
-	this.originalWord = originalWord;
+        this.originalWord = originalWord;
     }
 
 }

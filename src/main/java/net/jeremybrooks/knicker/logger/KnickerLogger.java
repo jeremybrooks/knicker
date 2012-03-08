@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -21,7 +21,7 @@ package net.jeremybrooks.knicker.logger;
 /**
  * Set and get the logger that Knicker will use.
  * 
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class KnickerLogger {
 

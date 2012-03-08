@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,7 +18,6 @@
 */
 package net.jeremybrooks.knicker.dto;
 
-// JAVA UTILITY
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +26,10 @@ import java.util.List;
 /**
  * Represents data returned by a call to the Wordnik word-of-the-day API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class WordOfTheDay implements Serializable {
-    
+
     private ContentProvider contentProvider;
     private List<Definition> definitions;
     private List<Example> examples;
@@ -38,47 +37,44 @@ public class WordOfTheDay implements Serializable {
     private String note;
     private String publishDate;
     private String word;
-    
-    
 
 
     public WordOfTheDay() {
-	definitions = new ArrayList<Definition>();
-	examples = new ArrayList<Example>();
+        definitions = new ArrayList<Definition>();
+        examples = new ArrayList<Example>();
     }
-
 
 
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
 
-	sb.append(": [ ");
-	sb.append("id=").append(this.getId()).append(" | ");
-	sb.append("publishDate=").append(this.publishDate).append(" | ");
-	sb.append("word=").append(this.word).append(" | ");
-	sb.append("note=").append(this.note).append(" | ");
-	sb.append("contentProvider=").append(this.contentProvider).append(" | ");
-	
-
-	sb.append("definitions=");
-	if (this.getDefinitions() != null) {
-	    for (Definition d : this.getDefinitions()) {
-		sb.append('<').append(d).append('>');
-	    }
-	}
-
-	sb.append("examples=");
-	if (this.getExamples() != null) {
-	    for (Example e : this.getExamples()) {
-		sb.append('<').append(e).append('>');
-	    }
-	}
+        sb.append(": [ ");
+        sb.append("id=").append(this.getId()).append(" | ");
+        sb.append("publishDate=").append(this.publishDate).append(" | ");
+        sb.append("word=").append(this.word).append(" | ");
+        sb.append("note=").append(this.note).append(" | ");
+        sb.append("contentProvider=").append(this.contentProvider).append(" | ");
 
 
-	sb.append(" ]");
-	
-	return sb.toString();
+        sb.append("definitions=");
+        if (this.getDefinitions() != null) {
+            for (Definition d : this.getDefinitions()) {
+                sb.append('<').append(d).append('>');
+            }
+        }
+
+        sb.append("examples=");
+        if (this.getExamples() != null) {
+            for (Example e : this.getExamples()) {
+                sb.append('<').append(e).append('>');
+            }
+        }
+
+
+        sb.append(" ]");
+
+        return sb.toString();
     }
 
 
@@ -86,7 +82,7 @@ public class WordOfTheDay implements Serializable {
      * @return the publishDate
      */
     public String getPublishDate() {
-	return publishDate;
+        return publishDate;
     }
 
 
@@ -94,7 +90,7 @@ public class WordOfTheDay implements Serializable {
      * @param publishDate the publishDate to set
      */
     public void setPublishDate(String publishDate) {
-	this.publishDate = publishDate;
+        this.publishDate = publishDate;
     }
 
 
@@ -102,7 +98,7 @@ public class WordOfTheDay implements Serializable {
      * @return the id
      */
     public String getId() {
-	return id;
+        return id;
     }
 
 
@@ -110,7 +106,7 @@ public class WordOfTheDay implements Serializable {
      * @param id the id to set
      */
     public void setId(String id) {
-	this.id = id;
+        this.id = id;
     }
 
 
@@ -118,7 +114,7 @@ public class WordOfTheDay implements Serializable {
      * @return the word
      */
     public String getWord() {
-	return word;
+        return word;
     }
 
 
@@ -126,7 +122,7 @@ public class WordOfTheDay implements Serializable {
      * @param word the word to set
      */
     public void setWord(String word) {
-	this.word = word;
+        this.word = word;
     }
 
 
@@ -134,7 +130,7 @@ public class WordOfTheDay implements Serializable {
      * @return the contentProvider
      */
     public ContentProvider getContentProvider() {
-	return contentProvider;
+        return contentProvider;
     }
 
 
@@ -142,7 +138,7 @@ public class WordOfTheDay implements Serializable {
      * @param contentProvider the contentProvider to set
      */
     public void setContentProvider(ContentProvider contentProvider) {
-	this.contentProvider = contentProvider;
+        this.contentProvider = contentProvider;
     }
 
 
@@ -150,7 +146,7 @@ public class WordOfTheDay implements Serializable {
      * @return the definitions
      */
     public List<Definition> getDefinitions() {
-	return definitions;
+        return definitions;
     }
 
 
@@ -158,7 +154,7 @@ public class WordOfTheDay implements Serializable {
      * @param definition the definition to add
      */
     public void addDefinition(Definition definition) {
-	this.definitions.add(definition);
+        this.definitions.add(definition);
     }
 
 
@@ -166,7 +162,7 @@ public class WordOfTheDay implements Serializable {
      * @return the examples
      */
     public List<Example> getExamples() {
-	return examples;
+        return examples;
     }
 
 
@@ -174,7 +170,7 @@ public class WordOfTheDay implements Serializable {
      * @param example the example to add
      */
     public void addExample(Example example) {
-	this.examples.add(example);
+        this.examples.add(example);
     }
 
 
@@ -182,7 +178,7 @@ public class WordOfTheDay implements Serializable {
      * @return the note
      */
     public String getNote() {
-	return note;
+        return note;
     }
 
 
@@ -190,6 +186,6 @@ public class WordOfTheDay implements Serializable {
      * @param note the note to set
      */
     public void setNote(String note) {
-	this.note = note;
+        this.note = note;
     }
 }

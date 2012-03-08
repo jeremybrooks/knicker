@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -22,7 +22,7 @@ package net.jeremybrooks.knicker;
 /**
  * Knicker encapsulates all errors in an instance of <code>KnickerException</code>.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class KnickerException extends java.lang.Exception {
 

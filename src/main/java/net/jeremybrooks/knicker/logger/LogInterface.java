@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -25,7 +25,7 @@ package net.jeremybrooks.knicker.logger;
  * you can implement this class and then tell Knicker what class to use for logging
  * by calling <code>KnickerLogger.setLogger(your class instance)</code>.
  * 
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public interface LogInterface {
 

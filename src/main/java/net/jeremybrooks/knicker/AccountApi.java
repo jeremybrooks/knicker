@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -19,20 +19,17 @@
 package net.jeremybrooks.knicker;
 
 
-// JAVA UTILITY
-import java.util.List;
-
-// KNICKER
 import net.jeremybrooks.knicker.dto.AuthenticationToken;
 import net.jeremybrooks.knicker.dto.TokenStatus;
 import net.jeremybrooks.knicker.dto.User;
 import net.jeremybrooks.knicker.dto.WordList;
 
+import java.util.List;
 
 /**
  * This is the class that should be used by programs that want to access the
  * Wordnik Account API.
- *
+ * <p/>
  * To use this, you must first register for a Wordnik API key. You can do that
  * here: http://api.wordnik.com/signup/. Once you have an API key, set it as a
  * system property, like this:
@@ -40,25 +37,21 @@ import net.jeremybrooks.knicker.dto.WordList;
  * Once you have set the WORDNIK_API_KEY, just call the methods in this class.
  * The methods are all public static. Most of the methods will return instances
  * of classes in the <code>net.jeremybrooks.knicker.dto</code> package.
- *
+ * <p/>
  * If there are errors, a <code>KnickerException</code> will be thrown.
  *
- * 
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class AccountApi extends Knicker {
 
-    
-    
-    
-    
+
     /**
      * Log in to Wordnik.
-     *
+     * <p/>
      * Certain methods — currently, user accounts and list-related CRUD
      * operations — are only available to you if you pass a valid
      * authentication token.
-     *
+     * <p/>
      * This method logs you in to Wordnik via the API and returns an instance of
      * <code>AuthenticationToken</code> which you can then use to make other
      * requests.
@@ -67,25 +60,25 @@ public class AccountApi extends Knicker {
      * @param password Wordnik password for the user.
      * @return authentication token for the user.
      * @throws KnickerException if the username or password is null, or if there
-     * are any errors.
+     *                          are any errors.
      */
     public static AuthenticationToken authenticate(String username, String password) throws KnickerException {
-	if (username == null || username.isEmpty()) {
-	    throw new KnickerException("You must specify a username.");
-	}
-	if (password == null || password.isEmpty()) {
-	    throw new KnickerException("You must specify a password.");
-	}
+        if (username == null || username.isEmpty()) {
+            throw new KnickerException("You must specify a username.");
+        }
+        if (password == null || password.isEmpty()) {
+            throw new KnickerException("You must specify a password.");
+        }
 
-	AuthenticationToken auth = null;
+        AuthenticationToken auth = null;
 
-	StringBuilder uri = new StringBuilder(ACCOUNT_ENDPOINT);
-	uri.append("/authenticate/").append(username);
-	uri.append("?password=").append(password);
+        StringBuilder uri = new StringBuilder(ACCOUNT_ENDPOINT);
+        uri.append("/authenticate/").append(username);
+        uri.append("?password=").append(password);
 
         auth = DTOBuilder.buildAuthenticationToken(Util.doGet(uri.toString()));
 
-	return auth;
+        return auth;
     }
 
 
@@ -97,16 +90,16 @@ public class AccountApi extends Knicker {
      * @throws KnickerException if there are any errors.
      */
     public static TokenStatus apiTokenStatus() throws KnickerException {
-	StringBuilder uri = new StringBuilder(ACCOUNT_ENDPOINT);
-	uri.append("/apiTokenStatus");
+        StringBuilder uri = new StringBuilder(ACCOUNT_ENDPOINT);
+        uri.append("/apiTokenStatus");
 
-	return DTOBuilder.buildTokenStatus(Util.doGet(uri.toString()));
+        return DTOBuilder.buildTokenStatus(Util.doGet(uri.toString()));
     }
 
 
     /**
      * Get information about the currently logged in user.
-     *
+     * <p/>
      * A valid auth token is required. The auth token can be obtained by calling
      * authenticate.
      *
@@ -115,20 +108,20 @@ public class AccountApi extends Knicker {
      * @throws KnickerException if the token is null or if there are any errors.
      */
     public static User user(AuthenticationToken token) throws KnickerException {
-	if (token == null) {
-	    throw new KnickerException("Authentication token required.");
-	}
+        if (token == null) {
+            throw new KnickerException("Authentication token required.");
+        }
 
-	StringBuilder uri = new StringBuilder(ACCOUNT_ENDPOINT);
-	uri.append("/user?auth_token=").append(token.getToken());
+        StringBuilder uri = new StringBuilder(ACCOUNT_ENDPOINT);
+        uri.append("/user?auth_token=").append(token.getToken());
 
-	return DTOBuilder.buildUser(Util.doGet(uri.toString()));
+        return DTOBuilder.buildUser(Util.doGet(uri.toString()));
     }
 
 
     /**
      * Fetch all of the authenticated user’s word lists.
-     *
+     * <p/>
      * This method requires a valid authentication token, which can be obtained
      * by calling the authenticate method.
      *
@@ -137,40 +130,40 @@ public class AccountApi extends Knicker {
      * @throws KnickerException if the token is null, or if there are any errors.
      */
     public static List<WordList> wordLists(AuthenticationToken token) throws KnickerException {
-	if (token == null) {
-	    throw new KnickerException("Authentication token required.");
-	}
+        if (token == null) {
+            throw new KnickerException("Authentication token required.");
+        }
 
-	StringBuilder uri = new StringBuilder(ACCOUNT_ENDPOINT);
-	uri.append("/wordLists?auth_token=").append(token.getToken());
+        StringBuilder uri = new StringBuilder(ACCOUNT_ENDPOINT);
+        uri.append("/wordLists?auth_token=").append(token.getToken());
 
-	return DTOBuilder.buildWordLists(Util.doGet(uri.toString(), token));
+        return DTOBuilder.buildWordLists(Util.doGet(uri.toString(), token));
     }
 
 
     /**
      * Fetch the authenticated user’s word lists.
-     *
+     * <p/>
      * This method requires a valid authentication token, which can be obtained
      * by calling the authenticate method.
      *
      * @param token authentication token.
-     * @param skip number of lists to skip.
+     * @param skip  number of lists to skip.
      * @param limit maximum number of results to return.
      * @return list of the user's word lists.
      * @throws KnickerException if the token is null, or if there are any errors.
      */
     public static List<WordList> wordLists(AuthenticationToken token, int skip, int limit) throws KnickerException {
-	if (token == null) {
-	    throw new KnickerException("Authentication token required.");
-	}
+        if (token == null) {
+            throw new KnickerException("Authentication token required.");
+        }
 
-	StringBuilder uri = new StringBuilder(ACCOUNT_ENDPOINT);
-	uri.append("/wordLists?auth_token=").append(token.getToken());
-	uri.append("&limit=").append(limit);
-	uri.append("&skip=").append(skip);
+        StringBuilder uri = new StringBuilder(ACCOUNT_ENDPOINT);
+        uri.append("/wordLists?auth_token=").append(token.getToken());
+        uri.append("&limit=").append(limit);
+        uri.append("&skip=").append(skip);
 
-	return DTOBuilder.buildWordLists(Util.doGet(uri.toString()));
+        return DTOBuilder.buildWordLists(Util.doGet(uri.toString()));
     }
 
 }

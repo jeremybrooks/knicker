@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -23,7 +23,7 @@ import java.io.Serializable;
 /**
  * Represents data returned by a call to the Wordnik authenticate API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class AuthenticationToken implements Serializable {
 
@@ -35,7 +35,7 @@ public class AuthenticationToken implements Serializable {
      * @return the token
      */
     public String getToken() {
-	return token;
+        return token;
     }
 
 
@@ -43,7 +43,7 @@ public class AuthenticationToken implements Serializable {
      * @param token the token to set
      */
     public void setToken(String token) {
-	this.token = token;
+        this.token = token;
     }
 
 
@@ -51,7 +51,7 @@ public class AuthenticationToken implements Serializable {
      * @return the userId
      */
     public String getUserId() {
-	return userId;
+        return userId;
     }
 
 
@@ -59,17 +59,17 @@ public class AuthenticationToken implements Serializable {
      * @param userId the userId to set
      */
     public void setUserId(String userId) {
-	this.userId = userId;
+        this.userId = userId;
     }
 
 
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
 
-	sb.append(": [ ").append("token=").append(this.token).append(" | ");
-	sb.append("userId=").append(this.userId).append(" ]");
+        sb.append(": [ ").append("token=").append(this.token).append(" | ");
+        sb.append("userId=").append(this.userId).append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,7 +18,7 @@
 */
 package net.jeremybrooks.knicker.dto;
 
-// JAVA UTILITY
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Represents data returned by a call to the Wordnik frequency API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class FrequencySummary implements Serializable {
 
@@ -40,9 +40,8 @@ public class FrequencySummary implements Serializable {
     private int unknownYearCount;
 
 
-
     public FrequencySummary() {
-	this.frequencies = new ArrayList<Frequency>();
+        this.frequencies = new ArrayList<Frequency>();
     }
 
 
@@ -50,7 +49,7 @@ public class FrequencySummary implements Serializable {
      * @return the frequencies
      */
     public List<Frequency> getFrequencies() {
-	return frequencies;
+        return frequencies;
     }
 
 
@@ -58,15 +57,15 @@ public class FrequencySummary implements Serializable {
      * @return the word
      */
     public String getWord() {
-	return word;
+        return word;
     }
 
 
     /**
-     * @param the word to set
+     * @param word the word to set
      */
     public void setWord(String word) {
-	this.word = word;
+        this.word = word;
     }
 
 
@@ -74,7 +73,7 @@ public class FrequencySummary implements Serializable {
      * @return the totalCount
      */
     public int getTotalCount() {
-	return totalCount;
+        return totalCount;
     }
 
 
@@ -82,7 +81,7 @@ public class FrequencySummary implements Serializable {
      * @param totalCount the totalCount to set
      */
     public void setTotalCount(int totalCount) {
-	this.totalCount = totalCount;
+        this.totalCount = totalCount;
     }
 
 
@@ -90,7 +89,7 @@ public class FrequencySummary implements Serializable {
      * @return the unknownYearCount
      */
     public int getUnknownYearCount() {
-	return unknownYearCount;
+        return unknownYearCount;
     }
 
 
@@ -98,36 +97,35 @@ public class FrequencySummary implements Serializable {
      * @param unknownYearCount the unknownYearCount to set
      */
     public void setUnknownYearCount(int unknownYearCount) {
-	this.unknownYearCount = unknownYearCount;
+        this.unknownYearCount = unknownYearCount;
     }
 
 
     public void addFrequency(int count, String year) {
-	Frequency frequency = new Frequency();
-	frequency.setCount(count);
-	frequency.setYear(year);
-	this.frequencies.add(frequency);
+        Frequency frequency = new Frequency();
+        frequency.setCount(count);
+        frequency.setYear(year);
+        this.frequencies.add(frequency);
     }
 
 
-    
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
 
-	sb.append(": [ word=").append(this.word).append(" | ");
-	sb.append("totalCount=").append(this.totalCount).append(" | ");
-	sb.append("unknownYearCount=").append(this.unknownYearCount).append(" | ");
-	sb.append("frequencies=");
-	if (this.frequencies != null) {
-	    for (Frequency f : this.frequencies) {
-		sb.append('<').append(f).append('>');
-	    }
-	}
+        sb.append(": [ word=").append(this.word).append(" | ");
+        sb.append("totalCount=").append(this.totalCount).append(" | ");
+        sb.append("unknownYearCount=").append(this.unknownYearCount).append(" | ");
+        sb.append("frequencies=");
+        if (this.frequencies != null) {
+            for (Frequency f : this.frequencies) {
+                sb.append('<').append(f).append('>');
+            }
+        }
 
-	sb.append(" ]");
+        sb.append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 
 
@@ -136,51 +134,51 @@ public class FrequencySummary implements Serializable {
      */
     public class Frequency {
 
-	private int count;
+        private int count;
 
-	private String year;
-
-
-	/**
-	 * @return the count
-	 */
-	public int getCount() {
-	    return count;
-	}
+        private String year;
 
 
-	/**
-	 * @param count the count to set
-	 */
-	public void setCount(int count) {
-	    this.count = count;
-	}
+        /**
+         * @return the count
+         */
+        public int getCount() {
+            return count;
+        }
 
 
-	/**
-	 * @return the year
-	 */
-	public String getYear() {
-	    return year;
-	}
+        /**
+         * @param count the count to set
+         */
+        public void setCount(int count) {
+            this.count = count;
+        }
 
 
-	/**
-	 * @param year the year to set
-	 */
-	public void setYear(String year) {
-	    this.year = year;
-	}
+        /**
+         * @return the year
+         */
+        public String getYear() {
+            return year;
+        }
 
 
-	@Override
-	public String toString() {
-	    StringBuilder sb = new StringBuilder(this.getClass().getName());
-	    sb.append(": [ count=").append(this.count).append(" | ");
-	    sb.append("year=").append(this.year).append(" ]");
+        /**
+         * @param year the year to set
+         */
+        public void setYear(String year) {
+            this.year = year;
+        }
 
-	    return sb.toString();
-	}
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder(this.getClass().getName());
+            sb.append(": [ count=").append(this.count).append(" | ");
+            sb.append("year=").append(this.year).append(" ]");
+
+            return sb.toString();
+        }
 
     }
 }

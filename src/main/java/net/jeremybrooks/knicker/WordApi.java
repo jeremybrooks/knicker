@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -19,33 +19,31 @@
 package net.jeremybrooks.knicker;
 
 // JAVA I/O
-import java.io.BufferedInputStream;
-
-// JAVA UTILITY
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Set;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-// JAVA XML
-
-// KNICKER
 import net.jeremybrooks.knicker.dto.AudioFileMetadata;
-import net.jeremybrooks.knicker.dto.Phrase;
 import net.jeremybrooks.knicker.dto.Definition;
 import net.jeremybrooks.knicker.dto.Example;
 import net.jeremybrooks.knicker.dto.FrequencySummary;
+import net.jeremybrooks.knicker.dto.Phrase;
 import net.jeremybrooks.knicker.dto.Pronunciation;
 import net.jeremybrooks.knicker.dto.Related;
 import net.jeremybrooks.knicker.dto.SearchResults;
 import net.jeremybrooks.knicker.dto.Syllable;
 import net.jeremybrooks.knicker.dto.Word;
-
-// XML
 import net.jeremybrooks.knicker.logger.KnickerLogger;
 import org.w3c.dom.Document;
+
+import java.io.BufferedInputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+// JAVA UTILITY
+// JAVA XML
+// KNICKER
+// XML
 
 
 /**
@@ -62,7 +60,7 @@ import org.w3c.dom.Document;
  *
  * If there are errors, a <code>KnickerException</code> will be thrown.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class WordApi extends Knicker {
 
@@ -341,7 +339,7 @@ public class WordApi extends Knicker {
     /**
      * See how often particular words occur in Wordnik corpus, ordered by year.
      *
-     * @see http://docs.wordnik.com/api/methods#freq
+     * @see <a href="http://docs.wordnik.com/api/methods#freq">Wordnik documentation</a>
      * @param word the word to fetch frequency data for.
      * @param useCanonical if true, allow the API to select the canonical form of the word.
      * @param startYear starting year. If < 1, the parameter is ignored.
@@ -526,7 +524,7 @@ public class WordApi extends Knicker {
     /**
      * Fetch interesting bi-gram phrases containing your word.
      *
-     * @see http://docs.wordnik.com/api/methods#phrases
+     * @see <a ref="http://docs.wordnik.com/api/methods#phrases">Wordnik documentation</a>
      * @param word the word to look up.
      * @param limit Limit the number of results returned. If this parameter is
      *        < 1, it will be ignored.

@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,37 +18,41 @@
 */
 package net.jeremybrooks.knicker;
 
-import net.jeremybrooks.knicker.dto.Example;
-import net.jeremybrooks.knicker.dto.SearchResults;
-import net.jeremybrooks.knicker.dto.Definition;
-import net.jeremybrooks.knicker.dto.Phrase;
-import net.jeremybrooks.knicker.dto.Pronunciation;
-import net.jeremybrooks.knicker.dto.Related;
-import net.jeremybrooks.knicker.dto.Syllable;
-import net.jeremybrooks.knicker.logger.StdoutLogger;
-import net.jeremybrooks.knicker.logger.KnickerLogger;
-import java.io.InputStream;
-import java.util.Properties;
-import net.jeremybrooks.knicker.dto.AuthenticationToken;
-import java.util.EnumSet;
-import java.util.List;
 import net.jeremybrooks.knicker.Knicker.PartOfSpeech;
 import net.jeremybrooks.knicker.Knicker.RelationshipType;
 import net.jeremybrooks.knicker.Knicker.SourceDictionary;
 import net.jeremybrooks.knicker.Knicker.TypeFormat;
 import net.jeremybrooks.knicker.dto.AudioFileMetadata;
+import net.jeremybrooks.knicker.dto.AuthenticationToken;
+import net.jeremybrooks.knicker.dto.Definition;
+import net.jeremybrooks.knicker.dto.Example;
 import net.jeremybrooks.knicker.dto.FrequencySummary;
+import net.jeremybrooks.knicker.dto.Phrase;
+import net.jeremybrooks.knicker.dto.Pronunciation;
+import net.jeremybrooks.knicker.dto.Related;
+import net.jeremybrooks.knicker.dto.SearchResults;
+import net.jeremybrooks.knicker.dto.Syllable;
 import net.jeremybrooks.knicker.dto.Word;
+import net.jeremybrooks.knicker.logger.KnickerLogger;
+import net.jeremybrooks.knicker.logger.StdoutLogger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import java.io.InputStream;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Properties;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class WordApiTest {
 
@@ -62,7 +66,7 @@ public class WordApiTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
 	Properties p = new Properties();
-	InputStream in = WordApiTest.class.getResourceAsStream("/net/jeremybrooks/knicker/secret.properties");
+	InputStream in = WordApiTest.class.getResourceAsStream("/secret.properties");
 	p.load(in);
 
 	System.setProperty("WORDNIK_API_KEY", p.getProperty("WORDNIK_API_KEY"));
@@ -196,6 +200,7 @@ public class WordApiTest {
 	assertNotNull(result);
 	assertTrue(result.size() > 0);
 	for (Definition d : result) {
+        assertNotNull(d.getAttributionText());
 	    System.out.println(d.toString());
 	}
     }

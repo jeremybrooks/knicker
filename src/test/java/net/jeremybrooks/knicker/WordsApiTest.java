@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -19,29 +19,33 @@
 
 package net.jeremybrooks.knicker;
 
-import java.io.InputStream;
-import java.util.Properties;
-import net.jeremybrooks.knicker.dto.AuthenticationToken;
-import net.jeremybrooks.knicker.dto.SearchResults;
-import net.jeremybrooks.knicker.logger.KnickerLogger;
-import net.jeremybrooks.knicker.logger.StdoutLogger;
-import java.util.EnumSet;
-import java.util.List;
 import net.jeremybrooks.knicker.Knicker.PartOfSpeech;
 import net.jeremybrooks.knicker.Knicker.SortBy;
 import net.jeremybrooks.knicker.Knicker.SortDirection;
+import net.jeremybrooks.knicker.dto.AuthenticationToken;
+import net.jeremybrooks.knicker.dto.SearchResults;
 import net.jeremybrooks.knicker.dto.Word;
 import net.jeremybrooks.knicker.dto.WordOfTheDay;
+import net.jeremybrooks.knicker.logger.KnickerLogger;
+import net.jeremybrooks.knicker.logger.StdoutLogger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import java.io.InputStream;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Properties;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class WordsApiTest {
 
@@ -56,7 +60,7 @@ public class WordsApiTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
 	Properties p = new Properties();
-	InputStream in = WordsApiTest.class.getResourceAsStream("/net/jeremybrooks/knicker/secret.properties");
+	InputStream in = WordsApiTest.class.getResourceAsStream("/secret.properties");
 	p.load(in);
 
 	System.setProperty("WORDNIK_API_KEY", p.getProperty("WORDNIK_API_KEY"));

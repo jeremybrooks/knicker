@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,16 +18,17 @@
 */
 package net.jeremybrooks.knicker.dto;
 
-import java.io.Serializable;
 import net.jeremybrooks.knicker.Knicker;
+
+import java.io.Serializable;
 
 /**
  * Represents data returned by a call to the Wordnik getLists API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class WordList implements Serializable {
-    
+
     private String createdAt;
     private String description;
     private String id;
@@ -44,7 +45,7 @@ public class WordList implements Serializable {
      * @return the createdAt
      */
     public String getCreatedAt() {
-	return createdAt;
+        return createdAt;
     }
 
 
@@ -52,7 +53,7 @@ public class WordList implements Serializable {
      * @param createdAt the createdAt to set
      */
     public void setCreatedAt(String createdAt) {
-	this.createdAt = createdAt;
+        this.createdAt = createdAt;
     }
 
 
@@ -60,7 +61,7 @@ public class WordList implements Serializable {
      * @return the description
      */
     public String getDescription() {
-	return description;
+        return description;
     }
 
 
@@ -68,7 +69,7 @@ public class WordList implements Serializable {
      * @param description the description to set
      */
     public void setDescription(String description) {
-	this.description = description;
+        this.description = description;
     }
 
 
@@ -76,7 +77,7 @@ public class WordList implements Serializable {
      * @return the id
      */
     public String getId() {
-	return id;
+        return id;
     }
 
 
@@ -84,7 +85,7 @@ public class WordList implements Serializable {
      * @param id the id to set
      */
     public void setId(String id) {
-	this.id = id;
+        this.id = id;
     }
 
 
@@ -92,7 +93,7 @@ public class WordList implements Serializable {
      * @return the name
      */
     public String getName() {
-	return name;
+        return name;
     }
 
 
@@ -100,7 +101,7 @@ public class WordList implements Serializable {
      * @param name the name to set
      */
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
 
 
@@ -108,7 +109,7 @@ public class WordList implements Serializable {
      * @return the numberWordsInList
      */
     public int getNumberWordsInList() {
-	return numberWordsInList;
+        return numberWordsInList;
     }
 
 
@@ -116,7 +117,7 @@ public class WordList implements Serializable {
      * @param numberWordsInList the numberWordsInList to set
      */
     public void setNumberWordsInList(int numberWordsInList) {
-	this.numberWordsInList = numberWordsInList;
+        this.numberWordsInList = numberWordsInList;
     }
 
 
@@ -124,15 +125,15 @@ public class WordList implements Serializable {
      * @return the permalinkId
      */
     public String getPermalink() {
-	return permalink;
+        return permalink;
     }
 
 
     /**
-     * @param permalinkId the permalinkId to set
+     * @param permalink the permalinkId to set
      */
     public void setPermalink(String permalink) {
-	this.permalink = permalink;
+        this.permalink = permalink;
     }
 
 
@@ -140,7 +141,7 @@ public class WordList implements Serializable {
      * @return the type
      */
     public Knicker.ListType getType() {
-	return type;
+        return type;
     }
 
 
@@ -148,7 +149,7 @@ public class WordList implements Serializable {
      * @param type the type to set
      */
     public void setType(Knicker.ListType type) {
-	this.type = type;
+        this.type = type;
     }
 
 
@@ -156,7 +157,7 @@ public class WordList implements Serializable {
      * @return the updatedAt
      */
     public String getUpdatedAt() {
-	return updatedAt;
+        return updatedAt;
     }
 
 
@@ -164,7 +165,7 @@ public class WordList implements Serializable {
      * @param updatedAt the updatedAt to set
      */
     public void setUpdatedAt(String updatedAt) {
-	this.updatedAt = updatedAt;
+        this.updatedAt = updatedAt;
     }
 
 
@@ -172,7 +173,7 @@ public class WordList implements Serializable {
      * @return the userId
      */
     public String getUserId() {
-	return userId;
+        return userId;
     }
 
 
@@ -180,7 +181,7 @@ public class WordList implements Serializable {
      * @param userId the userId to set
      */
     public void setUserId(String userId) {
-	this.userId = userId;
+        this.userId = userId;
     }
 
 
@@ -188,35 +189,35 @@ public class WordList implements Serializable {
      * @return the userName
      */
     public String getUsername() {
-	return username;
+        return username;
     }
 
 
     /**
-     * @param userName the userName to set
+     * @param username the userName to set
      */
     public void setUsername(String username) {
-	this.username = username;
+        this.username = username;
     }
 
-    
+
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
 
-	sb.append(": [ ");
-	sb.append("createdAt=").append(this.createdAt).append(" | ");
-	sb.append("description=").append(this.description).append(" | ");
-	sb.append("id=").append(this.id).append(" | ");
-	sb.append("name=").append(this.name).append(" | ");
-	sb.append("numberWordsInList=").append(this.numberWordsInList).append(" | ");
-	sb.append("permalink=").append(this.permalink).append(" | ");
-	sb.append("type=").append(this.type).append(" | ");
-	sb.append("updatedAt=").append(this.updatedAt).append(" | ");
-	sb.append("userId=").append(this.userId).append(" | ");
-	sb.append("username=").append(this.username);
-	sb.append(" ]");
+        sb.append(": [ ");
+        sb.append("createdAt=").append(this.createdAt).append(" | ");
+        sb.append("description=").append(this.description).append(" | ");
+        sb.append("id=").append(this.id).append(" | ");
+        sb.append("name=").append(this.name).append(" | ");
+        sb.append("numberWordsInList=").append(this.numberWordsInList).append(" | ");
+        sb.append("permalink=").append(this.permalink).append(" | ");
+        sb.append("type=").append(this.type).append(" | ");
+        sb.append("updatedAt=").append(this.updatedAt).append(" | ");
+        sb.append("userId=").append(this.userId).append(" | ");
+        sb.append("username=").append(this.username);
+        sb.append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 }

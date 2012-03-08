@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -24,7 +24,7 @@ import java.io.Serializable;
 /**
  * Represents data returned by a call to the Wordnik examples API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class Example implements Serializable {
 
@@ -42,7 +42,7 @@ public class Example implements Serializable {
      * @return the documentId
      */
     public String getDocumentId() {
-	return documentId;
+        return documentId;
     }
 
 
@@ -50,7 +50,7 @@ public class Example implements Serializable {
      * @param documentId the documentId to set
      */
     public void setDocumentId(String documentId) {
-	this.documentId = documentId;
+        this.documentId = documentId;
     }
 
 
@@ -58,7 +58,7 @@ public class Example implements Serializable {
      * @return the exampleId
      */
     public String getExampleId() {
-	return exampleId;
+        return exampleId;
     }
 
 
@@ -66,14 +66,14 @@ public class Example implements Serializable {
      * @param exampleId the exampleId to set
      */
     public void setExampleId(String exampleId) {
-	this.exampleId = exampleId;
+        this.exampleId = exampleId;
     }
 
     /**
      * @return the rating
      */
     public String getRating() {
-	return rating;
+        return rating;
     }
 
 
@@ -81,7 +81,7 @@ public class Example implements Serializable {
      * @param rating the rating to set
      */
     public void setRating(String rating) {
-	this.rating = rating;
+        this.rating = rating;
     }
 
 
@@ -89,7 +89,7 @@ public class Example implements Serializable {
      * @return the title
      */
     public String getTitle() {
-	return title;
+        return title;
     }
 
 
@@ -97,7 +97,7 @@ public class Example implements Serializable {
      * @param title the title to set
      */
     public void setTitle(String title) {
-	this.title = title;
+        this.title = title;
     }
 
 
@@ -105,7 +105,7 @@ public class Example implements Serializable {
      * @return the url
      */
     public String getUrl() {
-	return url;
+        return url;
     }
 
 
@@ -113,7 +113,7 @@ public class Example implements Serializable {
      * @param url the url to set
      */
     public void setUrl(String url) {
-	this.url = url;
+        this.url = url;
     }
 
 
@@ -121,15 +121,15 @@ public class Example implements Serializable {
      * @return the text
      */
     public String getText() {
-	return text;
+        return text;
     }
 
 
     /**
-     * @param wordstring the text to set
+     * @param text the text to set
      */
     public void setText(String text) {
-	this.text = text;
+        this.text = text;
     }
 
 
@@ -137,7 +137,7 @@ public class Example implements Serializable {
      * @return the year
      */
     public String getYear() {
-	return year;
+        return year;
     }
 
 
@@ -145,7 +145,7 @@ public class Example implements Serializable {
      * @param year the year to set
      */
     public void setYear(String year) {
-	this.year = year;
+        this.year = year;
     }
 
 
@@ -153,7 +153,7 @@ public class Example implements Serializable {
      * @return the word
      */
     public String getWord() {
-	return word;
+        return word;
     }
 
 
@@ -161,16 +161,15 @@ public class Example implements Serializable {
      * @param word the word to set
      */
     public void setWord(String word) {
-	this.word = word;
+        this.word = word;
     }
-
 
 
     /**
      * @return the provider
      */
     public Provider getProvider() {
-	return provider;
+        return provider;
     }
 
 
@@ -178,35 +177,35 @@ public class Example implements Serializable {
      * @param provider the provider to set
      */
     public void setProvider(Provider provider) {
-	this.provider = provider;
+        this.provider = provider;
     }
 
 
     /**
      * Return a human readable representation of this class.
-     * 
+     *
      * @return representation of this class.
      */
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
 
-	sb.append(": [ documentId=").append(this.documentId).append(" | ");
-	sb.append("exampleId=").append(this.getExampleId()).append(" | ");
-	sb.append("word=").append(this.getWord()).append(" | ");
-	sb.append("rating=").append(this.rating).append(" | ");
-	sb.append("title=").append(this.title).append(" | ");
-	sb.append("url=").append(this.url).append(" | ");
-	sb.append("text=").append(this.text).append(" | ");
-	sb.append("year=").append(this.year).append(" | ");
-	sb.append("provider=");
-	if (getProvider() != null) {
-	    sb.append(this.getProvider().toString());
-	} else {
-	    sb.append("null");
-	}
+        sb.append(": [ documentId=").append(this.documentId).append(" | ");
+        sb.append("exampleId=").append(this.getExampleId()).append(" | ");
+        sb.append("word=").append(this.getWord()).append(" | ");
+        sb.append("rating=").append(this.rating).append(" | ");
+        sb.append("title=").append(this.title).append(" | ");
+        sb.append("url=").append(this.url).append(" | ");
+        sb.append("text=").append(this.text).append(" | ");
+        sb.append("year=").append(this.year).append(" | ");
+        sb.append("provider=");
+        if (getProvider() != null) {
+            sb.append(this.getProvider().toString());
+        } else {
+            sb.append("null");
+        }
 
-	sb.append(" ]");
-	return sb.toString();
+        sb.append(" ]");
+        return sb.toString();
     }
 }

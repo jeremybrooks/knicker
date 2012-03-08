@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,44 +18,35 @@
  */
 package net.jeremybrooks.knicker;
 
-// JAVA I/O
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
-// JAVA NETWORK
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-
-// JAVA UTILITY
-import java.util.Map;
-
-// JAVA XML
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPathFactory;
-
-// KNICKER
 import net.jeremybrooks.knicker.dto.AuthenticationToken;
-
-// XML
 import net.jeremybrooks.knicker.logger.KnickerLogger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPathFactory;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.Map;
+
 
 /**
  * This class contains utility methods used by other Knicker classes.
- *
+ * <p/>
  * There are methods to do HTTP GET, POST, and DELETE requests, and methods to
  * work with xml document objects.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class Util {
 
@@ -63,8 +54,8 @@ public class Util {
      * Create instances of the factory objects used by this class.
      */
     static {
-	documentBuilderFactory = DocumentBuilderFactory.newInstance();
-	xPathFactory = XPathFactory.newInstance();
+        documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        xPathFactory = XPathFactory.newInstance();
     }
 
     /* Instance of the document builder factory. */
@@ -84,306 +75,306 @@ public class Util {
      * @throws KnickerException if the uri is invalid, or if there are any errors.
      */
     static Document doGet(String uri) throws KnickerException {
-	return doGet(uri, null);
+        return doGet(uri, null);
     }
 
 
     /**
      * Call the URI using an HTTP GET request, returning the response as an xml
      * Document instance.
-     *
+     * <p/>
      * This method accepts an AuthenticationToken, and will set the request
      * header parameter 'auth_token' with the token. If the token is null,
      * the header parameter will not be set.
      *
-     * @param uri the URI to call.
+     * @param uri   the URI to call.
      * @param token the authentication token.
      * @return server response as a Document instance, or null if the server
      *         did not return anything.
      * @throws KnickerException if the uri is invalid, or if there are any errors.
      */
     static Document doGet(String uri, AuthenticationToken token) throws KnickerException {
-	if (uri == null || uri.trim().isEmpty()) {
-	    throw new KnickerException("Parameter uri cannot be null or empty.");
-	}
-	if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
-	    throw new KnickerException("Parameter uri must start with http:// or https://");
-	}
+        if (uri == null || uri.trim().isEmpty()) {
+            throw new KnickerException("Parameter uri cannot be null or empty.");
+        }
+        if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
+            throw new KnickerException("Parameter uri must start with http:// or https://");
+        }
 
-	KnickerLogger.getLogger().log("GET URL: '" + uri + "'");
+        KnickerLogger.getLogger().log("GET URL: '" + uri + "'");
 
-	BufferedReader rd = null;
-	String result = null;
-	// Send a GET request to the server
-	try {
+        BufferedReader rd = null;
+        String result = null;
+        // Send a GET request to the server
+        try {
+            System.out.println(uri);
+            URL url = new URL(uri);
+            URLConnection conn = url.openConnection();
+            conn.setConnectTimeout(getConnTimeout());
+            conn.setReadTimeout(getReadTimeout());
 
-	    URL url = new URL(uri);
-	    URLConnection conn = url.openConnection();
-	    conn.setConnectTimeout(getConnTimeout());
-	    conn.setReadTimeout(getReadTimeout());
+            // api key
+            conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
 
-	    // api key
-	    conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
+            // auth header
+            if (token != null) {
+                conn.addRequestProperty("auth_token", token.getToken());
+            }
 
-	    // auth header
-	    if (token != null) {
-		conn.addRequestProperty("auth_token", token.getToken());
-	    }
+            // Get the response
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            KnickerLogger.getLogger().log("----------RESPONSE START----------");
+            while ((line = rd.readLine()) != null) {
+                sb.append(line);
+                KnickerLogger.getLogger().log(line);
+            }
+            KnickerLogger.getLogger().log("----------RESPONSE END----------");
+            rd.close();
+            result = sb.toString();
 
-	    // Get the response
-	    rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-	    StringBuilder sb = new StringBuilder();
-	    String line;
-	    KnickerLogger.getLogger().log("----------RESPONSE START----------");
-	    while ((line = rd.readLine()) != null) {
-		sb.append(line);
-		KnickerLogger.getLogger().log(line);
-	    }
-	    KnickerLogger.getLogger().log("----------RESPONSE END----------");
-	    rd.close();
-	    result = sb.toString();
+        } catch (Exception e) {
+            throw new KnickerException("Error getting a response from the server.", e);
+        } finally {
+            if (rd != null) {
+                try {
+                    rd.close();
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
+        }
 
-	} catch (Exception e) {
-	    throw new KnickerException("Error getting a response from the server.", e);
-	} finally {
-	    if (rd != null) {
-		try {
-		    rd.close();
-		} catch (Exception e) {
-		    // ignore
-		}
-	    }
-	}
-
-	return getDocument(result);
+        return getDocument(result);
     }
 
 
     /**
      * Call the URI using an HTTP POST request, returning the response as an xml
      * Document instance.
-     *
+     * <p/>
      * This method accepts an AuthenticationToken, and will set the request
      * header parameter 'auth_token' with the token. If the token is null,
      * the header parameter will not be set.
      *
-     * @param uri the URI to call.
-     * @param data the data for the POST operation.
+     * @param uri   the URI to call.
+     * @param data  the data for the POST operation.
      * @param token authentication token instance to use for the call.
      * @return server response as a Document instance, or null if the server
      *         did not return any data.
      * @throws KnickerException if the uri is invalid, or if there are any errors.
      */
     static Document doPost(String uri, String data, AuthenticationToken token) throws KnickerException {
-	if (uri == null || uri.trim().isEmpty()) {
-	    throw new KnickerException("Parameter uri cannot be null or empty.");
-	}
-	if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
-	    throw new KnickerException("Parameter uri must start with http:// or https://");
-	}
+        if (uri == null || uri.trim().isEmpty()) {
+            throw new KnickerException("Parameter uri cannot be null or empty.");
+        }
+        if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
+            throw new KnickerException("Parameter uri must start with http:// or https://");
+        }
 
-	DataOutputStream out = null;
-	BufferedReader in = null;
-	StringBuilder sb = new StringBuilder();
+        DataOutputStream out = null;
+        BufferedReader in = null;
+        StringBuilder sb = new StringBuilder();
 
-	KnickerLogger.getLogger().log("POST URL: '" + uri + "'");
+        KnickerLogger.getLogger().log("POST URL: '" + uri + "'");
 
-	try {
-	    // Send data
-	    URL url = new URL(uri);
-	    URLConnection conn = url.openConnection();
-	    conn.setDoInput(true);
-	    conn.setDoOutput(true);
-	    conn.setUseCaches(false);
-	    conn.setConnectTimeout(getConnTimeout());
-	    conn.setReadTimeout(getReadTimeout());
-	    ((HttpURLConnection) conn).setRequestMethod("POST");
+        try {
+            // Send data
+            URL url = new URL(uri);
+            URLConnection conn = url.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setUseCaches(false);
+            conn.setConnectTimeout(getConnTimeout());
+            conn.setReadTimeout(getReadTimeout());
+            ((HttpURLConnection) conn).setRequestMethod("POST");
 
-	    // api key
-	    conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
-	    KnickerLogger.getLogger().log("added header 'api_key', " + System.getProperty("WORDNIK_API_KEY"));
-	    // auth header
-	    if (token != null) {
-		conn.addRequestProperty("auth_token", token.getToken());
-		KnickerLogger.getLogger().log("added header 'auth_token', " + token.getToken());
-	    }
-	    conn.addRequestProperty("Content-Type", "text/xml");
+            // api key
+            conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
+            KnickerLogger.getLogger().log("added header 'api_key', " + System.getProperty("WORDNIK_API_KEY"));
+            // auth header
+            if (token != null) {
+                conn.addRequestProperty("auth_token", token.getToken());
+                KnickerLogger.getLogger().log("added header 'auth_token', " + token.getToken());
+            }
+            conn.addRequestProperty("Content-Type", "text/xml");
 
 
-	    out = new DataOutputStream(conn.getOutputStream());
-	    KnickerLogger.getLogger().log("----------POST DATA START----------");
-	    KnickerLogger.getLogger().log(data);
-	    KnickerLogger.getLogger().log("----------POST DATA END----------");
-	    out.writeBytes(data);
-	    out.flush();
+            out = new DataOutputStream(conn.getOutputStream());
+            KnickerLogger.getLogger().log("----------POST DATA START----------");
+            KnickerLogger.getLogger().log(data);
+            KnickerLogger.getLogger().log("----------POST DATA END----------");
+            out.writeBytes(data);
+            out.flush();
 
-	    // Get the response
-	    in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-	    String line;
-	    KnickerLogger.getLogger().log("----------RESPONSE START----------");
-	    while ((line = in.readLine()) != null) {
-		sb.append(line);
-		KnickerLogger.getLogger().log(line);
-	    }
-	    KnickerLogger.getLogger().log("----------RESPONSE END----------");
+            // Get the response
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            KnickerLogger.getLogger().log("----------RESPONSE START----------");
+            while ((line = in.readLine()) != null) {
+                sb.append(line);
+                KnickerLogger.getLogger().log(line);
+            }
+            KnickerLogger.getLogger().log("----------RESPONSE END----------");
 
-	} catch (Exception e) {
-	    throw new KnickerException("Error while performing HTTP POST operation.", e);
-	} finally {
-	    try {
-		if (out != null) {
-		    out.close();
-		}
-	    } catch (Exception e) {
-		// ignore
-	    } finally {
-		try {
-		    if (in != null) {
-			in.close();
-		    }
-		} catch (Exception e) {
-		    // ignore
-		}
-	    }
-	}
+        } catch (Exception e) {
+            throw new KnickerException("Error while performing HTTP POST operation.", e);
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (Exception e) {
+                // ignore
+            } finally {
+                try {
+                    if (in != null) {
+                        in.close();
+                    }
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
+        }
 
-	return getDocument(sb.toString());
+        return getDocument(sb.toString());
     }
 
 
     /**
      * Perform an HTTP DELETE request.
-     *
+     * <p/>
      * Note: The Wordnik API methods that require a DELETE operation do not
-     *       return data.
+     * return data.
      *
-     * @param uri the URI to call.
+     * @param uri   the URI to call.
      * @param token authentication token.
      * @throws KnickerException if the uri is invalid, or if there are any errors.
      */
     static void doDelete(String uri, AuthenticationToken token) throws KnickerException {
-	if (uri == null || uri.trim().isEmpty()) {
-	    throw new KnickerException("Parameter uri cannot be null or empty.");
-	}
-	if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
-	    throw new KnickerException("Parameter uri must start with http:// or https://");
-	}
+        if (uri == null || uri.trim().isEmpty()) {
+            throw new KnickerException("Parameter uri cannot be null or empty.");
+        }
+        if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
+            throw new KnickerException("Parameter uri must start with http:// or https://");
+        }
 
-	BufferedReader in = null;
+        BufferedReader in = null;
 
-	KnickerLogger.getLogger().log("DELETE URL: '" + uri + "'");
+        KnickerLogger.getLogger().log("DELETE URL: '" + uri + "'");
 
 
-	try {
-	    // Send data
-	    URL url = new URL(uri);
-	    URLConnection conn = url.openConnection();
-	    conn.setDoInput(true);
-	    conn.setDoOutput(true);
-	    conn.setUseCaches(false);
-	    conn.setConnectTimeout(getConnTimeout());
-	    conn.setReadTimeout(getReadTimeout());
-	    ((HttpURLConnection) conn).setRequestMethod("DELETE");
+        try {
+            // Send data
+            URL url = new URL(uri);
+            URLConnection conn = url.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setUseCaches(false);
+            conn.setConnectTimeout(getConnTimeout());
+            conn.setReadTimeout(getReadTimeout());
+            ((HttpURLConnection) conn).setRequestMethod("DELETE");
 
-	    // api key
-	    conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
-	    KnickerLogger.getLogger().log("added header 'api_key', " + System.getProperty("WORDNIK_API_KEY"));
-	    // auth header
-	    if (token != null) {
-		conn.addRequestProperty("auth_token", token.getToken());
-		KnickerLogger.getLogger().log("added header 'auth_token', " + token.getToken());
-	    }
-	    conn.addRequestProperty("Content-Type", "text/xml");
+            // api key
+            conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
+            KnickerLogger.getLogger().log("added header 'api_key', " + System.getProperty("WORDNIK_API_KEY"));
+            // auth header
+            if (token != null) {
+                conn.addRequestProperty("auth_token", token.getToken());
+                KnickerLogger.getLogger().log("added header 'auth_token', " + token.getToken());
+            }
+            conn.addRequestProperty("Content-Type", "text/xml");
 
-	    // Get the response
-	    in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            // Get the response
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-	} catch (Exception e) {
-	    throw new KnickerException("Error while performing HTTP DELETE operation.", e);
-	} finally {
-	    try {
-		if (in != null) {
-		    in.close();
-		}
-	    } catch (Exception e) {
-		// ignore
-	    }
-	}
+        } catch (Exception e) {
+            throw new KnickerException("Error while performing HTTP DELETE operation.", e);
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (Exception e) {
+                // ignore
+            }
+        }
     }
 
 
     static void doPut(String uri, String data, AuthenticationToken token) throws KnickerException {
-	if (uri == null || uri.trim().isEmpty()) {
-	    throw new KnickerException("Parameter uri cannot be null or empty.");
-	}
-	if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
-	    throw new KnickerException("Parameter uri must start with http:// or https://");
-	}
+        if (uri == null || uri.trim().isEmpty()) {
+            throw new KnickerException("Parameter uri cannot be null or empty.");
+        }
+        if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
+            throw new KnickerException("Parameter uri must start with http:// or https://");
+        }
 
-	DataOutputStream out = null;
-	BufferedReader in = null;
+        DataOutputStream out = null;
+        BufferedReader in = null;
 
-	KnickerLogger.getLogger().log("PUT URL: '" + uri + "'");
+        KnickerLogger.getLogger().log("PUT URL: '" + uri + "'");
 
 
-	try {
-	    // Send data
-	    URL url = new URL(uri);
-	    URLConnection conn = url.openConnection();
-	    conn.setDoInput(true);
-	    conn.setDoOutput(true);
-	    conn.setUseCaches(false);
-	    conn.setConnectTimeout(getConnTimeout());
-	    conn.setReadTimeout(getReadTimeout());
-	    ((HttpURLConnection) conn).setRequestMethod("PUT");
+        try {
+            // Send data
+            URL url = new URL(uri);
+            URLConnection conn = url.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setUseCaches(false);
+            conn.setConnectTimeout(getConnTimeout());
+            conn.setReadTimeout(getReadTimeout());
+            ((HttpURLConnection) conn).setRequestMethod("PUT");
 
-	    // api key
-	    conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
-	    KnickerLogger.getLogger().log("added header 'api_key', " + System.getProperty("WORDNIK_API_KEY"));
-	    // auth header
-	    if (token != null) {
-		conn.addRequestProperty("auth_token", token.getToken());
-		KnickerLogger.getLogger().log("added header 'auth_token', " + token.getToken());
-	    }
-	    conn.addRequestProperty("Content-Type", "text/xml");
+            // api key
+            conn.addRequestProperty("api_key", System.getProperty("WORDNIK_API_KEY"));
+            KnickerLogger.getLogger().log("added header 'api_key', " + System.getProperty("WORDNIK_API_KEY"));
+            // auth header
+            if (token != null) {
+                conn.addRequestProperty("auth_token", token.getToken());
+                KnickerLogger.getLogger().log("added header 'auth_token', " + token.getToken());
+            }
+            conn.addRequestProperty("Content-Type", "text/xml");
 
-	    out = new DataOutputStream(conn.getOutputStream());
-	    KnickerLogger.getLogger().log("----------PUT DATA START----------");
-	    if (data != null) {
-		KnickerLogger.getLogger().log(data);
-		out.writeBytes(data);
-		out.flush();
-	    }
-	    KnickerLogger.getLogger().log("----------PUT DATA END----------");
+            out = new DataOutputStream(conn.getOutputStream());
+            KnickerLogger.getLogger().log("----------PUT DATA START----------");
+            if (data != null) {
+                KnickerLogger.getLogger().log(data);
+                out.writeBytes(data);
+                out.flush();
+            }
+            KnickerLogger.getLogger().log("----------PUT DATA END----------");
 
-	    // Get the response
-	    in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            // Get the response
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-	} catch (Exception e) {
-	    throw new KnickerException("Error while performing HTTP PUT operation.", e);
-	} finally {
-	    try {
-		if (out != null) {
-		    out.close();
-		}
-	    } catch (Exception e) {
-		// ignore
-	    } finally {
-		try {
-		    if (in != null) {
-			in.close();
-		    }
-		} catch (Exception e) {
-		    // ignore
-		}
-	    }
-	}
+        } catch (Exception e) {
+            throw new KnickerException("Error while performing HTTP PUT operation.", e);
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (Exception e) {
+                // ignore
+            } finally {
+                try {
+                    if (in != null) {
+                        in.close();
+                    }
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
+        }
     }
 
 
     /**
      * Parse a string containing XML into a Document instance.
-     *
+     * <p/>
      * If the xml passed in is null or empty, return null.
      *
      * @param xml the xml to parse as a Document instance.
@@ -391,49 +382,49 @@ public class Util {
      * @throws KnickerException if there are any errors.
      */
     private static Document getDocument(String xml) throws KnickerException {
-	Document retDoc = null;
-	InputStream in = null;
+        Document retDoc = null;
+        InputStream in = null;
 
-	if (xml != null && xml.trim().length() > 0) {
-	    try {
-		in = new ByteArrayInputStream(xml.getBytes("UTF-8"));
-		retDoc = documentBuilderFactory.newDocumentBuilder().parse(in);
-	    } catch (Exception e) {
-		throw new KnickerException("Unable to create Document.", e);
-	    } finally {
-		if (in != null) {
-		    try {
-			in.close();
-		    } catch (Exception e) {
-			// ignore
-		    }
-		}
-	    }
-	}
+        if (xml != null && xml.trim().length() > 0) {
+            try {
+                in = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+                retDoc = documentBuilderFactory.newDocumentBuilder().parse(in);
+            } catch (Exception e) {
+                throw new KnickerException("Unable to create Document.", e);
+            } finally {
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (Exception e) {
+                        // ignore
+                    }
+                }
+            }
+        }
 
-	return retDoc;
+        return retDoc;
     }
 
 
     /**
      * Get a value by xpath.
-     *
+     * <p/>
      * This method will return an empty string if there are any errors, such
      * as an invalid xpath or an invalid document object.
      *
      * @param document xml document to apply xpath to.
-     * @param xpath the xpath to get the value from.
+     * @param xpath    the xpath to get the value from.
      * @return value from the xpath, or an empty string.
      */
     static String getValueByXPath(Document document, String xpath) {
-	String value = "";
-	try {
-	    value = xPathFactory.newXPath().evaluate(xpath, document).trim();
-	} catch (Exception e) {
-	    // ignore; will return empty string
-	}
+        String value = "";
+        try {
+            value = xPathFactory.newXPath().evaluate(xpath, document).trim();
+        } catch (Exception e) {
+            // ignore; will return empty string
+        }
 
-	return value;
+        return value;
     }
 
 
@@ -441,18 +432,18 @@ public class Util {
      * Get a value by xpath and return as an int.
      *
      * @param document xml document to apply xpath to.
-     * @param xpath the xpath to get the value from.
+     * @param xpath    the xpath to get the value from.
      * @return value contained at the xpath, or 0 if parsing fails.
      */
     static int getValueByXPathAsInt(Document document, String xpath) {
-	int x = 0;
+        int x = 0;
 
-	try {
-	    x = Integer.parseInt(getValueByXPath(document, xpath));
-	} catch (Exception e) {
-	    // ignore, will return 0
-	}
-	return x;
+        try {
+            x = Integer.parseInt(getValueByXPath(document, xpath));
+        } catch (Exception e) {
+            // ignore, will return 0
+        }
+        return x;
     }
 
 
@@ -460,18 +451,18 @@ public class Util {
      * Get a value by xpath and return as an long.
      *
      * @param document xml document to apply xpath to.
-     * @param xpath the xpath to get the value from.
+     * @param xpath    the xpath to get the value from.
      * @return value contained at the xpath, or 0 if parsing fails.
      */
     static long getValueByXPathAsLong(Document document, String xpath) {
-	long x = 0;
+        long x = 0;
 
-	try {
-	    x = Long.parseLong(getValueByXPath(document, xpath));
-	} catch (Exception e) {
-	    // ignore, will return 0
-	}
-	return x;
+        try {
+            x = Long.parseLong(getValueByXPath(document, xpath));
+        } catch (Exception e) {
+            // ignore, will return 0
+        }
+        return x;
     }
 
 
@@ -479,42 +470,42 @@ public class Util {
      * Get a value by xpath and return as a boolean.
      *
      * @param document xml document to apply xpath to.
-     * @param xpath the xpath to get the value from.
+     * @param xpath    the xpath to get the value from.
      * @return true if the value is "1", false otherwise.
      */
     static boolean getValueByXPathAsBoolean(Document document, String xpath) {
-	boolean b = false;
-	try {
-	    b = getValueByXPath(document, xpath).equals("true");
-	} catch (Exception e) {
-	    // ignore; will return false
-	}
+        boolean b = false;
+        try {
+            b = getValueByXPath(document, xpath).equals("true");
+        } catch (Exception e) {
+            // ignore; will return false
+        }
 
-	return b;
+        return b;
     }
 
 
     /**
      * Get the text of the named child node, and convert to an int.
-     *
+     * <p/>
      * NOTE: This method will return zero if the value of the node is '0', or if
-     *       there is an error. Callers that care about the difference should
-     *       call getNamedChildTextContent and parse the value.
-     * 
+     * there is an error. Callers that care about the difference should
+     * call getNamedChildTextContent and parse the value.
+     *
      * @param node the node to look in.
      * @param name the name of the child node to get the value from.
      * @return value of the named child node, or zero there is an error.
      */
     static int getNamedChildTextContentAsInt(Node node, String name) {
-	int value = 0;
+        int value = 0;
 
-	try {
-	    value = Integer.parseInt(getNamedChildTextContent(node, name));
-	} catch (Exception e) {
-	    // ignore; will return zero
-	}
+        try {
+            value = Integer.parseInt(getNamedChildTextContent(node, name));
+        } catch (Exception e) {
+            // ignore; will return zero
+        }
 
-	return value;
+        return value;
     }
 
 
@@ -526,63 +517,63 @@ public class Util {
      * @return text content of the child node, or an empty string.
      */
     static String getNamedChildTextContent(Node node, String name) {
-	String content = "";
+        String content = "";
 
-	if (node != null) {
-	    try {
-		NodeList nodes = node.getChildNodes();
-		if (nodes != null) {
-		    for (int i = 0; i < nodes.getLength(); i++) {
-			Node child = nodes.item(i);
-			if (child.getNodeName().equals(name)) {
-			    content = child.getTextContent();
-			    break;
-			}
-		    }
-		}
-	    } catch (Exception e) {
-		// ignore, will return empty string
-	    }
-	}
+        if (node != null) {
+            try {
+                NodeList nodes = node.getChildNodes();
+                if (nodes != null) {
+                    for (int i = 0; i < nodes.getLength(); i++) {
+                        Node child = nodes.item(i);
+                        if (child.getNodeName().equals(name)) {
+                            content = child.getTextContent();
+                            break;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                // ignore, will return empty string
+            }
+        }
 
-	return content.trim();
+        return content.trim();
     }
 
 
     /**
      * Get a named child node from the specified node.
-     * 
+     *
      * @param node the node to search for the named child node.
      * @param name the name of the child node to find.
      * @return named child node, or null if it is not found.
      */
     static Node getNamedChildNode(Node node, String name) {
-	Node retNode = null;
+        Node retNode = null;
 
-	if (node == null || name == null || name.trim().isEmpty()) {
-	    retNode = null;
-	} else {
+        if (node == null || name == null || name.trim().isEmpty()) {
+            retNode = null;
+        } else {
 
-	    NodeList nodes = node.getChildNodes();
+            NodeList nodes = node.getChildNodes();
 
-	    if (nodes != null) {
-		for (int i = 0; i < nodes.getLength(); i++) {
-		    Node n = nodes.item(i);
-		    if (n.getNodeName().equals(name)) {
-			retNode = n;
-			break;
-		    }
-		}
-	    }
-	}
+            if (nodes != null) {
+                for (int i = 0; i < nodes.getLength(); i++) {
+                    Node n = nodes.item(i);
+                    if (n.getNodeName().equals(name)) {
+                        retNode = n;
+                        break;
+                    }
+                }
+            }
+        }
 
-	return retNode;
+        return retNode;
     }
 
 
     /**
      * Build a parameter list from a map.
-     *
+     * <p/>
      * The parameter list is in standard uri notation, and URL encoded.
      *
      * @param params the parameter map.
@@ -590,123 +581,123 @@ public class Util {
      * @throws KnickerException if there are any errors.
      */
     static String buildParamList(Map<String, String> params) throws KnickerException {
-	StringBuilder sb = new StringBuilder();
-	for (String key : params.keySet()) {
-	    try {
-		// TODO log the values
-		sb.append(URLEncoder.encode(key, "UTF-8")).append('=').append(URLEncoder.encode(params.get(key), "UTF-8")).append('&');
-	    } catch (Exception e) {
-		throw new KnickerException("Error encoding.", e);
-	    }
-	}
+        StringBuilder sb = new StringBuilder();
+        for (String key : params.keySet()) {
+            try {
+                // TODO log the values
+                sb.append(URLEncoder.encode(key, "UTF-8")).append('=').append(URLEncoder.encode(params.get(key), "UTF-8")).append('&');
+            } catch (Exception e) {
+                throw new KnickerException("Error encoding.", e);
+            }
+        }
 
-	int index = sb.lastIndexOf("&");
-	if (index > 0) {
-	    sb.deleteCharAt(sb.lastIndexOf("&"));
-	}
+        int index = sb.lastIndexOf("&");
+        if (index > 0) {
+            sb.deleteCharAt(sb.lastIndexOf("&"));
+        }
 
 
-	return sb.toString();
+        return sb.toString();
     }
 
 
     /**
      * Get a named value from the NamedNodeMap.
-     *
+     * <p/>
      * If the value does not exist, or if there is an error getting data from
      * the map, an empty string will be returned.
      *
-     * @param map the NamedNodeMap to get a value from.
+     * @param map  the NamedNodeMap to get a value from.
      * @param name the name of the attribute to find.
      * @return value of the named attribute from the map, or an empty String.
      */
     static String getAttribute(NamedNodeMap map, String name) {
-	String value = "";
+        String value = "";
 
-	try {
-	    Node node = map.getNamedItem(name);
-	    if (node != null) {
-		value = node.getNodeValue().trim();
-	    }
-	} catch (Exception e) {
-	    // ignore; will return empty string
-	}
+        try {
+            Node node = map.getNamedItem(name);
+            if (node != null) {
+                value = node.getNodeValue().trim();
+            }
+        } catch (Exception e) {
+            // ignore; will return empty string
+        }
 
-	return value;
+        return value;
     }
 
 
     /**
      * Get a named value from the NamedNodeMap as an int.
-     *
+     * <p/>
      * If the value does not exist, or if there is an error getting data from
      * the map, 0 will be returned.
      *
-     * @param map the NamedNodeMap to get a value from.
+     * @param map  the NamedNodeMap to get a value from.
      * @param name the name of the attribute to find.
      * @return value of the named attribute from the map as an int.
      */
     static int getAttributeAsInt(NamedNodeMap map, String name) {
-	int value = 0;
+        int value = 0;
 
-	try {
-	    value = Integer.parseInt(getAttribute(map, name));
-	} catch (Exception e) {
-	    // will return 0
-	}
+        try {
+            value = Integer.parseInt(getAttribute(map, name));
+        } catch (Exception e) {
+            // will return 0
+        }
 
-	return value;
+        return value;
     }
 
 
     /**
      * Get a named value from the NamedNodeMap as a boolean.
-     *
+     * <p/>
      * Returns true only if the attribute is "1".
-     *
+     * <p/>
      * If the value does not exist, or if there is an error getting data from
      * the map, false will be returned.
      *
-     * @param map the NamedNodeMap to get a value from.
+     * @param map  the NamedNodeMap to get a value from.
      * @param name the name of the attribute to find.
      * @return value of the named attribute from the map as a boolean.
      */
     static boolean getAttributeAsBoolean(NamedNodeMap map, String name) {
-	boolean value = false;
+        boolean value = false;
 
-	try {
-	    value = (getAttribute(map, name)).equals("1");
-	} catch (Exception e) {
-	    // will return false
-	}
+        try {
+            value = (getAttribute(map, name)).equals("1");
+        } catch (Exception e) {
+            // will return false
+        }
 
-	return value;
+        return value;
     }
 
 
     protected static int getConnTimeout() {
-	int timeout = 10000;
+        int timeout = 10000;
 
-	try {
-	    timeout = Integer.parseInt("KNICKER_CONN_TIMEOUT");
-	} catch (Exception e) {
-	    // ignore; will reutrn 10000
-	}
+        try {
+            timeout = Integer.parseInt("KNICKER_CONN_TIMEOUT");
+        } catch (Exception e) {
+            // ignore; will reutrn 10000
+        }
 
-	return timeout;
+        return timeout;
     }
 
 
     protected static int getReadTimeout() {
-	int timeout = 30000;
+        int timeout = 30000;
 
-	try {
-	    timeout = Integer.parseInt("KNICKER_READ_TIMEOUT");
-	} catch (Exception e) {
-	    // ignore; will return 30000
-	}
+        try {
+            timeout = Integer.parseInt("KNICKER_READ_TIMEOUT");
+        } catch (Exception e) {
+            // ignore; will return 30000
+        }
 
-	return timeout;
+        return timeout;
     }
 
 }

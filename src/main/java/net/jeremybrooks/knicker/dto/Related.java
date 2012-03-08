@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -18,7 +18,7 @@
 */
 package net.jeremybrooks.knicker.dto;
 
-// JAVA UTILITY
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Represents data returned by a call to the Wordnik related API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class Related implements Serializable {
 
@@ -37,7 +37,7 @@ public class Related implements Serializable {
 
 
     public Related() {
-	this.words = new ArrayList<String>();
+        this.words = new ArrayList<String>();
     }
 
 
@@ -45,7 +45,7 @@ public class Related implements Serializable {
      * @return the relationshipType
      */
     public String getRelType() {
-	return relationshipType;
+        return relationshipType;
     }
 
 
@@ -53,7 +53,7 @@ public class Related implements Serializable {
      * @param relationshipType the relationshipType to set
      */
     public void setRelationshipType(String relationshipType) {
-	this.relationshipType = relationshipType;
+        this.relationshipType = relationshipType;
     }
 
 
@@ -61,30 +61,30 @@ public class Related implements Serializable {
      * @return the list of words
      */
     public List<String> getWords() {
-	return words;
+        return words;
     }
 
 
     public void addWord(String word) {
-	this.words.add(word);
+        this.words.add(word);
     }
 
 
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
-	sb.append(": [ ").append("relationshipType=").append(this.relationshipType).append(" | ");
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
+        sb.append(": [ ").append("relationshipType=").append(this.relationshipType).append(" | ");
 
-	sb.append("words=");
-	if (this.words != null) {
-	    for (String s : this.words) {
-		sb.append('<').append(s).append('>');
-	    }
-	}
+        sb.append("words=");
+        if (this.words != null) {
+            for (String s : this.words) {
+                sb.append('<').append(s).append('>');
+            }
+        }
 
-	sb.append(" ]");
+        sb.append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 
 }

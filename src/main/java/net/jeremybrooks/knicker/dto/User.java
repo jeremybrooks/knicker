@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -23,8 +23,8 @@ import java.io.Serializable;
 /**
  * Represents data returned by a call to the Wordnik user API.
  *
- * @see http://developer.wordnik.com/docs
- * @author jeremyb
+ * @author Jeremy Brooks
+ * @see <a ref="http://docs.wordnik.com/docs">Wordnik documentation</a>
  */
 public class User implements Serializable {
 
@@ -36,14 +36,14 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
 
-	sb.append(": [ ").append("email=").append(this.email).append(" | ");
-	sb.append("id=").append(this.id).append(" | ");
-	sb.append("status=").append(this.status).append(" | ");
-	sb.append("userName=").append(this.userName).append(" ]");
+        sb.append(": [ ").append("email=").append(this.email).append(" | ");
+        sb.append("id=").append(this.id).append(" | ");
+        sb.append("status=").append(this.status).append(" | ");
+        sb.append("userName=").append(this.userName).append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 
 
@@ -51,7 +51,7 @@ public class User implements Serializable {
      * @return the email
      */
     public String getEmail() {
-	return email;
+        return email;
     }
 
 
@@ -59,7 +59,7 @@ public class User implements Serializable {
      * @param email the email to set
      */
     public void setEmail(String email) {
-	this.email = email;
+        this.email = email;
     }
 
 
@@ -67,7 +67,7 @@ public class User implements Serializable {
      * @return the id
      */
     public String getId() {
-	return id;
+        return id;
     }
 
 
@@ -75,7 +75,7 @@ public class User implements Serializable {
      * @param id the id to set
      */
     public void setId(String id) {
-	this.id = id;
+        this.id = id;
     }
 
 
@@ -83,7 +83,7 @@ public class User implements Serializable {
      * @return the status
      */
     public String getStatus() {
-	return status;
+        return status;
     }
 
 
@@ -91,7 +91,7 @@ public class User implements Serializable {
      * @param status the status to set
      */
     public void setStatus(String status) {
-	this.status = status;
+        this.status = status;
     }
 
 
@@ -99,7 +99,7 @@ public class User implements Serializable {
      * @return the userName
      */
     public String getUserName() {
-	return userName;
+        return userName;
     }
 
 
@@ -107,6 +107,6 @@ public class User implements Serializable {
      * @param userName the userName to set
      */
     public void setUserName(String userName) {
-	this.userName = userName;
+        this.userName = userName;
     }
 }

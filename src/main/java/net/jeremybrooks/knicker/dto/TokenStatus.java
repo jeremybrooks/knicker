@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -23,7 +23,7 @@ import java.io.Serializable;
 /**
  * Represents data returned by a call to the Wordnik token status API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class TokenStatus implements Serializable {
 
@@ -39,7 +39,7 @@ public class TokenStatus implements Serializable {
      * @return the expiresInMillis
      */
     public long getExpiresInMillis() {
-	return expiresInMillis;
+        return expiresInMillis;
     }
 
 
@@ -47,7 +47,7 @@ public class TokenStatus implements Serializable {
      * @param expiresInMillis the expiresInMillis to set
      */
     public void setExpiresInMillis(long expiresInMillis) {
-	this.expiresInMillis = expiresInMillis;
+        this.expiresInMillis = expiresInMillis;
     }
 
 
@@ -55,7 +55,7 @@ public class TokenStatus implements Serializable {
      * @return the remainingCalls
      */
     public int getRemainingCalls() {
-	return remainingCalls;
+        return remainingCalls;
     }
 
 
@@ -63,7 +63,7 @@ public class TokenStatus implements Serializable {
      * @param remainingCalls the remainingCalls to set
      */
     public void setRemainingCalls(int remainingCalls) {
-	this.remainingCalls = remainingCalls;
+        this.remainingCalls = remainingCalls;
     }
 
 
@@ -71,7 +71,7 @@ public class TokenStatus implements Serializable {
      * @return the resetsInMillis
      */
     public long getResetsInMillis() {
-	return resetsInMillis;
+        return resetsInMillis;
     }
 
 
@@ -79,7 +79,7 @@ public class TokenStatus implements Serializable {
      * @param resetsInMillis the resetsInMillis to set
      */
     public void setResetsInMillis(long resetsInMillis) {
-	this.resetsInMillis = resetsInMillis;
+        this.resetsInMillis = resetsInMillis;
     }
 
 
@@ -87,7 +87,7 @@ public class TokenStatus implements Serializable {
      * @return the token
      */
     public String getToken() {
-	return token;
+        return token;
     }
 
 
@@ -95,7 +95,7 @@ public class TokenStatus implements Serializable {
      * @param token the token to set
      */
     public void setToken(String token) {
-	this.token = token;
+        this.token = token;
     }
 
 
@@ -103,7 +103,7 @@ public class TokenStatus implements Serializable {
      * @return the totalRequests
      */
     public int getTotalRequests() {
-	return totalRequests;
+        return totalRequests;
     }
 
 
@@ -111,7 +111,7 @@ public class TokenStatus implements Serializable {
      * @param totalRequests the totalRequests to set
      */
     public void setTotalRequests(int totalRequests) {
-	this.totalRequests = totalRequests;
+        this.totalRequests = totalRequests;
     }
 
 
@@ -119,7 +119,7 @@ public class TokenStatus implements Serializable {
      * @return the valid
      */
     public boolean isValid() {
-	return valid;
+        return valid;
     }
 
 
@@ -127,23 +127,23 @@ public class TokenStatus implements Serializable {
      * @param valid the valid to set
      */
     public void setValid(boolean valid) {
-	this.valid = valid;
+        this.valid = valid;
     }
 
-    
+
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
 
-	sb.append(": [ ");
-	sb.append("expiresInMillis=").append(this.expiresInMillis).append(" | ");
-	sb.append("remainingCalls=").append(this.remainingCalls).append(" | ");
-	sb.append("resetsInMillis=").append(this.resetsInMillis).append(" | ");
-	sb.append("token=").append(this.token).append(" | ");
-	sb.append("totalRequests=").append(this.totalRequests).append(" | ");
-	sb.append("valid=").append(this.valid);
-	sb.append(" ]");
+        sb.append(": [ ");
+        sb.append("expiresInMillis=").append(this.expiresInMillis).append(" | ");
+        sb.append("remainingCalls=").append(this.remainingCalls).append(" | ");
+        sb.append("resetsInMillis=").append(this.resetsInMillis).append(" | ");
+        sb.append("token=").append(this.token).append(" | ");
+        sb.append("totalRequests=").append(this.totalRequests).append(" | ");
+        sb.append("valid=").append(this.valid);
+        sb.append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 }

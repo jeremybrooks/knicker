@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -45,7 +45,7 @@ import net.jeremybrooks.knicker.dto.WordOfTheDay;
  * If there are errors, a <code>KnickerException</code> will be thrown.
  *
  * 
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class WordsApi extends Knicker {
 
@@ -56,7 +56,6 @@ public class WordsApi extends Knicker {
      *
      * <p>This is equivalent to calling <code>WordsApi.randomWord(true, null, null, 0, 0, 0, 0, 0, 0)</code></p>
      *
-     * @param hasDictionaryDef only return words where there is a definition available.
      * @return random word.
      * @throws KnickerException if there are any errors.
      */

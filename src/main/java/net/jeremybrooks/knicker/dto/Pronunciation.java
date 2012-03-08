@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -23,7 +23,7 @@ import java.io.Serializable;
 /**
  * Represents data returned by a call to the Wordnik pronunciations API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class Pronunciation implements Serializable {
 
@@ -36,7 +36,7 @@ public class Pronunciation implements Serializable {
      * @return the id
      */
     public String getId() {
-	return id;
+        return id;
     }
 
 
@@ -44,7 +44,7 @@ public class Pronunciation implements Serializable {
      * @param id the id to set
      */
     public void setId(String id) {
-	this.id = id;
+        this.id = id;
     }
 
 
@@ -52,7 +52,7 @@ public class Pronunciation implements Serializable {
      * @return the raw
      */
     public String getRaw() {
-	return raw;
+        return raw;
     }
 
 
@@ -60,7 +60,7 @@ public class Pronunciation implements Serializable {
      * @param raw the raw to set
      */
     public void setRaw(String raw) {
-	this.raw = raw;
+        this.raw = raw;
     }
 
 
@@ -68,7 +68,7 @@ public class Pronunciation implements Serializable {
      * @return the rawType
      */
     public String getRawType() {
-	return rawType;
+        return rawType;
     }
 
 
@@ -76,18 +76,18 @@ public class Pronunciation implements Serializable {
      * @param rawType the rawType to set
      */
     public void setRawType(String rawType) {
-	this.rawType = rawType;
+        this.rawType = rawType;
     }
 
 
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
 
-	sb.append(": [ ").append("id=").append(this.id).append(" | ");
-	sb.append("raw=").append(this.raw).append(" | ");
-	sb.append("rawType=").append(this.rawType).append(" ]");
+        sb.append(": [ ").append("id=").append(this.id).append(" | ");
+        sb.append("raw=").append(this.raw).append(" | ");
+        sb.append("rawType=").append(this.rawType).append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -21,12 +21,12 @@ package net.jeremybrooks.knicker;
 
 /**
  * Base class for the Wordnik API classes.
- *
+ * <p/>
  * <p>This class defines the enum constants that are needed by the API classes.
  * Use the <code>AccountApi</code>, <code>WordApi</code>, <code>WordListApi</code>,
  * and <code>WordsApi</code> classes to access Wordnik.</p>
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public abstract class Knicker {
 
@@ -40,7 +40,7 @@ public abstract class Knicker {
 
     /**
      * Source dictionaries supported by the Wordnik API.
-     * 
+     * <p/>
      * <ul>
      * <li>ahd: The American Heritage Dictionary. Probably the closest thing to a good traditional dictionary. Has most modern words.</li>
      * <li>century: An older work (last updated in 1910), and with a much more scholarly bent.</li>
@@ -52,59 +52,59 @@ public abstract class Knicker {
      * </ul>
      */
     public static enum SourceDictionary {
-	ahd,
-	century,
-	cmu,
-	macmillan,
-	wiktionary,
-	webster,
-	wordnet
+        ahd,
+        century,
+        cmu,
+        macmillan,
+        wiktionary,
+        webster,
+        wordnet
     }
 
 
     /**
      * Parts of speech supported by the Wordnik API.
-     *
+     * <p/>
      * Note: The underscores will be replaced with dashes when using these
-     *       values as parameters to the Wordnik API. For example,
-     *       "noun_and_verb" becomes "noun-and-verb".
+     * values as parameters to the Wordnik API. For example,
+     * "noun_and_verb" becomes "noun-and-verb".
      */
     public static enum PartOfSpeech {
-	noun,
-	verb,
-	adjective,
-	adverb,
-	idiom,
-	article,
-	abbreviation,
-	preposition,
-	prefix,
-	interjection,
-	suffix,
-	conjunction,
-	adjective_and_adverb,
-	noun_and_adjective,
-	noun_and_verb_transitive,
-	noun_and_verb,
-	past_participle,
-	imperative,
-	noun_plural,
-	proper_noun_plural,
-	verb_intransitive,
-	proper_noun,
-	adjective_and_noun,
-	imperative_and_past_participle,
-	pronoun,
-	verb_transitive,
-	noun_and_verb_intransitive,
-	adverb_and_preposition,
-	proper_noun_posessive,
-	noun_posessive
+        noun,
+        verb,
+        adjective,
+        adverb,
+        idiom,
+        article,
+        abbreviation,
+        preposition,
+        prefix,
+        interjection,
+        suffix,
+        conjunction,
+        adjective_and_adverb,
+        noun_and_adjective,
+        noun_and_verb_transitive,
+        noun_and_verb,
+        past_participle,
+        imperative,
+        noun_plural,
+        proper_noun_plural,
+        verb_intransitive,
+        proper_noun,
+        adjective_and_noun,
+        imperative_and_past_participle,
+        pronoun,
+        verb_transitive,
+        noun_and_verb_intransitive,
+        adverb_and_preposition,
+        proper_noun_posessive,
+        noun_posessive
     }
 
     /**
      * Relationship types supported by the Wordnik API.
-     *
+     * <p/>
      * <ul>
      * <li>synonym: words with very similar meanings (beautiful: pretty)</li>
      * <li>antonym: words with opposite meanings (beautiful: ugly)</li>
@@ -116,46 +116,46 @@ public abstract class Knicker {
      * <li>cross-reference: a related word; (bobcat: lynx)</li>
      * <li>same-context: Shows relationships between words which are often used in the same manner. For instance “cheeseburger” and “pizza” are often used the same way. Both also taste great.</li>
      * </ul>
-     *
+     * <p/>
      * Note: The underscores will be replaced with dashes when using these
-     *       values as parameters to the Wordnik API. For example,
-     *       "verb_stem" becomes "verb-stem".
+     * values as parameters to the Wordnik API. For example,
+     * "verb_stem" becomes "verb-stem".
      */
     public static enum RelationshipType {
-	synonym,
-	antonym,
-	form,
-	hyponym,
-	variant,
-	verb_stem,
-	verb_form,
-	cross_reference,
-	same_context
+        synonym,
+        antonym,
+        form,
+        hyponym,
+        variant,
+        verb_stem,
+        verb_form,
+        cross_reference,
+        same_context
     }
 
-    
+
     /**
      * List types supported by Wordnik.
      */
     public static enum ListType {
-	PUBLIC,
-	PRIVATE
+        PUBLIC,
+        PRIVATE
     }
 
     public static enum TypeFormat {
-	ahd,
-	arpabet,
-	gcide_diacritical,
-	IPA
+        ahd,
+        arpabet,
+        gcide_diacritical,
+        IPA
     }
 
     public static enum SortBy {
-	alpha,
-	count
+        alpha,
+        count
     }
 
     public static enum SortDirection {
-	asc,
-	desc
+        asc,
+        desc
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -22,7 +22,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author jeremyb
+ * @author Jeremy Brooks (jeremyb@whirljack.net)
  */
 public class AudioFileMetadata implements Serializable {
 

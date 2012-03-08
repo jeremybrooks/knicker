@@ -1,5 +1,5 @@
 /*
- * Knicker is Copyright 2010-2011 by Jeremy Brooks
+ * Knicker is Copyright 2010-2012 by Jeremy Brooks
  *
  * This file is part of Knicker.
  *
@@ -24,14 +24,14 @@ import java.io.Serializable;
 /**
  * Represents data returned by a call to the Wordnik search API.
  *
- * @author jeremyb
+ * @author Jeremy Brooks
  */
 public class SearchResult implements Serializable {
 
     private int count;
     private String lexicality;
     private String word;
-    
+
 //    private int matches;
 //
 //    private int more;
@@ -130,15 +130,15 @@ public class SearchResult implements Serializable {
 
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder(this.getClass().getName());
-	sb.append(": [ ");
-	sb.append("count=").append(this.count).append(" | ");
-	sb.append("lexicality=").append(this.lexicality).append(" | ");
-	sb.append("word=").append(this.word);
+        StringBuilder sb = new StringBuilder(this.getClass().getName());
+        sb.append(": [ ");
+        sb.append("count=").append(this.count).append(" | ");
+        sb.append("lexicality=").append(this.lexicality).append(" | ");
+        sb.append("word=").append(this.word);
 
-	sb.append(" ]");
+        sb.append(" ]");
 
-	return sb.toString();
+        return sb.toString();
     }
 
 
@@ -146,7 +146,7 @@ public class SearchResult implements Serializable {
      * @return the count
      */
     public int getCount() {
-	return count;
+        return count;
     }
 
 
@@ -154,7 +154,7 @@ public class SearchResult implements Serializable {
      * @param count the count to set
      */
     public void setCount(int count) {
-	this.count = count;
+        this.count = count;
     }
 
 
@@ -162,7 +162,7 @@ public class SearchResult implements Serializable {
      * @return the lexicality
      */
     public String getLexicality() {
-	return lexicality;
+        return lexicality;
     }
 
 
@@ -170,7 +170,7 @@ public class SearchResult implements Serializable {
      * @param lexicality the lexicality to set
      */
     public void setLexicality(String lexicality) {
-	this.lexicality = lexicality;
+        this.lexicality = lexicality;
     }
 
 
@@ -178,7 +178,7 @@ public class SearchResult implements Serializable {
      * @return the word
      */
     public String getWord() {
-	return word;
+        return word;
     }
 
 
@@ -186,7 +186,7 @@ public class SearchResult implements Serializable {
      * @param word the word to set
      */
     public void setWord(String word) {
-	this.word = word;
+        this.word = word;
     }
 
 }
