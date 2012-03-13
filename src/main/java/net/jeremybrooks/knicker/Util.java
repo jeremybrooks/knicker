@@ -27,9 +27,14 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathFactory;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.CharArrayWriter;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -47,6 +52,7 @@ import java.util.Map;
  * work with xml document objects.
  *
  * @author Jeremy Brooks
+ * @author Mark Colley (use CharArrayWriter to preserve special characters)
  */
 public class Util {
 
@@ -103,11 +109,10 @@ public class Util {
 
         KnickerLogger.getLogger().log("GET URL: '" + uri + "'");
 
-        BufferedReader rd = null;
-        String result = null;
+        CharArrayWriter writer;
+
         // Send a GET request to the server
         try {
-            System.out.println(uri);
             URL url = new URL(uri);
             URLConnection conn = url.openConnection();
             conn.setConnectTimeout(getConnTimeout());
@@ -122,31 +127,23 @@ public class Util {
             }
 
             // Get the response
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder sb = new StringBuilder();
-            String line;
+            StreamSource streamSource = new StreamSource(conn.getInputStream());
+
+            writer = new CharArrayWriter();
+            StreamResult streamResult = new StreamResult(writer);
+
+            TransformerFactory factory = TransformerFactory.newInstance();
+            Transformer transformer = factory.newTransformer();
+            transformer.transform(streamSource, streamResult);
             KnickerLogger.getLogger().log("----------RESPONSE START----------");
-            while ((line = rd.readLine()) != null) {
-                sb.append(line);
-                KnickerLogger.getLogger().log(line);
-            }
+            KnickerLogger.getLogger().log(writer.toString());
             KnickerLogger.getLogger().log("----------RESPONSE END----------");
-            rd.close();
-            result = sb.toString();
 
         } catch (Exception e) {
             throw new KnickerException("Error getting a response from the server.", e);
-        } finally {
-            if (rd != null) {
-                try {
-                    rd.close();
-                } catch (Exception e) {
-                    // ignore
-                }
-            }
         }
 
-        return getDocument(result);
+        return getDocument(writer.toString());
     }
 
 
@@ -175,7 +172,7 @@ public class Util {
 
         DataOutputStream out = null;
         BufferedReader in = null;
-        StringBuilder sb = new StringBuilder();
+        CharArrayWriter writer;
 
         KnickerLogger.getLogger().log("POST URL: '" + uri + "'");
 
@@ -209,13 +206,16 @@ public class Util {
             out.flush();
 
             // Get the response
-            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
+            StreamSource streamSource = new StreamSource(conn.getInputStream());
+
+            writer = new CharArrayWriter();
+            StreamResult streamResult = new StreamResult(writer);
+
+            TransformerFactory factory = TransformerFactory.newInstance();
+            Transformer transformer = factory.newTransformer();
+            transformer.transform(streamSource, streamResult);
             KnickerLogger.getLogger().log("----------RESPONSE START----------");
-            while ((line = in.readLine()) != null) {
-                sb.append(line);
-                KnickerLogger.getLogger().log(line);
-            }
+            KnickerLogger.getLogger().log(writer.toString());
             KnickerLogger.getLogger().log("----------RESPONSE END----------");
 
         } catch (Exception e) {
@@ -238,7 +238,7 @@ public class Util {
             }
         }
 
-        return getDocument(sb.toString());
+        return getDocument(writer.toString());
     }
 
 
@@ -584,7 +584,7 @@ public class Util {
         StringBuilder sb = new StringBuilder();
         for (String key : params.keySet()) {
             try {
-                // TODO log the values
+                KnickerLogger.getLogger().log("Adding parameter key/value pair " + key + "=" + params.get(key));
                 sb.append(URLEncoder.encode(key, "UTF-8")).append('=').append(URLEncoder.encode(params.get(key), "UTF-8")).append('&');
             } catch (Exception e) {
                 throw new KnickerException("Error encoding.", e);
@@ -681,7 +681,7 @@ public class Util {
         try {
             timeout = Integer.parseInt("KNICKER_CONN_TIMEOUT");
         } catch (Exception e) {
-            // ignore; will reutrn 10000
+            // ignore; will return 10000
         }
 
         return timeout;
