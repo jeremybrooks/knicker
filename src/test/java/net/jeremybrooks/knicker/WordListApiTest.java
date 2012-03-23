@@ -19,7 +19,6 @@
 package net.jeremybrooks.knicker;
 
 import net.jeremybrooks.knicker.Knicker.ListType;
-import net.jeremybrooks.knicker.Knicker.SortBy;
 import net.jeremybrooks.knicker.dto.AuthenticationToken;
 import net.jeremybrooks.knicker.dto.WordList;
 import net.jeremybrooks.knicker.dto.WordListWord;
@@ -37,12 +36,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 /**
- *
  * @author Jeremy Brooks
  */
 public class WordListApiTest {
@@ -61,24 +59,24 @@ public class WordListApiTest {
     private static String testWord1 = "computer";
     private static String testWord2 = "zebra";
     private static List<String> testWordList;
-    
+
     @BeforeClass
     public static void setUpClass() throws Exception {
-	Properties p = new Properties();
-	InputStream in = WordApiTest.class.getResourceAsStream("/secret.properties");
-	p.load(in);
+        Properties p = new Properties();
+        InputStream in = WordApiTest.class.getResourceAsStream("/secret.properties");
+        p.load(in);
 
-	System.setProperty("WORDNIK_API_KEY", p.getProperty("WORDNIK_API_KEY"));
-	username = p.getProperty("WORDNIK_USERNAME");
-	password = p.getProperty("WORDNIK_PASSWORD");
+        System.setProperty("WORDNIK_API_KEY", p.getProperty("WORDNIK_API_KEY"));
+        username = p.getProperty("WORDNIK_USERNAME");
+        password = p.getProperty("WORDNIK_PASSWORD");
 
-	token = AccountApi.authenticate(username, password);
+        token = AccountApi.authenticate(username, password);
 
-	testWordList = new ArrayList<String>();
-	testWordList.add(testWord1);
-	testWordList.add(testWord2);
-	
-	KnickerLogger.setLogger(new StdoutLogger());
+        testWordList = new ArrayList<String>();
+        testWordList.add(testWord1);
+        testWordList.add(testWord2);
+
+        KnickerLogger.setLogger(new StdoutLogger());
     }
 
 
@@ -100,18 +98,18 @@ public class WordListApiTest {
      */
     @Test
     public void testCreateList() throws Exception {
-	System.out.println("createList");
-	ListType type = ListType.PUBLIC;
-	WordList result = WordListApi.createList(token, testListName, testListDescription, type);
+        System.out.println("createList");
+        ListType type = ListType.PUBLIC;
+        WordList result = WordListApi.createList(token, testListName, testListDescription, type);
 
-	assertNotNull(result);
-	assertNotNull(result.getId());
-	assertEquals(username, result.getUsername());
-	assertEquals(token.getUserId(), result.getUserId());
-	assertEquals(testListName, result.getName());
-	assertEquals(testListDescription, result.getDescription());
+        assertNotNull(result);
+        assertNotNull(result.getId());
+        assertEquals(username, result.getUsername());
+        assertEquals(token.getUserId(), result.getUserId());
+        assertEquals(testListName, result.getName());
+        assertEquals(testListDescription, result.getDescription());
 
-	testList = result;
+        testList = result;
     }
 
 
@@ -120,29 +118,30 @@ public class WordListApiTest {
      */
     @Test
     public void testGetWordList() throws Exception {
-	System.out.println("getWordList");
-	String permalink = testList.getPermalink();
-	WordList expResult = null;
-	WordList result = WordListApi.getWordList(token, permalink);
+        System.out.println("getWordList");
+        String permalink = testList.getPermalink();
+        WordList expResult = null;
+        WordList result = WordListApi.getWordList(token, permalink);
 
-	assertNotNull(result);
-	assertEquals(username, result.getUsername());
-	assertEquals(token.getUserId(), result.getUserId());
-	assertEquals(testListName, result.getName());
-	assertEquals(testListDescription, result.getDescription());
+        assertNotNull(result);
+        assertEquals(username, result.getUsername());
+        assertEquals(token.getUserId(), result.getUserId());
+        assertEquals(testListName, result.getName());
+        assertEquals(testListDescription, result.getDescription());
     }
 
 
     /**
      * Test adding one word.
      * This should be followed by updating one word and deleting one word.
+     *
      * @throws Exception
      */
     @Test
     public void testAddWordToList() throws Exception {
-	System.out.println("addWordToList");
-	String permalink = testList.getPermalink();
-	WordListApi.addWordToList(token, permalink, "test");
+        System.out.println("addWordToList");
+        String permalink = testList.getPermalink();
+        WordListApi.addWordToList(token, permalink, "test");
     }
 
 
@@ -151,15 +150,19 @@ public class WordListApiTest {
      */
     @Test
     public void testDeleteWordFromList() throws Exception {
-	System.out.println("deleteWordFromList");
+        System.out.println("deleteWordFromList");
 
-	String permalink = testList.getPermalink();
-	String word = "test";
-	WordListApi.deleteWordFromList(token, permalink, word);
+        String permalink = testList.getPermalink();
+        String word = "test";
+        WordListApi.deleteWordFromList(token, permalink, word);
 
-	// check that the list is now empty
-	List<WordListWord> result = WordListApi.getWordsFromList(token, permalink);
-	assertEquals(result.size(), 0);
+        // check that the list is now empty
+        List<WordListWord> result = WordListApi.getWordsFromList(token, permalink);
+        KnickerLogger.getLogger().log("****************************************");
+        KnickerLogger.getLogger().log(result.toString());
+        KnickerLogger.getLogger().log("****************************************");
+
+       assertEquals(result.size(), 0);
     }
 
 
@@ -168,14 +171,11 @@ public class WordListApiTest {
      */
     @Test
     public void testAddWordsToList() throws Exception {
-	System.out.println("addWordsToList");
-	String permalink = testList.getPermalink();
+        System.out.println("addWordsToList");
+        String permalink = testList.getPermalink();
 
-	WordListApi.addWordsToList(token, permalink, testWordList);	
+        WordListApi.addWordsToList(token, permalink, testWordList);
     }
-
-    
-    
 
 
     /**
@@ -183,14 +183,14 @@ public class WordListApiTest {
      */
     @Test
     public void testGetWordsFromList_AuthenticationToken_String() throws Exception {
-	System.out.println("getWordsFromList");
-	String permalink = testList.getPermalink();
-	List<WordListWord> result = WordListApi.getWordsFromList(token, permalink);
+        System.out.println("getWordsFromList");
+        String permalink = testList.getPermalink();
+        List<WordListWord> result = WordListApi.getWordsFromList(token, permalink);
 
-	assertNotNull(result);
-	for (WordListWord word : result) {
-	    assertEquals(word.getUsername(), username);
-	}
+        assertNotNull(result);
+        for (WordListWord word : result) {
+            assertEquals(word.getUsername(), username);
+        }
     }
 
     /**
@@ -198,102 +198,94 @@ public class WordListApiTest {
      */
     @Test
     public void testGetWordsFromList_6args() throws Exception {
-	System.out.println("testGetWordsFromList_6args");
-	String permalink = testList.getPermalink();
-	SortBy sortBy = null;
-	SortOrder sortOrder = null;
-	int skip = 0;
-	int limit = 0;
-	List<WordListWord> result = WordListApi.getWordsFromList(token, permalink, sortBy, sortOrder, skip, limit);
+        System.out.println("testGetWordsFromList_6args");
+        String permalink = testList.getPermalink();
+        Knicker.SortBy sortBy = null;
+        SortOrder sortOrder = null;
+        int skip = 0;
+        int limit = 0;
+        List<WordListWord> result = WordListApi.getWordsFromList(token, permalink, sortBy, sortOrder, skip, limit);
 
-	assertNotNull(result);
-	for (WordListWord word : result) {
-	    assertEquals(word.getUsername(), username);
-	}
+        assertNotNull(result);
+        for (WordListWord word : result) {
+            assertEquals(word.getUsername(), username);
+        }
 
-	sortOrder = SortOrder.ASCENDING;
-	sortBy = SortBy.alpha;
-	result = WordListApi.getWordsFromList(token, permalink, sortBy, sortOrder, skip, limit);
-	assertNotNull(result);
-	assertEquals(result.get(0).getWord(), testWord1);
-	assertEquals(result.get(1).getWord(), testWord2);
+        sortOrder = SortOrder.ASCENDING;
+        sortBy = Knicker.SortBy.alpha;
+        result = WordListApi.getWordsFromList(token, permalink, sortBy, sortOrder, skip, limit);
+        assertNotNull(result);
+        assertEquals(result.get(0).getWord(), testWord1);
+        assertEquals(result.get(1).getWord(), testWord2);
 
-	sortOrder = SortOrder.DESCENDING;
-	result = WordListApi.getWordsFromList(token, permalink, sortBy, sortOrder, skip, limit);
-	assertNotNull(result);
-	assertEquals(result.get(0).getWord(), testWord2);
-	assertEquals(result.get(1).getWord(), testWord1);
+        sortOrder = SortOrder.DESCENDING;
+        result = WordListApi.getWordsFromList(token, permalink, sortBy, sortOrder, skip, limit);
+        assertNotNull(result);
+        assertEquals(result.get(0).getWord(), testWord2);
+        assertEquals(result.get(1).getWord(), testWord1);
 
-	limit = 1;
-	result = WordListApi.getWordsFromList(token, permalink, sortBy, sortOrder, skip, limit);
-	assertNotNull(result);
-	assertEquals(result.get(0).getWord(), testWord2);
+        limit = 1;
+        result = WordListApi.getWordsFromList(token, permalink, sortBy, sortOrder, skip, limit);
+        assertNotNull(result);
+        assertEquals(result.get(0).getWord(), testWord2);
     }
-    
+
 
     /**
      * Test of deleteWordsFromList method, of class WordListApi.
      */
     @Test
     public void testDeleteWordsFromList() throws Exception {
-	System.out.println("deleteWordsFromList");
+        System.out.println("deleteWordsFromList");
 
-	String permalink = testList.getPermalink();
-	WordListApi.deleteWordsFromList(token, permalink, testWordList);
+        String permalink = testList.getPermalink();
+        WordListApi.deleteWordsFromList(token, permalink, testWordList);
 
-	// check that the list is now empty
-	List<WordListWord> result = WordListApi.getWordsFromList(token, permalink);
-	assertEquals(result.size(), 0);
+        // check that the list is now empty
+        List<WordListWord> result = WordListApi.getWordsFromList(token, permalink);
+        assertEquals(result.size(), 0);
     }
-    
+
 
     /**
      * Test of updateWordList method, of class WordListApi.
      */
     @Test
     public void testUpdateWordList() throws Exception {
-	System.out.println("updateWordList");
+        System.out.println("updateWordList");
 
-	String newDescription = "Changed the description.";
-	String newName = "TEST LIST NEW NAME";
-	
-	testList.setDescription(newDescription);
-	testList.setName(newName);
-	testList.setType(ListType.PRIVATE);
-	WordListApi.updateWordList(token, testList);
+        String newDescription = "Changed the description.";
+        String newName = "TEST LIST NEW NAME";
 
-	// check that the list has 2 items
-	WordList result = WordListApi.getWordList(token, testList.getPermalink());
-	assertEquals(result.getDescription(), newDescription);
-	assertEquals(result.getName(), newName);
-	assertEquals(result.getType(), ListType.PRIVATE);
-	assertEquals(result.getId(), testList.getId());
-	assertEquals(result.getNumberWordsInList(), testList.getNumberWordsInList());
-	assertEquals(result.getPermalink(), testList.getPermalink());
-	assertEquals(result.getUserId(), testList.getUserId());
-	assertEquals(result.getUsername(), testList.getUsername());
-	assertFalse(result.getUpdatedAt().equals(testList.getUpdatedAt()));
+        testList.setDescription(newDescription);
+        testList.setName(newName);
+        testList.setType(ListType.PRIVATE);
+        WordListApi.updateWordList(token, testList);
+
+        // check that the list has 2 items
+        WordList result = WordListApi.getWordList(token, testList.getPermalink());
+        assertEquals(result.getDescription(), newDescription);
+        assertEquals(result.getName(), newName);
+        assertEquals(result.getType(), ListType.PRIVATE);
+        assertEquals(result.getId(), testList.getId());
+        assertEquals(result.getNumberWordsInList(), testList.getNumberWordsInList());
+        assertEquals(result.getPermalink(), testList.getPermalink());
+        assertEquals(result.getUserId(), testList.getUserId());
+        assertEquals(result.getUsername(), testList.getUsername());
+        assertFalse(result.getUpdatedAt().equals(testList.getUpdatedAt()));
     }
 
-
-    
-
-
-    
 
     /**
      * Test of deleteList method, of class WordListApi.
      */
     @Test
     public void testDeleteList() throws Exception {
-	System.out.println("deleteList");
-	String permalink = testList.getPermalink();
+        System.out.println("deleteList");
+        String permalink = testList.getPermalink();
 
-	WordListApi.deleteList(token, permalink);
+        WordListApi.deleteList(token, permalink);
     }
-
-
-    
 
 
 }

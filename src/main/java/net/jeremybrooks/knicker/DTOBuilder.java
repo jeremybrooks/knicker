@@ -894,20 +894,23 @@ class DTOBuilder {
         List<WordListWord> list = new ArrayList<WordListWord>();
 
         try {
-            NodeList wordNodes = Util.getNamedChildNode(doc, "wordListWords").getChildNodes();
-            if (wordNodes != null) {
-                for (int i = 0; i < wordNodes.getLength(); i++) {
-                    Node node = wordNodes.item(i);
-                    if (node.getNodeName().equals("wordListWord")) {
-                        WordListWord word = new WordListWord();
-                        word.setCreatedAt(Util.getNamedChildTextContent(node, "createdAt"));
-                        word.setNumberCommentsOnWord(Util.getNamedChildTextContentAsInt(node, "numberCommentsOnWord"));
-                        word.setNumberLists(Util.getNamedChildTextContentAsInt(node, "numberLists"));
-                        word.setUserId(Util.getNamedChildTextContent(node, "userId"));
-                        word.setUsername(Util.getNamedChildTextContent(node, "username"));
-                        word.setWord(Util.getNamedChildTextContent(node, "word"));
+            Node wordNode = Util.getNamedChildNode(doc, "listedWords");
+            if (wordNode != null) {
+                NodeList wordNodes = wordNode.getChildNodes();
+                if (wordNodes != null) {
+                    for (int i = 0; i < wordNodes.getLength(); i++) {
+                        Node node = wordNodes.item(i);
+                        if (node.getNodeName().equals("wordListWord")) {
+                            WordListWord word = new WordListWord();
+                            word.setCreatedAt(Util.getNamedChildTextContent(node, "createdAt"));
+                            word.setNumberCommentsOnWord(Util.getNamedChildTextContentAsInt(node, "numberCommentsOnWord"));
+                            word.setNumberLists(Util.getNamedChildTextContentAsInt(node, "numberLists"));
+                            word.setUserId(Util.getNamedChildTextContent(node, "userId"));
+                            word.setUsername(Util.getNamedChildTextContent(node, "username"));
+                            word.setWord(Util.getNamedChildTextContent(node, "word"));
 
-                        list.add(word);
+                            list.add(word);
+                        }
                     }
                 }
             }

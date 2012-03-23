@@ -172,7 +172,7 @@ public class Util {
 
         DataOutputStream out = null;
         BufferedReader in = null;
-        CharArrayWriter writer;
+        StringBuilder sb = new StringBuilder();
 
         KnickerLogger.getLogger().log("POST URL: '" + uri + "'");
 
@@ -206,16 +206,13 @@ public class Util {
             out.flush();
 
             // Get the response
-            StreamSource streamSource = new StreamSource(conn.getInputStream());
-
-            writer = new CharArrayWriter();
-            StreamResult streamResult = new StreamResult(writer);
-
-            TransformerFactory factory = TransformerFactory.newInstance();
-            Transformer transformer = factory.newTransformer();
-            transformer.transform(streamSource, streamResult);
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            String line;
             KnickerLogger.getLogger().log("----------RESPONSE START----------");
-            KnickerLogger.getLogger().log(writer.toString());
+            while ((line = in.readLine()) != null) {
+                sb.append(line);
+                KnickerLogger.getLogger().log(line);
+            }
             KnickerLogger.getLogger().log("----------RESPONSE END----------");
 
         } catch (Exception e) {
@@ -238,7 +235,7 @@ public class Util {
             }
         }
 
-        return getDocument(writer.toString());
+        return getDocument(sb.toString());
     }
 
 
