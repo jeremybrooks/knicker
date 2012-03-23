@@ -434,7 +434,7 @@ public class WordApi extends Knicker {
      * </code></p>
      * 
      * @param word the word to fetch related words for.
-     * @return
+     * @return list of related words.
      * @throws KnickerException if the word is null, or if there are any errors.
      */
     public static List<Related> related(String word) throws KnickerException {
