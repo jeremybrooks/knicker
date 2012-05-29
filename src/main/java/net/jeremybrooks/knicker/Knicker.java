@@ -99,7 +99,13 @@ public abstract class Knicker {
         noun_and_verb_intransitive,
         adverb_and_preposition,
         proper_noun_posessive,
-        noun_posessive
+        noun_posessive,
+		affix,
+		auxiliary_verb,
+		definite_article,
+		family_name,
+		given_name,
+		phrasal_prefix
     }
 
     /**
