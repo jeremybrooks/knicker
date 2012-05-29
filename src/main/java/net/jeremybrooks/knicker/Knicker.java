@@ -124,7 +124,14 @@ public abstract class Knicker {
     public static enum RelationshipType {
         synonym,
         antonym,
+		equivalent,
+		related_word,
+		rhyme,
+		etymologically_related_term,
         form,
+		hypernym,
+		inflected_form,
+		primary,
         hyponym,
         variant,
         verb_stem,
@@ -158,4 +165,9 @@ public abstract class Knicker {
         asc,
         desc
     }
+
+	public static enum ExpandTerms {
+		synonym,
+		hypernym
+	}
 }
