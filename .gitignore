@@ -12,3 +12,4 @@ deploy
 web
 nbproject/private/profiler/*.hprof
 test/net/jeremybrooks/knicker/secret.properties
+src/test/resources/secret.properties
