@@ -1,6 +1,6 @@
 BUGS:
-If the limit parameter is specified when looking for pronunciations, zero
-results are returned. This has been reported to Wordnik.
+None known, but I suspect that the relatedWords return object (DefinitionSearchResults) will return some
+unexpected data in some cases. If you find anything odd, please report it.
 
 
 
