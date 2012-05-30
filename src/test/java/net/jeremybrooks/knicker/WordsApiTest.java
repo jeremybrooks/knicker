@@ -234,7 +234,7 @@ public class WordsApiTest {
 	@Test
 	public void testSearch_12args() throws Exception {
 		System.out.println("search");
-		String query = "computer";
+		String query = "quest";
 		boolean caseSensitive = true;
 		EnumSet<PartOfSpeech> includePartOfSpeech = null;
 		EnumSet<PartOfSpeech> excludePartOfSpeech = null;
@@ -252,10 +252,10 @@ public class WordsApiTest {
 		assertTrue(result.getTotal() > 0);
 
 		caseSensitive = false;
-		limit = 3;
+		limit = 2;
 		result = WordsApi.search(query, caseSensitive, includePartOfSpeech, excludePartOfSpeech, minCorpusCount, maxCorpusCount, minDictionaryCount, maxDictionaryCount, minLength, maxLength, skip, limit);
 		assertNotNull(result);
-		assertEquals(3, result.getSearchResults().size());
+		assertEquals(2, result.getSearchResults().size());
 	}
 
 
