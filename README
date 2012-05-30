@@ -1,6 +1,5 @@
 BUGS:
-None known, but I suspect that the relatedWords return object (DefinitionSearchResults) will return some
-unexpected data in some cases. If you find anything odd, please report it.
+None known, but I suspect that the relatedWords return object (DefinitionSearchResults) will return some unexpected data in some cases. If you find anything odd, please report it.
 
 
 
