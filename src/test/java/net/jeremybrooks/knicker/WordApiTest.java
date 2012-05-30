@@ -335,13 +335,11 @@ public class WordApiTest {
     public void testRelated_6args() throws Exception {
         System.out.println("related");
         String word = "cat";
-        int limit = 2;
+        int limitPerRelationshipType = 2;
         boolean useCanonical = false;
-        EnumSet<PartOfSpeech> partOfSpeech = null;
-        EnumSet<RelationshipType> relationshipType = null;
-        SourceDictionary sourceDictionary = null;
+        EnumSet<RelationshipType> relationshipType = EnumSet.of(RelationshipType.verb_form);
 
-        List<Related> result = WordApi.related(word, limit, useCanonical, partOfSpeech, relationshipType, sourceDictionary);
+        List<Related> result = WordApi.related(word, useCanonical, relationshipType, limitPerRelationshipType);
 
         assertNotNull(result);
         assertEquals(result.get(0).getWords().size(), 2);

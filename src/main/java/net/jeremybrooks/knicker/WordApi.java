@@ -432,7 +432,7 @@ public class WordApi extends Knicker {
 	 * Retrieve related words for a particular word.
 	 * <p/>
 	 * <p>This is equivalent to calling <code>
-	 * related(word, 0, false, null, null, null);
+	 * related(word, false, null, 0);
 	 * </code></p>
 	 *
 	 * @param word the word to fetch related words for.
@@ -440,7 +440,7 @@ public class WordApi extends Knicker {
 	 * @throws KnickerException if the word is null, or if there are any errors.
 	 */
 	public static List<Related> related(String word) throws KnickerException {
-		return related(word, 0, false, null, null, null);
+		return related(word, false, null, 0);
 	}
 
 
@@ -448,42 +448,25 @@ public class WordApi extends Knicker {
 	 * Retrieve related words for a particular word.
 	 *
 	 * @param word             the word to fetch related words for.
-	 * @param limit            the number of results to return. If the parameter is <= 0,
-	 *                         it will be ignored.
 	 * @param useCanonical     if true, allow the API to select the canonical form of the word.
-	 * @param partOfSpeech     specify the part of speech to fetch related items for.
 	 * @param relationshipType specify which relationship types to return.
-	 * @param sourceDictionary scope the request to a specific dictionary.
+	 * @param limitPerRelationshipType Limits the total results per type of relationship type
 	 * @return list of related words.
 	 * @throws KnickerException if the word is null, or if there are any errors.
 	 */
-	public static List<Related> related(String word, int limit, boolean useCanonical,
-										Set<PartOfSpeech> partOfSpeech, Set<RelationshipType> relationshipType,
-										SourceDictionary sourceDictionary) throws KnickerException {
+	public static List<Related> related(String word, boolean useCanonical,
+										Set<RelationshipType> relationshipType,
+										int limitPerRelationshipType) throws KnickerException {
 		if (word == null || word.isEmpty()) {
 			throw new KnickerException("Cannot look up an empty word.");
 		}
 
 		Map<String, String> params = new HashMap<String, String>();
-		if (limit > 0) {
-			params.put("limit", Integer.toString(limit));
+		if (limitPerRelationshipType > 0) {
+			params.put("limitPerRelationshipType", Integer.toString(limitPerRelationshipType));
 		}
 		if (useCanonical) {
 			params.put("useCanonical", "true");
-		}
-		if (sourceDictionary != null) {
-			params.put("sourceDictionary", sourceDictionary.toString());
-		}
-		if (partOfSpeech != null && partOfSpeech.size() > 0) {
-			StringBuilder sb = new StringBuilder();
-			for (PartOfSpeech pos : partOfSpeech) {
-				sb.append(pos.toString().trim().replaceAll("_", "-")).append(',');
-			}
-			if (sb.length() > 0) {
-				sb.deleteCharAt(sb.length() - 1);
-			}
-
-			params.put("partOfSpeech", sb.toString());
 		}
 		if (relationshipType != null && relationshipType.size() > 0) {
 			StringBuilder sb = new StringBuilder();
@@ -500,7 +483,7 @@ public class WordApi extends Knicker {
 
 		StringBuilder uri = new StringBuilder(WORD_ENDPOINT);
 		uri.append('/').append(word.trim());
-		uri.append("/related");
+		uri.append("/relatedWords");
 		if (params.size() > 0) {
 			uri.append('?').append(Util.buildParamList(params));
 		}
