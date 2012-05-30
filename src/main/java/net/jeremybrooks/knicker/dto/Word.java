@@ -30,7 +30,8 @@ import java.util.List;
  */
 public class Word implements Serializable {
 
-    private String word;
+	private static final long serialVersionUID = -368699002993567147L;
+	private String word;
 
     private String canonicalForm;
 

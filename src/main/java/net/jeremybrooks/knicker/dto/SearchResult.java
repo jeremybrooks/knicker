@@ -28,7 +28,8 @@ import java.io.Serializable;
  */
 public class SearchResult implements Serializable {
 
-    private int count;
+	private static final long serialVersionUID = -6718508932509586642L;
+	private int count;
     private String lexicality;
     private String word;
 

@@ -28,7 +28,8 @@ import java.io.Serializable;
 public class Syllable implements Serializable {
 
 
-    private String type;
+	private static final long serialVersionUID = 3323101537377996783L;
+	private String type;
     private int seq;
     private String text;
 

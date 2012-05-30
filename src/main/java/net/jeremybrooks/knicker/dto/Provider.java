@@ -28,7 +28,8 @@ import java.io.Serializable;
  */
 public class Provider implements Serializable {
 
-    private String id;
+	private static final long serialVersionUID = -2556740121367475009L;
+	private String id;
 
     private String name;
 

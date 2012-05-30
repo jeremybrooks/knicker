@@ -27,7 +27,8 @@ import java.io.Serializable;
  */
 public class Pronunciation implements Serializable {
 
-    private String id;
+	private static final long serialVersionUID = -6987796220378505558L;
+	private String id;
     private String raw;
     private String rawType;
 

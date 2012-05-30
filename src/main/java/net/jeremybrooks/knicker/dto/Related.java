@@ -31,7 +31,8 @@ import java.util.List;
  */
 public class Related implements Serializable {
 
-    private String relationshipType;
+	private static final long serialVersionUID = -6573884162214865856L;
+	private String relationshipType;
 
     private List<String> words;
 

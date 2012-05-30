@@ -29,7 +29,8 @@ import java.io.Serializable;
  */
 public class WordList implements Serializable {
 
-    private String createdAt;
+	private static final long serialVersionUID = -2426868885366575325L;
+	private String createdAt;
     private String description;
     private String id;
     private String name;

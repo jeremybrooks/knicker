@@ -28,7 +28,8 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
 
-    private String email;
+	private static final long serialVersionUID = -6102214221572219229L;
+	private String email;
     private String id;
     private String status;
     private String userName;

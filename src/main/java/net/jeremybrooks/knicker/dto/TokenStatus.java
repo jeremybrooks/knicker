@@ -27,7 +27,8 @@ import java.io.Serializable;
  */
 public class TokenStatus implements Serializable {
 
-    private long expiresInMillis;
+	private static final long serialVersionUID = -663296789006258800L;
+	private long expiresInMillis;
     private int remainingCalls;
     private long resetsInMillis;
     private String token;

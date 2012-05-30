@@ -26,7 +26,8 @@ import java.io.Serializable;
  */
 public class AudioFileMetadata implements Serializable {
 
-    private int commentCount;
+	private static final long serialVersionUID = -1828373273102446538L;
+	private int commentCount;
     private String createdAt;
     private String createdBy;
     private String fileUrl;

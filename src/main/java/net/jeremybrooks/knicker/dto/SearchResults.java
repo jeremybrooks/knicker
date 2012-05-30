@@ -31,7 +31,8 @@ import java.util.List;
  */
 public class SearchResults implements Serializable {
 
-    private int total;
+	private static final long serialVersionUID = 7715395616547902974L;
+	private int total;
     private List<SearchResult> searchResults;
     private List<Example> examples;
 

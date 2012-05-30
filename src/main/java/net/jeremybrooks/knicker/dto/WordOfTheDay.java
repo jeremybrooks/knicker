@@ -30,7 +30,8 @@ import java.util.List;
  */
 public class WordOfTheDay implements Serializable {
 
-    private ContentProvider contentProvider;
+	private static final long serialVersionUID = 7162018037337508463L;
+	private ContentProvider contentProvider;
     private List<Definition> definitions;
     private List<Example> examples;
     private String id;

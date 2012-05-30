@@ -29,7 +29,8 @@ import java.io.Serializable;
  */
 public class Definition implements Serializable {
 
-    private int sequence;
+	private static final long serialVersionUID = -2518164900481852360L;
+	private int sequence;
 
     private String text;
 

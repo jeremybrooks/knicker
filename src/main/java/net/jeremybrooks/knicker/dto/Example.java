@@ -28,7 +28,8 @@ import java.io.Serializable;
  */
 public class Example implements Serializable {
 
-    private String text;
+	private static final long serialVersionUID = -6063353481846670987L;
+	private String text;
     private String exampleId;
     private String documentId;
     private Provider provider;

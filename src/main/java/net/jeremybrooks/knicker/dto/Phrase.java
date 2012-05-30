@@ -27,7 +27,8 @@ import java.io.Serializable;
  */
 public class Phrase implements Serializable {
 
-    private int count;
+	private static final long serialVersionUID = -7945579472747777719L;
+	private int count;
     private String mi;
     private String wlmi;
     private String gram1;

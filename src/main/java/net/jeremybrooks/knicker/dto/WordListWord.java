@@ -28,7 +28,8 @@ import java.io.Serializable;
 public class WordListWord implements Serializable {
 
 
-    private String createdAt;
+	private static final long serialVersionUID = 3856038318262568598L;
+	private String createdAt;
     private int numberCommentsOnWord;
     private int numberLists;
     private String userId;

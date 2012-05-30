@@ -31,7 +31,8 @@ import java.util.List;
  */
 public class FrequencySummary implements Serializable {
 
-    private List<Frequency> frequencies;
+	private static final long serialVersionUID = 2263001296867261312L;
+	private List<Frequency> frequencies;
 
     private String word;
 

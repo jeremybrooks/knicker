@@ -30,7 +30,8 @@ import java.io.Serializable;
  */
 public class ContentProvider implements Serializable {
 
-    private String id;
+	private static final long serialVersionUID = -4035932080288979869L;
+	private String id;
     private String name;
 
 
