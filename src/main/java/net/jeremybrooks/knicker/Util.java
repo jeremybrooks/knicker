@@ -506,6 +506,30 @@ public class Util {
     }
 
 
+	/**
+	 * Get the text of the named child node, and convert to a double.
+	  * <p/>
+	  * NOTE: This method will return zero if the value of the node is '0', or if
+	  * there is an error. Callers that care about the difference should
+	  * call getNamedChildTextContent and parse the value.
+	 *
+	 * @param node the node to look in.
+	 * @param name the name of the child node to get the value from.
+	 * @return value of the named child node, or zero if there is an error.
+	 */
+	static double getNamedChildTextContentAsDouble(Node node, String name) {
+	        double value = 0.0;
+
+	        try {
+	            value = Double.parseDouble(getNamedChildTextContent(node, name));
+	        } catch (Exception e) {
+	            // ignore; will return zero
+	        }
+
+	        return value;
+	    }
+
+
     /**
      * Get the text of the named child node.
      *
