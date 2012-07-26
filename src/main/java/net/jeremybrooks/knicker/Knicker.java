@@ -52,6 +52,7 @@ public abstract class Knicker {
      * </ul>
      */
     public static enum SourceDictionary {
+		all,
         ahd,
         century,
         cmu,

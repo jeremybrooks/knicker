@@ -193,8 +193,8 @@ public class WordApiTest {
     public void testDefinitions_String_EnumSet() throws Exception {
         System.out.println("definitions");
         String word = "cat";
-        EnumSet<SourceDictionary> sourceDictionaries = EnumSet.of(WordApi.SourceDictionary.ahd, WordApi.SourceDictionary.century);
-        List expResult = null;
+//		EnumSet<SourceDictionary> sourceDictionaries = EnumSet.of(SourceDictionary.ahd, SourceDictionary.cmu); // not working? 7/25/12 --jb
+		EnumSet<SourceDictionary> sourceDictionaries = EnumSet.of(SourceDictionary.all);
         List<Definition> result = WordApi.definitions(word, sourceDictionaries);
         assertNotNull(result);
         assertTrue(result.size() > 0);
@@ -325,6 +325,11 @@ public class WordApiTest {
 
         assertNotNull(result);
         assertTrue(result.get(0).getWords().size() > 0);
+
+		// test "words" that are more than one word
+		word = "baby blue";
+		result = WordApi.related(word);
+		assertNotNull(result);
     }
 
 
@@ -337,7 +342,7 @@ public class WordApiTest {
         String word = "cat";
         int limitPerRelationshipType = 2;
         boolean useCanonical = false;
-        EnumSet<RelationshipType> relationshipType = EnumSet.of(RelationshipType.verb_form);
+        EnumSet<RelationshipType> relationshipType = EnumSet.of(RelationshipType.verb_form, RelationshipType.hypernym);
 
         List<Related> result = WordApi.related(word, useCanonical, relationshipType, limitPerRelationshipType);
 

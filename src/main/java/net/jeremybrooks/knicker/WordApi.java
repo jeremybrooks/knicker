@@ -200,6 +200,10 @@ public class WordApi extends Knicker {
 	 * iterator. If you want a specific order, use a Set implementation that
 	 * guarantees a specific order.
 	 *
+	 * NOTE: If you get errors when trying to look up definitions in more than one dictionary at the same time,
+	 *       either use the dictionary <code>SourceDictionary.all</code> or make multiple calls to single dictionaries
+	 *       and aggregate the results.
+	 *
 	 * @param word               word to return definitions for.
 	 * @param sourceDictionaries dictionaries to retrieve definitions from.
 	 * @return list of definitions for the word.

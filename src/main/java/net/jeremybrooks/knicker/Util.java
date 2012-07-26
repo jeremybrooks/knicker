@@ -39,6 +39,7 @@ import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -113,7 +114,7 @@ public class Util {
 
 		// Send a GET request to the server
 		try {
-			URL url = new URL(uri);
+			URL url = parseUrl(uri);
 			URLConnection conn = url.openConnection();
 			conn.setConnectTimeout(getConnTimeout());
 			conn.setReadTimeout(getReadTimeout());
@@ -178,7 +179,7 @@ public class Util {
 
 		try {
 			// Send data
-			URL url = new URL(uri);
+			URL url = parseUrl(uri);
 			URLConnection conn = url.openConnection();
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
@@ -264,7 +265,7 @@ public class Util {
 
 		try {
 			// Send data
-			URL url = new URL(uri);
+			URL url = parseUrl(uri);
 			URLConnection conn = url.openConnection();
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
@@ -316,7 +317,7 @@ public class Util {
 
 		try {
 			// Send data
-			URL url = new URL(uri);
+			URL url = parseUrl(uri);
 			URLConnection conn = url.openConnection();
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
@@ -719,6 +720,25 @@ public class Util {
 		}
 
 		return timeout;
+	}
+
+
+	/**
+	 * Parse a string representing an absolute URL to a URL with correctly encoded special characters.
+	 *
+	 * @param s the string representing the absolute URL.
+	 * @return properly encoded URL.
+	 * @throws Exception if there are errors parsing the string.
+	 */
+	public static URL parseUrl(String s) throws Exception {
+	     URL u = new URL(s);
+	     return new URI(
+	            u.getProtocol(),
+	            u.getAuthority(),
+	            u.getPath(),
+	            u.getQuery(),
+	            u.getRef()).
+	            toURL();
 	}
 
 }
