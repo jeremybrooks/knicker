@@ -481,7 +481,7 @@ public class WordApi extends Knicker {
 				sb.deleteCharAt(sb.length() - 1);
 			}
 
-			params.put("relationshipType", sb.toString());
+			params.put("relationshipTypes", sb.toString());
 		}
 
 

@@ -342,7 +342,7 @@ public class WordApiTest {
         String word = "cat";
         int limitPerRelationshipType = 2;
         boolean useCanonical = false;
-        EnumSet<RelationshipType> relationshipType = EnumSet.of(RelationshipType.verb_form, RelationshipType.hypernym);
+        EnumSet<RelationshipType> relationshipType = EnumSet.of(RelationshipType.synonym);
 
         List<Related> result = WordApi.related(word, useCanonical, relationshipType, limitPerRelationshipType);
 
