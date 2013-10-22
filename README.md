@@ -75,3 +75,8 @@ Version 2.3.2 (July 25, 2012)
 * The limit parameter on search results may not be respected. This seems to be an issue on the Wordnik side.
 * Using multiple dictionaries when looking up definitions may cause an error. Use the dictionary SourceDictionary.all or make multiple calls to single dictionaries. This seems to be an issue on the Wordnik side.
 
+# Changes
+Version 2.4.0 (October 22, 2013)
+* Updated the PartOfSpeech enumeration to reflect the current list of Wordnik parts of speech
+* Fix the string built for certain API queries to ensure reliable results
+* Commented out two tests that are known to break currently
