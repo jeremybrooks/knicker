@@ -3,7 +3,8 @@ Version 2.3.2 (July 25, 2012)
   * The limit parameter on search results may not be respected. This seems to be an issue on the Wordnik side.
   * Using multiple dictionaries when looking up definitions may cause an error. Use the dictionary SourceDictionary.all or make multiple calls to single dictionaries. This seems to be an issue on the Wordnik side.
 
-# Knicker - a Java interface to the Wordnik API.
+# Knicker
+## A Java interface to the Wordnik API.
 
 You can use Knicker to add dictionary lookup capabilities to your own Java
 programs. Knicker has been designed to be simple and straightforward to use. It
