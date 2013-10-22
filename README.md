@@ -1,9 +1,9 @@
-BUGS:
+KNOWN ISSUES
 Version 2.3.2 (July 25, 2012)
   * The limit parameter on search results may not be respected. This seems to be an issue on the Wordnik side.
   * Using multiple dictionaries when looking up definitions may cause an error. Use the dictionary SourceDictionary.all or make multiple calls to single dictionaries. This seems to be an issue on the Wordnik side.
 
-Knicker is a Java interface to the Wordnik API.
+# Knicker - a Java interface to the Wordnik API.
 
 You can use Knicker to add dictionary lookup capabilities to your own Java
 programs. Knicker has been designed to be simple and straightforward to use. It
@@ -13,6 +13,7 @@ Version 2.x of Knicker supports version 4 of the Wordnik API.
 
 Version 1.x of Knicker supports version 3 of the Wordnik API.
 
+# Using Knicker
 To use Knicker, you will need to obtain a Wordnik API key. More information
 about the Wordnik API can be found on their developer site at
 http://developer.wordnik.com
@@ -69,3 +70,6 @@ public class TestKnicker {
 
     }
 }
+
+# Problems?
+Issues can be reported on the Knicker Issues page: https://github.com/jeremybrooks/knicker/issues
