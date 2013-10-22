@@ -103,6 +103,7 @@ public class WordsApi extends Knicker {
 			params.put("hasDictionaryDef", "false");
 		}
 
+
 		if (includePartOfSpeech != null && includePartOfSpeech.size() > 0) {
 			StringBuilder sb = new StringBuilder();
 			for (PartOfSpeech sd : includePartOfSpeech) {
@@ -127,11 +128,13 @@ public class WordsApi extends Knicker {
 			params.put("excludePartOfSpeech", sb.toString());
 		}
 
-		if (minCorpusCount > 0) {
+		if (minCorpusCount >= 0) {
 			params.put("minCorpusCount", Integer.toString(minCorpusCount));
 		}
 		if (maxCorpusCount > 0) {
 			params.put("maxCorpusCount", Integer.toString(maxCorpusCount));
+		} else {
+			params.put("maxCorpusCount", "-1");
 		}
 
 		if (minDictionaryCount > 0) {
@@ -139,6 +142,8 @@ public class WordsApi extends Knicker {
 		}
 		if (maxDictionaryCount > 0) {
 			params.put("maxDictionaryCount", Integer.toString(maxDictionaryCount));
+		} else {
+			params.put("maxDictionaryCount", "-1");
 		}
 
 		if (minLength > 0) {
@@ -146,6 +151,8 @@ public class WordsApi extends Knicker {
 		}
 		if (maxLength > 0) {
 			params.put("maxLength", Integer.toString(maxLength));
+		} else {
+			params.put("maxLength", "-1");
 		}
 
 
