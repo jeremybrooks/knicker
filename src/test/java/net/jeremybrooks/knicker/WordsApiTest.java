@@ -180,14 +180,13 @@ public class WordsApiTest {
 		int maxLength = 0;
 		SortBy sortBy = null;
 		SortDirection sortDirection = null;
-		int limit = 5;
+		int limit = 2;
 
 
 		List<Word> result = WordsApi.randomWords(hasDictionaryDef, includePartOfSpeech, excludePartOfSpeech, minCorpusCount, maxCorpusCount, minDictionaryCount, maxDictionaryCount, minLength, maxLength, sortBy, sortDirection, limit);
 
 		assertNotNull(result);
-//		TODO: This test is broken. More than two results are returned from the API. Wordnik bug?
-//		assertEquals(5, result.size());
+		assertEquals(2, result.size());
 
 
 		minLength = 10;
@@ -195,7 +194,7 @@ public class WordsApiTest {
 		result = WordsApi.randomWords(hasDictionaryDef, includePartOfSpeech, excludePartOfSpeech, minCorpusCount, maxCorpusCount, minDictionaryCount, maxDictionaryCount, minLength, maxLength, sortBy, sortDirection, limit);
 
 		assertNotNull(result);
-		assertEquals(5, result.size());
+		assertEquals(2, result.size());
 		for (Word w : result) {
 			assertEquals(minLength, w.getWord().length());
 		}
