@@ -67,6 +67,15 @@ public class TestKnicker {
     }
 }
 
+# Maven
+Knicker is available from Maven Central. Just add this dependency to your pom file:
+	<dependency>
+		<groupId>net.jeremybrooks</groupId>
+		<artifactId>knicker</artifactId>
+		<version>2.4.1</version>
+	</dependency>
+
+
 # Problems?
 Issues can be reported on the Knicker Issues page: https://github.com/jeremybrooks/knicker/issues
 
@@ -76,7 +85,7 @@ Version 2.3.2 (July 25, 2012)
 * Using multiple dictionaries when looking up definitions may cause an error. Use the dictionary SourceDictionary.all or make multiple calls to single dictionaries. This seems to be an issue on the Wordnik side.
 
 # Changes
-Version 2.4.0 (October 22, 2013)
+Version 2.4.1 (October 22, 2013)
 * Updated the PartOfSpeech enumeration to reflect the current list of Wordnik parts of speech
 * Fix the string built for certain API queries to ensure reliable results
 * Commented out two tests that are known to break currently
