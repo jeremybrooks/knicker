@@ -69,11 +69,11 @@ public class TestKnicker {
 
 # Maven
 Knicker is available from Maven Central. Just add this dependency to your pom file:
-	<dependency>
-		<groupId>net.jeremybrooks</groupId>
-		<artifactId>knicker</artifactId>
-		<version>2.4.1</version>
-	</dependency>
+    <dependency>
+        <groupId>net.jeremybrooks</groupId>
+        <artifactId>knicker</artifactId>
+        <version>2.4.1</version>
+    </dependency>
 
 
 # Problems?
