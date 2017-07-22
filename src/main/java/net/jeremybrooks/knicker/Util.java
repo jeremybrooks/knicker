@@ -607,7 +607,12 @@ public class Util {
 		for (String key : params.keySet()) {
 			try {
 				KnickerLogger.getLogger().log("Adding parameter key/value pair " + key + "=" + params.get(key));
-				sb.append(URLEncoder.encode(key, "UTF-8")).append('=').append(URLEncoder.encode(params.get(key), "UTF-8")).append('&');
+				String[] keyValueParts = params.get(key).split("\\,");
+				if( keyValueParts.length>1 ){
+					for(int i=0; i<keyValueParts.length; i++)
+						sb.append(URLEncoder.encode(key, "UTF-8")).append('=').append(URLEncoder.encode(keyValueParts[i], "UTF-8")).append('&');
+				}else
+					sb.append(URLEncoder.encode(key, "UTF-8")).append('=').append(URLEncoder.encode(params.get(key), "UTF-8")).append('&');
 			} catch (Exception e) {
 				throw new KnickerException("Error encoding.", e);
 			}
